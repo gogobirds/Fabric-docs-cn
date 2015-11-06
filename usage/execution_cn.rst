@@ -17,20 +17,12 @@
 Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以采用并行模式来替代
 (参见 :doc:`/usage/parallel`). 默认行为如下：
 
-* 创建一个任务列表，按照列表顺序简单的作为 :doc:`fab <fab>` 的参数即可
-* A list of tasks is created. Currently this list is simply the arguments given
-  to :doc:`fab <fab>`, preserving the order given.
-* 对于每一个任务，
-* For each task, a task-specific host list is generated from various
-  sources (see :ref:`host-lists` below for details.)
+* 创建一个任务列表，简单地按照列表顺序作为 :doc:`fab <fab>` 的参数即可
+* 对于每一个任务，从各种来源生成一个特定任务主机列表。(参见 :ref:`host-lists` 的更多细节.)
 * 任务列表按照顺序执行，每个任务只执行一次在主机列表内的每个主机.
-* The task list is walked through in order, and each task is run once per host
-  in its host list.
-* 在主机列表只会运行一次
-* Tasks with no hosts in their host list are considered local-only, and will
-  always run once and only once.
+* 在主机列表没有主机上的被认为是本地任务，只会运行一次。
 
-Thus, given the following fabfile::
+因此, 给出一个 fabfile::
 
     from fabric.api import run, env
 
@@ -42,43 +34,40 @@ Thus, given the following fabfile::
     def taskB():
         run('whoami')
 
-and the following invocation::
+通过以下命令调用::
 
     $ fab taskA taskB
 
-you will see that Fabric performs the following:
+可以看到以下输出:
 
 * ``taskA`` executed on ``host1``
 * ``taskA`` executed on ``host2``
 * ``taskB`` executed on ``host1``
 * ``taskB`` executed on ``host2``
 
-While this approach is simplistic, it allows for a straightforward composition
-of task functions, and (unlike tools which push the multi-host functionality
-down to the individual function calls) enables shell script-like logic where
-you may introspect the output or return code of a given command and decide what
-to do next.
+虽然这种方式很简单, 能够将任务简单的组合到一起（不像发送任务到多个主机分别调用的工具）同时可以使用脚本一样的逻辑，
+从输出得到反馈或得到命令的返回码，从而决定下一步做什么
 
 
 定义任务
 =======
 
-For details on what constitutes a Fabric task and how to organize them, please see :doc:`/usage/tasks`.
-定义一个Fabric task的细节，参见:doc:`/usage/tasks`.
+关于Fabric task的构成和组成的细节，参见:doc:`/usage/tasks`.
 
-Defining host lists
-===================
+定义主机列表
+==========
 
-Unless you're using Fabric as a simple build system (which is possible, but not
-the primary use-case) having tasks won't do you any good without the ability to
+除非你只是将Fabric作为一个简单的构建系统（可以但不是主要用法）用一些任务能够执行
+
+having tasks won't do you any good without the ability to
 specify remote hosts on which to execute them. There are a number of ways to do
 so, with scopes varying from global to per-task, and it's possible mix and
 match as needed.
 
 .. _host-strings:
 
-Hosts
------
+主机
+---
 
 Hosts, in this context, refer to what are also called "host strings": Python
 strings specifying a username, hostname and port combination, in the form of
