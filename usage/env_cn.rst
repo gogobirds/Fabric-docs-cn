@@ -1,34 +1,34 @@
 ================
-»·¾³×Öµä, ``env``
+çŽ¯å¢ƒå­—å…¸, ``env``
 ================
-FabricÒ»¸ö¼òµ¥È´ÓÖÍêÕûµÄ¸ÅÄî±»ÈÏÎªÊÇ¡°»·¾³¡± :
-    Ò»¸öpythonµÄ×Öµä×ÓÀà,±»ÓÃ×÷ÊÇ×éºÏÉèÖÃ×¢²á±íºÍÄÚ²¿ÈÎÎñµÄ¹²ÏíÊý¾Ý¿Õ¼ä.
+Fabricä¸€ä¸ªç®€å•å´åˆå®Œæ•´çš„æ¦‚å¿µè¢«è®¤ä¸ºæ˜¯â€œçŽ¯å¢ƒâ€ :
+    ä¸€ä¸ªpythonçš„å­—å…¸å­ç±»,è¢«ç”¨ä½œæ˜¯ç»„åˆè®¾ç½®æ³¨å†Œè¡¨å’Œå†…éƒ¨ä»»åŠ¡çš„å…±äº«æ•°æ®ç©ºé—´.
 
-»·¾³×Öµä±»ÊÓÎªÊÇÈ«¾Ö±äÁ¿£¬``fabric.state.env`` ÎªÊ¹ÓÃ·½±ãÒ²ÄÚÇ¶ÔÚ ``fabric.api``.
-``env`` ¹Ø¼ü×ÖÓÐÊ±Ò²±»³ÆÎª "env variables".
+çŽ¯å¢ƒå­—å…¸è¢«è§†ä¸ºæ˜¯å…¨å±€å˜é‡,``fabric.state.env``ä¸ºä½¿ç”¨æ–¹ä¾¿ä¹Ÿå†…åµŒåœ¨``fabric.api``.
+``env``å…³é”®å­—æœ‰æ—¶ä¹Ÿè¢«ç§°ä¸º"env variables".
 
-»·¾³ÅäÖÃ
+çŽ¯å¢ƒé…ç½®
 =======
-FabricµÄ´ó²¿·Ö²Ù×÷¶¼ÊÇÍ¨¹ýÐÞ¸Ä ``env`` ±äÁ¿À´¿ØÖÆ, ±ÈÈç ``env.hosts`` (²Î¼û :ref:`the tutorial <defining-connections>`).
-ÆäËû³£½øÐÐÐÞ¸ÄµÄ±äÁ¿ÈçÏÂ£º
+Fabricçš„å¤§éƒ¨åˆ†æ“ä½œéƒ½æ˜¯é€šè¿‡ä¿®æ”¹``env``å˜é‡æ¥æŽ§åˆ¶, æ¯”å¦‚``env.hosts``(å‚è§ :ref:`the tutorial <defining-connections>`).
+å…¶ä»–å¸¸è¿›è¡Œä¿®æ”¹çš„å˜é‡å¦‚ä¸‹ï¼š
 
-* ``user``: ½øÐÐSSHÁ¬½ÓÊ±£¬FabricÄ¬ÈÏÊ¹ÓÃ±¾µØÓÃ»§Ãû,Èç¹ûÓÐ±ØÒª¿ÉÒÔÊ¹ÓÃ ``env.user`` ¸²¸Ç´Ë±äÁ¿.
-    ÖÁÓÚÈçºÎÔÚÃ¿¸öÖ÷»úÉÏÉèÖÃÓÃ»§Ãû£¬²Î¼û :doc:`execution`.
-* ``password``: ÓÃÓÚÏÔÊ¾ÉèÖÃÄ¬ÈÏÁ¬½Ó»òÕßsudoÃÜÂë¡£¼ÙÈô´Ë±äÁ¿Î´ÉèÖÃ»òÎÞÐ§£¬Fabric»áÌáÐÑÄã.
-* ``warn_only``: µ±Ô¶³ÌÖÕ¶Ë¼ì²âµ½´íÎóÊ±£¬¾ö¶¨FabricÊÇ·ñÍË³öµÄ²¼¶û±äÁ¿. ¸ü¶àÐÅÏ¢²Î¼û :doc:`execution`.
+* ``user``: è¿›è¡ŒSSHè¿žæŽ¥æ—¶,Fabricé»˜è®¤ä½¿ç”¨æœ¬åœ°ç”¨æˆ·å,å¦‚æžœæœ‰å¿…è¦å¯ä»¥ä½¿ç”¨``env.user``è¦†ç›–æ­¤å˜é‡.
+    è‡³äºŽå¦‚ä½•åœ¨æ¯ä¸ªä¸»æœºä¸Šè®¾ç½®ç”¨æˆ·å,å‚è§ :doc:`execution`.
+* ``password``: ç”¨äºŽæ˜¾ç¤ºè®¾ç½®é»˜è®¤è¿žæŽ¥æˆ–è€…sudoå¯†ç .å‡è‹¥æ­¤å˜é‡æœªè®¾ç½®æˆ–æ— æ•ˆ,Fabricä¼šæé†’ä½ .
+* ``warn_only``: å½“è¿œç¨‹ç»ˆç«¯æ£€æµ‹åˆ°é”™è¯¯æ—¶,å†³å®šFabricæ˜¯å¦é€€å‡ºçš„å¸ƒå°”å˜é‡. æ›´å¤šä¿¡æ¯å‚è§ :doc:`execution`.
 
-¸ü¶àÆäËû»·¾³±äÁ¿µÄÍêÕûÁÐ±í£¬²Î¼û±¾ÎÄµµÄ©Î².
+æ›´å¤šå…¶ä»–çŽ¯å¢ƒå˜é‡çš„å®Œæ•´åˆ—è¡¨,å‚è§æœ¬æ–‡æ¡£æœ«å°¾.
 
-`~fabric.context_managers.settings` ÉÏÏÂÎÄ¹ÜÀíÆ÷
+`~fabric.context_managers.settings` ä¸Šä¸‹æ–‡ç®¡ç†å™¨
 ---------------------------------------------
 
-ºÜ¶àÊ±ºò£¬Îª±ãÓÚ¸ø¶¨µÄÉèÖÃ±ä¶¯Ö»Õë¶ÔÒ»¸ö´úÂë¿é£¬ÔÝÊ±ÐÞ¸Ä ``env`` ±äµÃºÜÓÐÓÃ.
-FabricÌá¹©`~fabric.context_managers.settings`ÉÏÏÂÎÄ¹ÜÀíÆ÷£¬½ÓÊÜÈÎÒâ¶à¸ö"¼ü/Öµ"¶Ô£¬
-²¢½«ÆäÓÃÓÚÐÞ¸Ä·â×°ºÃµÄ´úÂë¿éÖÐµÄ ``env``.
+å¾ˆå¤šæ—¶å€™,ä¸ºä¾¿äºŽç»™å®šçš„è®¾ç½®å˜åŠ¨åªé’ˆå¯¹ä¸€ä¸ªä»£ç å—,æš‚æ—¶ä¿®æ”¹``env``å˜å¾—å¾ˆæœ‰ç”¨.
+Fabricæä¾›`~fabric.context_managers.settings`ä¸Šä¸‹æ–‡ç®¡ç†å™¨,æŽ¥å—ä»»æ„å¤šä¸ª"é”®/å€¼"å¯¹,
+å¹¶å°†å…¶ç”¨äºŽä¿®æ”¹å°è£…å¥½çš„ä»£ç å—ä¸­çš„``env``.
 
-ÀýÈç£¬ºÜ¶àÇéÐÎÏÂÉèÖÃ ``warn_only`` ¶¼ºÜÓÐÓÃ£¨ÈçÏÂ£©.
-½«ÆäÌá¹©¸øÉÙÊý¼¸ÐÐ´úÂë£¬Ê¹ÓÃ ``settings(warn_only=True)``£¬
-²Î¼û¼ò»¯°æµÄ ``contrib`` `~fabric.contrib.files.exists` º¯Êý::
+ä¾‹å¦‚,å¾ˆå¤šæƒ…å½¢ä¸‹è®¾ç½® ``warn_only`` éƒ½å¾ˆæœ‰ç”¨ï¼ˆå¦‚ä¸‹ï¼‰.
+å°†å…¶æä¾›ç»™å°‘æ•°å‡ è¡Œä»£ç ,ä½¿ç”¨ ``settings(warn_only=True)``,
+å‚è§ç®€åŒ–ç‰ˆçš„ ``contrib`` `~fabric.contrib.files.exists` å‡½æ•°::
 
     from fabric.api import settings, run
 
@@ -36,50 +36,50 @@ FabricÌá¹©`~fabric.context_managers.settings`ÉÏÏÂÎÄ¹ÜÀíÆ÷£¬½ÓÊÜÈÎÒâ¶à¸ö"¼ü/Öµ"¶Ô
         with settings(warn_only=True):
             return run('test -e %s' % path)
 
-¹ØÓÚÉÏÏÂÎÄ¹ÜÀíÆ÷ºÍÆäËûÀàËÆµÄ¹¤¾ß£¬Çë²Î¼û :doc:`../api/core/context_managers` APIÎÄµµ.
+å…³äºŽä¸Šä¸‹æ–‡ç®¡ç†å™¨å’Œå…¶ä»–ç±»ä¼¼çš„å·¥å…·,è¯·å‚è§ :doc:`../api/core/context_managers` APIæ–‡æ¡£.
 
-»·¾³¹²Ïí×´Ì¬
+çŽ¯å¢ƒå…±äº«çŠ¶æ€
 ===========
 
-ÒÑ¾­Ìáµ½¹ý£¬``env`` ¶ÔÏó´¿´âÊÇ¸ö×Öµä×ÓÀà£¬ËùÒÔÄã×Ô¼ºµÄfabfile´úÂëÒ²¿ÉÒÔ´æ´¢ÐÅÏ¢.
-ÓÐÊ±ÔÚ¶à¸öÈÎÎñ¼ä±£³Ö×´Ì¬µ«Ö»ÔËÐÐÒ»¸ö²Ù×÷£¬Õâ¾Í±äµÃºÜÓÐÓÃÁË.
+å·²ç»æåˆ°è¿‡,``env`` å¯¹è±¡çº¯ç²¹æ˜¯ä¸ªå­—å…¸å­ç±»,æ‰€ä»¥ä½ è‡ªå·±çš„fabfileä»£ç ä¹Ÿå¯ä»¥å­˜å‚¨ä¿¡æ¯.
+æœ‰æ—¶åœ¨å¤šä¸ªä»»åŠ¡é—´ä¿æŒçŠ¶æ€ä½†åªè¿è¡Œä¸€ä¸ªæ“ä½œ,è¿™å°±å˜å¾—å¾ˆæœ‰ç”¨äº†.
 
-.. note::¡¾±¸×¢£¿¡¿
+.. note::ã€å¤‡æ³¨ï¼Ÿã€‘
 
-    ``env``Õâ¸öÌØÐÔÊÇÀúÊ·ÐÔµÄ£ºÔÚÒÔÇ°£¬fabfiles²»ÊÇ´¿python±àÐ´£¬Òò´Ë»·¾³³ÉÁËÈÎÎñ¼ä½»»¥ÐÅÏ¢µÄÎ¨Ò»Â·¾¶.
-    Èç½ñ£¬Äã¿ÉÒÔÖ±½Óµ÷ÓÃÆäËûÈÎÎñ»ò×ÓÀý³Ì£¬ÉõÖÁÔÚÐèÒªÊ±±£´æÄ£¿é¼¶±ð¹²Ïí×´Ì¬.
+    ``env``è¿™ä¸ªç‰¹æ€§æ˜¯åŽ†å²æ€§çš„ï¼šåœ¨ä»¥å‰,fabfilesä¸æ˜¯çº¯pythonç¼–å†™,å› æ­¤çŽ¯å¢ƒæˆäº†ä»»åŠ¡é—´äº¤äº’ä¿¡æ¯çš„å”¯ä¸€è·¯å¾„.
+    å¦‚ä»Š,ä½ å¯ä»¥ç›´æŽ¥è°ƒç”¨å…¶ä»–ä»»åŠ¡æˆ–å­ä¾‹ç¨‹,ç”šè‡³åœ¨éœ€è¦æ—¶ä¿å­˜æ¨¡å—çº§åˆ«å…±äº«çŠ¶æ€.
 
-    ÔÚÒÔºóµÄ°æ±¾Àï£¬FabricµÄÏß³Ì»á¸ü°²È«¡£
-    ¶ÔÓÚÕâÒ»µã£¬ ``env``¿ÉÄÜ»á³ÉÎª±£³ÖÈ«¾Ö×´Ì¬µÄÎ¨Ò»¼ò±ã¡¢°²È«Í¾¾¶.
+    åœ¨ä»¥åŽçš„ç‰ˆæœ¬é‡Œ,Fabricçš„çº¿ç¨‹ä¼šæ›´å®‰å…¨ã€‚
+    å¯¹äºŽè¿™ä¸€ç‚¹, ``env``å¯èƒ½ä¼šæˆä¸ºä¿æŒå…¨å±€çŠ¶æ€çš„å”¯ä¸€ç®€ä¾¿ã€å®‰å…¨é€”å¾„.
 
-ÆäËû¿¼ÂÇ
+å…¶ä»–è€ƒè™‘
 =======
 
-ÔÚ¼Ì³Ð``dict``Ê±£¬FabricµÄ ``env`` Ò²ÒÑ×÷ÐÞ¸Ä£¬ÒÔ±ãÓÚËüµÄÖµ¿ÉÒÔÍ¨¹ýÊôÐÔ·ÃÎÊÀ´¶ÁÐ´£¬ÕýÈçÉÏÎÄËùÊô.
-»»¾ä»°Ëµ£¬``env.host_string``ºÍ``env['host_string']``µÄ×÷ÓÃÏàÍ¬.
-Í¨³£ÎÒÃÇ»á·¢ÏÖ£ºÊôÐÔ·ÃÎÊµÄ·½Ê½ÄÜ¼õÉÙÇÃ¼üÅÌµÄ¹¤×÷Á¿£¬²¢Ìá¸ß´úÂëµÄ¿É¶ÁÐÔ.
-Òò´ËÕâÒ²ÊÇºÍ``env``½»»¥µÄÍÆ¼ö·½Ê½.
+åœ¨ç»§æ‰¿``dict``æ—¶,Fabricçš„ ``env`` ä¹Ÿå·²ä½œä¿®æ”¹,ä»¥ä¾¿äºŽå®ƒçš„å€¼å¯ä»¥é€šè¿‡å±žæ€§è®¿é—®æ¥è¯»å†™,æ­£å¦‚ä¸Šæ–‡æ‰€å±ž.
+æ¢å¥è¯è¯´,``env.host_string``å’Œ``env['host_string']``çš„ä½œç”¨ç›¸åŒ.
+é€šå¸¸æˆ‘ä»¬ä¼šå‘çŽ°ï¼šå±žæ€§è®¿é—®çš„æ–¹å¼èƒ½å‡å°‘æ•²é”®ç›˜çš„å·¥ä½œé‡,å¹¶æé«˜ä»£ç çš„å¯è¯»æ€§.
+å› æ­¤è¿™ä¹Ÿæ˜¯å’Œ``env``äº¤äº’çš„æŽ¨èæ–¹å¼.
 
-Êµ¼ÊÉÏ×ÖµäÔÚÆäËûÓÃÍ¾ÖÐÒ²ºÜÓÐÓÃ£¬±ÈÈçPython»ùÓÚ ``dict``µÄ×Ö·û´®Ìæ´ú£¬µ±ÄãÐèÒªÔÚÒ»¸ö×Ö·û´®ÖÐ²åÈë¶à¸ö»·¾³±äÁ¿Ê±¾ÍºÜ±ã½ÝÁË.
-Ê¹ÓÃ"ÆÕÍ¨"×Ö·û´®Ìæ´ú¾Í¿ÉÄÜÏñÏÂÃæÕâÑù::
+å®žé™…ä¸Šå­—å…¸åœ¨å…¶ä»–ç”¨é€”ä¸­ä¹Ÿå¾ˆæœ‰ç”¨,æ¯”å¦‚PythonåŸºäºŽ ``dict``çš„å­—ç¬¦ä¸²æ›¿ä»£,å½“ä½ éœ€è¦åœ¨ä¸€ä¸ªå­—ç¬¦ä¸²ä¸­æ’å…¥å¤šä¸ªçŽ¯å¢ƒå˜é‡æ—¶å°±å¾ˆä¾¿æ·äº†.
+ä½¿ç”¨"æ™®é€š"å­—ç¬¦ä¸²æ›¿ä»£å°±å¯èƒ½åƒä¸‹é¢è¿™æ ·::
 
     print("Executing on %s as %s" % (env.host, env.user))
 
-Ê¹ÓÃ×Öµä·ç¸ñµÄÌæ´ú¾Í¸ü¿É¶Á²¢¼ò¶Ì::
+ä½¿ç”¨å­—å…¸é£Žæ ¼çš„æ›¿ä»£å°±æ›´å¯è¯»å¹¶ç®€çŸ­::
 
     print("Executing on %(host)s as %(user)s" % env)
 
 .. _env-vars:
 
-»·¾³±äÁ¿µÄÍêÕûÁÐ±í
+çŽ¯å¢ƒå˜é‡çš„å®Œæ•´åˆ—è¡¨
 ================
 
-ÒÔÏÂÊÇËùÓÐÔ¤¶¨Òå£¨»òÕßFabricÔËÐÐÊ±×Ô¶¨Òå£©µÄ»·¾³±äÁ¿.
-ËüÃÇÖÐ´ó¶àÊý±»Ö±½Ó²Ù×÷Ê±£¬Ò»°ã×îºÃÊ¹ÓÃ ~fabric.context_managers`,
-»òÕß`~fabric.context_managers.settings`»òÕßÌØ¶¨µÄÉÏÏÂÎÄ¹ÜÀíÆ÷£¬±ÈÈç`~fabric.context_managers.cd`.
+ä»¥ä¸‹æ˜¯æ‰€æœ‰é¢„å®šä¹‰ï¼ˆæˆ–è€…Fabricè¿è¡Œæ—¶è‡ªå®šä¹‰ï¼‰çš„çŽ¯å¢ƒå˜é‡.
+å®ƒä»¬ä¸­å¤§å¤šæ•°è¢«ç›´æŽ¥æ“ä½œæ—¶,ä¸€èˆ¬æœ€å¥½ä½¿ç”¨ ~fabric.context_managers`,
+æˆ–è€…`~fabric.context_managers.settings`æˆ–è€…ç‰¹å®šçš„ä¸Šä¸‹æ–‡ç®¡ç†å™¨,æ¯”å¦‚`~fabric.context_managers.cd`.
 
-ÐèÒª×¢ÒâµÄÊÇËüÃÇÖÐµÄºÜ¶à¶¼¿ÉÒÔÍ¨¹ý``fab``µÄÃüÁîÐÐ²ÎÊýÀ´ÉèÖÃ£¬²Î¼û:doc:`fab`.
-ÊÊµ±µÄµØ·½Ìá¹©ÓÐ½»²æÒýÓÃ¡¾Cross-references¡¿.
+éœ€è¦æ³¨æ„çš„æ˜¯å®ƒä»¬ä¸­çš„å¾ˆå¤šéƒ½å¯ä»¥é€šè¿‡``fab``çš„å‘½ä»¤è¡Œå‚æ•°æ¥è®¾ç½®,å‚è§:doc:`fab`.
+é€‚å½“çš„åœ°æ–¹æä¾›æœ‰äº¤å‰å¼•ç”¨ã€Cross-referencesã€‘.
 
 .. seealso:: :option:`--set`
 
