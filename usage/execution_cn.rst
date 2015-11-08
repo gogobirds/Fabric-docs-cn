@@ -1,6 +1,6 @@
-=======
+====
 执行模型
-=======
+====
 
 如果你已经阅读 :doc:`../tutorial`, 你应该熟悉对Fabric的基本使用(单主机上执行单任务) 然而,
 在很多情况下，你会发现需要在多个主机上执行多个任务. 也许你想吧一个大任务分割为小的部分,
@@ -12,7 +12,7 @@
 .. _execution-strategy:
 
 执行策略
-=======
+====
 
 Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以采用并行模式来替代
 (参见 :doc:`/usage/parallel`). 默认行为如下：
@@ -50,69 +50,54 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 
 定义任务
-=======
+====
 
 关于Fabric task的构成和组成的细节，参见:doc:`/usage/tasks`.
 
 定义主机列表
-==========
+======
 
-除非你只是将Fabric作为一个简单的构建系统（可以但不是主要用法）用一些任务能够执行
-
-having tasks won't do you any good without the ability to
-specify remote hosts on which to execute them. There are a number of ways to do
-so, with scopes varying from global to per-task, and it's possible mix and
-match as needed.
+除非你只是将Fabric作为一个简单执行任务构建的系统（可以但不是主要用法）是没有好处的，
+不指定特定的主机去执行。有很多方法去实现，从全局到每个任务都可以根据需要混合和匹配。
 
 .. _host-strings:
 
 主机
 ---
 
-Hosts, in this context, refer to what are also called "host strings": Python
-strings specifying a username, hostname and port combination, in the form of
-``username@hostname:port``. User and/or port (and the associated ``@`` or
-``:``) may be omitted, and will be filled by the executing user's local
-username, and/or port 22, respectively. Thus, ``admin@foo.com:222``,
-``deploy@website`` and ``nameserver1`` could all be valid host strings.
+主机，在这种上下文中通常也被称为"主机字符串": 一个由用户名，主机名和端口组合而成的Python
+字符串，如``username@hostname:port``这种形式，用户和端口可以被省略（由``@`` 或 ``:``
+所关联），由本地用户名和默认端口22来代替。因此``admin@foo.com:222``, ``deploy@website``
+和 ``nameserver1`` 都是有效的主机串。
 
-IPv6 address notation is also supported, for example ``::1``, ``[::1]:1222``,
-``user@2001:db8::1`` or ``user@[2001:db8::1]:1222``. Square brackets
-are necessary only to separate the address from the port number. If no
-port number is used, the brackets are optional. Also if host string is
-specified via command-line argument, it may be necessary to escape
-brackets in some shells.
+同时也支持IPv6, 比如 ``::1``, ``[::1]:1222``, ``user@2001:db8::1`` or
+``user@[2001:db8::1]:1222``. 方括号作为地址与端口的分割是必要的。如果端口号不需要，方括号是可选的
+如果主机串由命令行参数执行，在一些shell中可能需要转义方括号。
 
-.. note::
-    The user/hostname split occurs at the last ``@`` found, so e.g. email
-    address usernames are valid and will be parsed correctly.
+.. 注意::
+    用户和主机通过最后一个``@``符号分隔，所以email作为用户名是有效的会被正确解析。
 
-During execution, Fabric normalizes the host strings given and then stores each
-part (username/hostname/port) in the environment dictionary, for both its use
-and for tasks to reference if the need arises. See :doc:`env` for details.
+执行期间，Fabric格式化主机串并储存每个部分（用户名/主机名/端口号）到环境字典中，如果需要使用或任务引用。
+参见:doc:`env`.
 
 .. _execution-roles:
 
-Roles
------
+角色
+---
 
-Host strings map to single hosts, but sometimes it's useful to arrange hosts in
-groups. Perhaps you have a number of Web servers behind a load balancer and
-want to update all of them, or want to run a task on "all client servers".
-Roles provide a way of defining strings which correspond to lists of host
-strings, and can then be specified instead of writing out the entire list every
-time.
+主机串对应单个主机，有时候安排主机到组很有用。也许你需要一些Web Server 在负载均衡
+或者想要在“所有client服务器”执行一个任务。角色提供一种定义字符串对应到主机串列表的功能.
+用来替代每次写出主机列表.
 
-This mapping is defined as a dictionary, ``env.roledefs``, which must be
-modified by a fabfile in order to be used. A simple example::
+该映射通过一个字典来定义, ``env.roledefs``, 为了使用它必须通过修改fabfile
+简单的例子::
 
     from fabric.api import env
 
     env.roledefs['webservers'] = ['www1', 'www2', 'www3']
 
-Since ``env.roledefs`` is naturally empty by default, you may also opt to
-re-assign to it without fear of losing any information (provided you aren't
-loading other fabfiles which also modify it, of course)::
+由于 ``env.roledefs`` 默认为空, 又可以重新定义它而不必担心丢失任何信息
+(前提当然是你不加载其他fabfiles去修改它)::
 
     from fabric.api import env
 
@@ -121,9 +106,8 @@ loading other fabfiles which also modify it, of course)::
         'dns': ['ns1', 'ns2']
     }
 
-Role definitions are not necessary configuration of hosts only, but could hold
-other role specific settings of your choice. This is achieved by defining the
-roles as dicts and host strings under a ``hosts`` key::
+角色的定义不仅是主机的必要配置，还可以选择主机执行特定配置 .
+通过定义角色字典和和在``hosts``下定义主机串实现::
 
     from fabric.api import env
 
@@ -138,18 +122,14 @@ roles as dicts and host strings under a ``hosts`` key::
         }
     }
 
-In addition to list/iterable object types, the values in ``env.roledefs``
-(or value of ``hosts`` key in dict style definition) may be callables, and will
-thus be called when looked up when tasks are run instead of at module load
-time. (For example, you could connect to remote servers to obtain role
-definitions, and not worry about causing delays at fabfile load time when
-calling e.g. ``fab --list``.)
+除了列表/可迭代类型，该值``env.roledefs``（或字典样式定义``hosts``键的值）是可调用，
+当任务运行时被调用而不是模块加载时.(例如，你可以在连接远程服务器时获取角色定义，
+而不必担心在调用``fab --list``是时加载fabfile引起延迟)
 
-Use of roles is not required in any way -- it's simply a convenience in
-situations where you have common groupings of servers.
+以任何方式使用角色都不是必须的 -- 它仅仅是提供了一个便利的方式在你有通用的服务器分组情况下
 
-.. versionchanged:: 0.9.2
-    Added ability to use callables as ``roledefs`` values.
+.. 版本变更:: 0.9.2
+    增加可调用的值``roledefs``.
 
 .. _host-lists:
 
