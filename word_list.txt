@@ -7,3 +7,4 @@ correspond 对应
 in addition to 此外
 specify 指定
 nondestructively 无损
+deployment 调度，部署
