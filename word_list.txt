@@ -1,3 +1,9 @@
 invocation 调用
 while this 而这，虽然，表转折
 individual 个人，个别，个体
+omit 省略
+associated 关联
+correspond 对应
+in addition to 此外
+specify 指定
+nondestructively 无损

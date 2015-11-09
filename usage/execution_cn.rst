@@ -63,7 +63,7 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 .. _host-strings:
 
 主机
----
+----
 
 主机，在这种上下文中通常也被称为"主机字符串": 一个由用户名，主机名和端口组合而成的Python
 字符串，如``username@hostname:port``这种形式，用户和端口可以被省略（由``@`` 或 ``:``
@@ -83,7 +83,7 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 .. _execution-roles:
 
 角色
----
+----
 
 主机串对应单个主机，有时候安排主机到组很有用。也许你需要一些Web Server 在负载均衡
 或者想要在“所有client服务器”执行一个任务。角色提供一种定义字符串对应到主机串列表的功能.
@@ -133,24 +133,19 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 .. _host-lists:
 
-How host lists are constructed
-------------------------------
+如何构造主机列表
+--------
 
-There are a number of ways to specify host lists, either globally or per-task,
-and generally these methods override one another instead of merging together
-(though this may change in future releases.) Each such method is typically
-split into two parts, one for hosts and one for roles.
+有很多种办法指定主机列表，无论是全局或者按任务，通常这些方法会被互相覆盖而不是合并到一起
+（虽然有可能在未来的版本变更）每种方式都被分为两部分，用于主机和用于角色。
 
-Globally, via ``env``
-~~~~~~~~~~~~~~~~~~~~~
+全局变量, 通过 ``env``
+~~~
 
-The most common method of setting hosts or roles is by modifying two key-value
-pairs in the environment dictionary, :doc:`env <env>`: ``hosts`` and ``roles``.
-The value of these variables is checked at runtime, while constructing each
-tasks's host list.
+修改环境字典的键值对是设定主机或角色最通用的方式，:doc:`env <env>`: ``hosts`` and ``roles``.
+这些变量的值在运行时被检查，从而构成每个任务的主机的列表。
 
-Thus, they may be set at module level, which will take effect when the fabfile
-is imported::
+因此，通过fabfile被导入时会被设定为模块级别的变量::
 
     from fabric.api import env, run
 
@@ -159,12 +154,9 @@ is imported::
     def mytask():
         run('ls /var/www')
 
-Such a fabfile, run simply as ``fab mytask``, will run ``mytask`` on ``host1``
-followed by ``host2``.
+像这样的fabfile，通过``fab mytask``运行，将会依次在``host1``，``host2``上执行``mytask``.
 
-Since the env vars are checked for *each* task, this means that if you have the
-need, you can actually modify ``env`` in one task and it will affect all
-following tasks::
+由于*每个* 任务都会检查环境变量，意味着可以根据需要在一个任务中修改``env`` 将会影响到后续任务::
 
     from fabric.api import env, run
 
@@ -174,46 +166,36 @@ following tasks::
     def mytask():
         run('ls /var/www')
 
-When run as ``fab set_hosts mytask``, ``set_hosts`` is a "local" task -- its
-own host list is empty -- but ``mytask`` will again run on the two hosts given.
+运行 ``fab set_hosts mytask``, ``set_hosts`` 是一个"本地"任务 -- 它的主机列表为空
+-- 但 ``mytask`` 会在定义两个主机后运行.
 
 .. note::
 
-    This technique used to be a common way of creating fake "roles", but is
-    less necessary now that roles are fully implemented. It may still be useful
-    in some situations, however.
+    这种技术通常用来创建虚拟"角色".在角色完全实现的情况下显得没必要，但有时候会显得很有用
 
-Alongside ``env.hosts`` is ``env.roles`` (not to be confused with
-``env.roledefs``!) which, if given, will be taken as a list of role names to
-look up in ``env.roledefs``.
+如果 ``env.hosts`` is ``env.roles`` (不要与``env.roledefs``混淆!) 被给定，可以在``env.roledefs``
+中查找作为角色名列表.
 
-Globally, via the command line
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+全局变量, 通过命令行参数
+~~~
 
-In addition to modifying ``env.hosts``, ``env.roles``, and
-``env.exclude_hosts`` at the module level, you may define them by passing
-comma-separated string arguments to the command-line switches
-:option:`--hosts/-H <-H>` and :option:`--roles/-R <-R>`, e.g.::
+除了在模块级别修改 ``env.hosts``, ``env.roles`` 和 ``env.exclude_hosts`` ,
+也可以通过定义逗号分隔的命令行选项 :option:`--hosts/-H <-H>` and :option:`--roles/-R <-R>`
+例如.::
 
     $ fab -H host1,host2 mytask
 
-Such an invocation is directly equivalent to ``env.hosts = ['host1', 'host2']``
--- the argument parser knows to look for these arguments and will modify
-``env`` at parse time.
+这种调用相当于 ``env.hosts = ['host1', 'host2']`` -- 参数解析器在解析时会寻找这些参数并修改``env``
 
 .. note::
 
-    It's possible, and in fact common, to use these switches to set only a
-    single host or role. Fabric simply calls ``string.split(',')`` on the given
-    string, so a string with no commas turns into a single-item list.
+    事实上，使用这些选项可能会设定成单个主机或角色，Fabric在得到字符串时调用的是``string.split(',')``，
+    所以没有逗号的字符串会变成单个列表.
 
-It is important to know that these command-line switches are interpreted
-**before** your fabfile is loaded: any reassignment to ``env.hosts`` or
-``env.roles`` in your fabfile will overwrite them.
+明白命令行选项在你的fabfile加载前被解释时重要的，在fabfile重新定义``env.hosts`` or
+``env.roles``会覆盖它们.
 
-If you wish to nondestructively merge the command-line hosts with your
-fabfile-defined ones, make sure your fabfile uses ``env.hosts.extend()``
-instead::
+如果希望命令行定义和fabfile定义的主机列表无损合并，确保在fabfile中使用``env.hosts.extend()``::
 
     from fabric.api import env, run
 
@@ -222,14 +204,13 @@ instead::
     def mytask():
         run('ls /var/www')
 
-When this fabfile is run as ``fab -H host1,host2 mytask``, ``env.hosts`` will
-then contain ``['host1', 'host2', 'host3', 'host4']`` at the time that
-``mytask`` is executed.
+当这个fabfile通过 ``fab -H host1,host2 mytask``运行时, 在``mytask``执行时，
+``env.hosts`` 将会包含``['host1', 'host2', 'host3', 'host4']``.
 
 .. note::
 
-    ``env.hosts`` is simply a Python list object -- so you may use
-    ``env.hosts.append()`` or any other such method you wish.
+    ``env.hosts`` 就是一个Python列表对象 -- 所以可以使用``env.hosts.append()``
+    或者其他你想用的列表方法.
 
 .. _hosts-per-task-cli:
 
