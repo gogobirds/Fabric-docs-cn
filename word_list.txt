@@ -9,3 +9,4 @@ specify 指定
 nondestructively 无损
 deployment 调度，
 personalize 使个性化
+invocation 调用

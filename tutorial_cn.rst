@@ -8,7 +8,7 @@
 附加文档（贯穿全文）可以在 :ref:`usage documentation <usage-docs>` 中找到————请务必检查。
 
 Fabric是什么？
-=============
+===
 
 正如“读我档案”（ ``README`` ）所述:
 
@@ -25,7 +25,7 @@ for application deployment or systems administration tasks.
 
 
 你好, ``fab``
-=============
+===
 
 没有“常见指引”，这也许不会是一个合适的教程::
 
@@ -47,11 +47,11 @@ for application deployment or systems administration tasks.
       ``fab`` 工具简单地引入了你的fabfile并执行功能或者你指示的函数。
       此处没有任何魔性方法————你能在正常Python脚本里做的都能在fabfile里实现!
 
-.. 也请参阅:: :ref:`execution-strategy`, :doc:`/usage/tasks`, :doc:`/usage/fab`
+.. seealso:: :ref:`execution-strategy`, :doc:`/usage/tasks`, :doc:`/usage/fab`
 
 
 任务参数
-=======
+====
 
 运行时将参数传递到任务里通常会有用，正如你在常规的Python编程中所做。
 Fabric通过shell-compatible符号来达到基本的支持： ``<task name>:<arg>,<kwarg>=<value>,...``.
@@ -67,36 +67,34 @@ Fabric通过shell-compatible符号来达到基本的支持： ``<task name>:<arg>,<kwarg>=<va
 
     Done.
 
-Those already used to programming in Python might have guessed that this
-invocation behaves exactly the same way::
+那些习惯于Python编程的人可能已经猜到，这样的调用运行完全一致::
 
     $ fab hello:Jeff
     Hello Jeff!
 
     Done.
 
-For the time being, your argument values will always show up in Python as
-strings and may require a bit of string manipulation for complex types such
-as lists. Future versions may add a typecasting system to make this easier.
+目前，你的参数值总是作为字符串出现在Python里，可能需要字符串操作等复杂类型，比如列表。
+未来的版本里可能会添加强制类型转换系统以使得这样更容易。
 
 .. seealso:: :ref:`task-arguments`
 
-Local commands
-==============
+本地命令
+====
 
+正如上面所用， ``fab``          。
+主要是为Fabric的API使用而设计，其中包括函数（或 **操作**），
+以便于执行shell命令或文件传输，等等。
 As used above, ``fab`` only really saves a couple lines of
-``if __name__ == "__main__"`` boilerplate. It's mostly designed for use with
-Fabric's API, which contains functions (or **operations**) for executing shell
-commands, transferring files, and so forth.
+``if __name__ == "__main__"`` boilerplate.
 
-Let's build a hypothetical Web application fabfile. This example scenario is
-as follows: The Web application is managed via Git on a remote host
-``vcshost``. On ``localhost``, we have a local clone of said Web application.
-When we push changes back to ``vcshost``, we want to be able to immediately
-install these changes on a remote host ``my_server`` in an automated fashion.
-We will do this by automating the local and remote Git commands.
+让我们建立一个假想的Web应用fabfile.这个示例场景如下：
+ 这个Web应用通过Git在远程主机``vcshost，``上被管理。
+ 在 ``localhost`` 上, 我们有所指Web应用的复制版本。
+ 当我们将改动更新到 ``vcshost`` 时，我们想要能够立即将这些改动自动地下载到远程主机 ``my_server`` 。
+ 我们将通过自动操作本机和远程主机的Git命令来实现。
 
-Fabfiles usually work best at the root of a project::
+Fabfiles通常在项目的root上工作。 usually work best at the root of a project::
 
     .
     |-- __init__.py
@@ -114,11 +112,9 @@ Fabfiles usually work best at the root of a project::
 
 .. note::
 
-    We're using a Django application here, but only as an example -- Fabric is
-    not tied to any external codebase, save for its SSH library.
+    我们在这里使用Django框架，但只作为一个例子————Fabric不绑定于任何外部代码库，除了SSH库以外。
 
-For starters, perhaps we want to run our tests and commit to our VCS so we're
-ready for a deploy::
+对于初学者，也许我们想要在部署之前进行测试并提交到VCS::
 
     from fabric.api import local
 
