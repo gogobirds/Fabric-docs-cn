@@ -214,45 +214,38 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 .. _hosts-per-task-cli:
 
-Per-task, via the command line
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+单任务，通过命令行参数
+~~~
 
-Globally setting host lists only works if you want all your tasks to run on the
-same host list all the time. This isn't always true, so Fabric provides a few
-ways to be more granular and specify host lists which apply to a single task
-only. The first of these uses task arguments.
+设置全局主机列表足以让所有任务跑在相同的主机上.但有时是不需要这样的，所以Fabric提供一些方法
+更精确和特殊的指定单个任务的主机列表。第一个方法是指定任务参数.
 
-As outlined in :doc:`fab`, it's possible to specify per-task arguments via a
-special command-line syntax. In addition to naming actual arguments to your
-task function, this may be used to set the ``host``, ``hosts``, ``role`` or
-``roles`` "arguments", which are interpreted by Fabric when building host lists
-(and removed from the arguments passed to the task itself.)
+如:doc:`fab` 所述, 可以通过特定的命令行语法指定任务参数. 除了命名任务的实际参数，还可以设定
+``host``, ``hosts``, ``role`` or ``roles`` "arguments" 在Fabric建立主机列表时被解析
+(在传递到任务时被删除.)
 
 .. note::
 
-    Since commas are already used to separate task arguments from one another,
-    semicolons must be used in the ``hosts`` or ``roles`` arguments to
-    delineate individual host strings or role names. Furthermore, the argument
-    must be quoted to prevent your shell from interpreting the semicolons.
+    由于逗号已经习惯用来分割任务参数，而分号用来划分``hosts`` or ``roles`` 主机和角色.
+    此外，必须加上引号以方式shell解析分号.
 
-Take the below fabfile, which is the same one we've been using, but which
-doesn't define any host info at all::
+运行下面的fabfile, 除了没有定义主机信息和使用过的一样::
 
     from fabric.api import run
 
     def mytask():
         run('ls /var/www')
 
-To specify per-task hosts for ``mytask``, execute it like so::
+为``mytask``指定特定的主机, 如下执行::
 
     $ fab mytask:hosts="host1;host2"
 
-This will override any other host list and ensure ``mytask`` always runs on
-just those two hosts.
+它将覆盖所有的主机列表确保``mytask``仅仅在两个主机上执行.
 
-Per-task, via decorators
-~~~~~~~~~~~~~~~~~~~~~~~~
+单任务, 通过装饰器
+~~~
 
+如果一个任务总是运行在一个预定义的主机列表，你可能希望在fabfile中指定.
 If a given task should always run on a predetermined host list, you may wish to
 specify this in your fabfile itself. This can be done by decorating a task
 function with the `~fabric.decorators.hosts` or `~fabric.decorators.roles`
@@ -280,8 +273,8 @@ on a host list of ``['host1', 'host2']``.
 However, decorator host lists do **not** override per-task command-line
 arguments, as given in the previous section.
 
-Order of precedence
-~~~~~~~~~~~~~~~~~~~
+优先级
+~~~
 
 We've been pointing out which methods of setting host lists trump the others,
 as we've gone along. However, to make things clearer, here's a quick breakdown:
