@@ -246,10 +246,8 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 ~~~
 
 如果一个任务总是运行在一个预定义的主机列表，你可能希望在fabfile中指定.
-If a given task should always run on a predetermined host list, you may wish to
-specify this in your fabfile itself. This can be done by decorating a task
-function with the `~fabric.decorators.hosts` or `~fabric.decorators.roles`
-decorators. These decorators take a variable argument list, like so::
+可通过`~fabric.decorators.hosts` 或 `~fabric.decorators.roles`装饰任务函数
+装饰器需要一个可变的参数列表，例如::
 
     from fabric.api import hosts, run
 
@@ -257,42 +255,32 @@ decorators. These decorators take a variable argument list, like so::
     def mytask():
         run('ls /var/www')
 
-They will also take an single iterable argument, e.g.::
+也可以传入一个可迭代的参数 如::
 
     my_hosts = ('host1', 'host2')
     @hosts(my_hosts)
     def mytask():
         # ...
 
-When used, these decorators override any checks of ``env`` for that particular
-task's host list (though ``env`` is not modified in any way -- it is simply
-ignored.) Thus, even if the above fabfile had defined ``env.hosts`` or the call
-to :doc:`fab <fab>` uses :option:`--hosts/-H <-H>`, ``mytask`` would still run
-on a host list of ``['host1', 'host2']``.
+在使用时，这些装饰器覆盖了``env``对特定主机列表的检查 (尽管``env`` 没有被任何方法修改，只是简单地被忽略.)
+因此，即使fabfile定义了 ``env.hosts``或者通过选项 :option:`--hosts/-H <-H>` 调用 :doc:`fab <fab>`
+``mytask``仍然只会在``['host1', 'host2']``上执行.
 
-However, decorator host lists do **not** override per-task command-line
-arguments, as given in the previous section.
+然而,装饰主机列表**不会**覆盖通过命令行指定的任务，前一节给出了解释.
 
 优先级
 ~~~
 
-We've been pointing out which methods of setting host lists trump the others,
-as we've gone along. However, to make things clearer, here's a quick breakdown:
+我们已经一起研究了设定主机列表的方法，然而，为了更清晰，快速回顾一下:
 
-* Per-task, command-line host lists (``fab mytask:host=host1``) override
-  absolutely everything else.
-* Per-task, decorator-specified host lists (``@hosts('host1')``) override the
-  ``env`` variables.
-* Globally specified host lists set in the fabfile (``env.hosts = ['host1']``)
-  *can* override such lists set on the command-line, but only if you're not
-  careful (or want them to.)
-* Globally specified host lists set on the command-line (``--hosts=host1``)
-  will initialize the ``env`` variables, but that's it.
+* 单任务，通过命令行(``fab mytask:host=host1``)，可覆盖其他所有方法
+* 单任务，通过装饰特定主机列表(``@hosts('host1')``)，可覆盖``env`` 变量.
+* 在fabfile中全局指定主机列表(``env.hosts = ['host1']``)*可以* 覆盖通过命令行指定的列表
+  但只会在你无意中（或希望）的情况下.
+* 在命令行中全局指定主机列表(``--hosts=host1``)，将会初始化``env``变量，仅此而已.
 
-This logic may change slightly in the future to be more consistent (e.g.
-having :option:`--hosts <-H>` somehow take precedence over ``env.hosts`` in the
-same way that command-line per-task lists trump in-code ones) but only in a
-backwards-incompatible release.
+这个逻辑顺序可能在未来版本中变得更加一致 (例如，使用选项 :option:`--hosts <-H>`在某种程度上
+优先于``env.hosts``在同样使用命令行指定单任务）但只会在向后兼容的版本中出现.
 
 .. _combining-host-lists:
 
