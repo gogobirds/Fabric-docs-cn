@@ -123,7 +123,7 @@ Fabfiles通常在项目的root上工作。 usually work best at the root of a pr
         local("git add -p && git commit")
         local("git push")
 
-The output of which might look a bit like this::
+输出可能会像下面这样::
 
     $ fab prepare_deploy
     [localhost] run: ./manage.py test my_app
@@ -147,19 +147,18 @@ The output of which might look a bit like this::
 
     Done.
 
-The code itself is straightforward: import a Fabric API function,
-`~fabric.operations.local`, and use it to run and interact with local shell
-commands. The rest of Fabric's API is similar -- it's all just Python.
+代码本身很简单: 引入一个Fabric API函数,`~fabric.operations.local`,
+并用它来和本地shell命令运行、交互.
+Fabric's API的其他部分也类似————全都是python的用法.
 
 .. seealso:: :doc:`api/core/operations`, :ref:`fabfile-discovery`
 
 
-Organize it your way
-====================
+建立你的方法
+======
 
-Because Fabric is "just Python" you're free to organize your fabfile any way
-you want. For example, it's often useful to start splitting things up into
-subtasks::
+因为Fabric是"纯Python"，你可以以任何形式自由地建立自己的fabfile.
+比如，在开始任务时将它分为多个子任务::
 
     from fabric.api import local
 
@@ -177,19 +176,15 @@ subtasks::
         commit()
         push()
 
-The ``prepare_deploy`` task can be called just as before, but now you can make
-a more granular call to one of the sub-tasks, if desired.
+ ``prepare_deploy`` 任务可以像之前一样被调用，但是现在, 你可以在想要的时候更细分地调用某一个子任务.
 
 
-Failure
-=======
+故障
+==
 
-Our base case works fine now, but what happens if our tests fail?  Chances are
-we want to put on the brakes and fix them before deploying.
+目前我们的基本案例可以正常工作,但是如果测试失败又该怎样呢? 极大的可能是我们想设置断点，并在部署之前修复错误.
 
-Fabric checks the return value of programs called via operations and will abort
-if they didn't exit cleanly. Let's see what happens if one of our tests
-encounters an error::
+Fabric会操作检查已经执行的程序的返回值, 并且会在退出不明确的情况下中断. 我们来看看如果某个测试程序出现了错误会怎样::
 
     $ fab prepare_deploy
     [localhost] run: ./manage.py test my_app
@@ -213,18 +208,15 @@ encounters an error::
 
     Aborting.
 
-Great! We didn't have to do anything ourselves: Fabric detected the failure and
-aborted, never running the ``commit`` task.
+哇哦!我们自己没有做任何操作: Fabric检测出了失败并且强制中断, 再也没有运行 ``commit`` 任务.
 
 .. seealso:: :ref:`Failure handling (usage documentation) <failures>`
 
-Failure handling
+故障处理
 ----------------
 
-But what if we wanted to be flexible and give the user a choice? A setting
-(or **environment variable**, usually shortened to **env var**) called
-:ref:`warn_only` lets you turn aborts into warnings, allowing flexible error
-handling to occur.
+但是如果我们想更灵活性地给用户一个选择呢?  :ref:`warn_only` 称为的环境设置
+(或 **environment variable**[环境变量], 通常缩写为**env var**)能让你将中断操作转换为警告, 允许存在随机应变的故障处理.
 
 Let's flip this setting on for our ``test`` function, and then inspect the
 result of the `~fabric.operations.local` call ourselves::
