@@ -9,4 +9,5 @@ specify 指定
 nondestructively 无损
 deployment 调度，
 personalize 使个性化
-invocation 调用
+pointing out 指出
+somehow 在某种程度
