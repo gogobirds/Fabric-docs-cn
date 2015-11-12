@@ -1,100 +1,100 @@
 =========
-¸ÅÊö¼°½Ì³Ì
+æ¦‚è¿°åŠæ•™ç¨‹
 =========
 
-»¶Ó­À´µ½Fabric!
+æ¬¢è¿Žæ¥åˆ°Fabric!
 
-ÕâÆªÎÄµµÊÇ¶ÔFabricÌØµãµÄ¿ìËÙÁË½âÖ®ÂÃ£¬Ò²ÊÇÓÃ·¨µÄ¿ìËÙÖ¸µ¼½Ì³Ì¡£
-¸½¼ÓÎÄµµ£¨¹á´©È«ÎÄ£©¿ÉÒÔÔÚ :ref:`usage documentation <usage-docs>` ÖÐÕÒµ½¡ª¡ª¡ª¡ªÇëÎñ±Ø¼ì²é¡£
+è¿™ç¯‡æ–‡æ¡£æ˜¯å¯¹Fabricç‰¹ç‚¹çš„å¿«é€Ÿäº†è§£ä¹‹æ—…ï¼Œä¹Ÿæ˜¯ç”¨æ³•çš„å¿«é€ŸæŒ‡å¯¼æ•™ç¨‹ã€‚
+é™„åŠ æ–‡æ¡£ï¼ˆè´¯ç©¿å…¨æ–‡ï¼‰å¯ä»¥åœ¨ :ref:`usage documentation <usage-docs>` ä¸­æ‰¾åˆ°â€”â€”â€”â€”è¯·åŠ¡å¿…æ£€æŸ¥ã€‚
 
-FabricÊÇÊ²Ã´£¿
+Fabricæ˜¯ä»€ä¹ˆï¼Ÿ
 ===
 
-ÕýÈç¡°¶ÁÎÒµµ°¸¡±£¨ ``README`` £©ËùÊö:
+æ­£å¦‚â€œè¯»æˆ‘æ¡£æ¡ˆâ€ï¼ˆ ``README`` ï¼‰æ‰€è¿°:
 
-FabricÊÇÒ»¸öPython¿â£¬Ò²ÊÇÃüÁîÐÐ¹¤¾ß£¬ÓÃÀ´¼ò»¯Ê¹ÓÃSSHµÄÓ¦ÓÃ³ÌÐò²¿Êð»òÏµÍ³¹ÜÀíÈÎÎñ¡£
+Fabricæ˜¯ä¸€ä¸ªPythonåº“ï¼Œä¹Ÿæ˜¯å‘½ä»¤è¡Œå·¥å…·ï¼Œç”¨æ¥ç®€åŒ–ä½¿ç”¨SSHçš„åº”ç”¨ç¨‹åºéƒ¨ç½²æˆ–ç³»ç»Ÿç®¡ç†ä»»åŠ¡ã€‚
 Fabric is a Python (2.5-2.7) library and command-line tool for streamlining the use of SSH
 for application deployment or systems administration tasks.
 
-¸ü¾ßÌåµØËµ, FabricÊÇ:
+æ›´å…·ä½“åœ°è¯´, Fabricæ˜¯:
 
-* Ò»¸öÈÃÄãÍ¨¹ý **ÃüÁîÐÐ** Ö´ÐÐ **ÈÎÒâPython¹¦ÄÜ** µÄ¹¤¾ß;
-* Ò»¸öÎªÁËÊ¹ÔÚSSHÉÏÖ´ÐÐshellÃüÁî¸ü **¼òµ¥** ºÍ **Python»¯** µÄ×Ó³ÌÐò¿â£¨»ùÓÚµ×²ã¿â£©¡£
+* ä¸€ä¸ªè®©ä½ é€šè¿‡ **å‘½ä»¤è¡Œ** æ‰§è¡Œ **ä»»æ„PythonåŠŸèƒ½** çš„å·¥å…·;
+* ä¸€ä¸ªä¸ºäº†ä½¿åœ¨SSHä¸Šæ‰§è¡Œshellå‘½ä»¤æ›´ **ç®€å•** å’Œ **PythonåŒ–** çš„å­ç¨‹åºåº“ï¼ˆåŸºäºŽåº•å±‚åº“ï¼‰ã€‚
 
-´ó¶àÊýÓÃ»§ÄÜÇá¶øÒ×¾ÙµØ½«ÕâÁ½Ñù½áºÏÆðÀ´£¬Í¨¹ýFabricÀ´±àÐ´ºÍÖ´ÐÐPythonº¯Êý»òÈÎÎñ£¬ÒÔ´ïµ½Ô¶³Ì·þÎñÆ÷µÄ×Ô¶¯»¯½»»¥¡£
+å¤§å¤šæ•°ç”¨æˆ·èƒ½è½»è€Œæ˜“ä¸¾åœ°å°†è¿™ä¸¤æ ·ç»“åˆèµ·æ¥ï¼Œé€šè¿‡Fabricæ¥ç¼–å†™å’Œæ‰§è¡ŒPythonå‡½æ•°æˆ–ä»»åŠ¡ï¼Œä»¥è¾¾åˆ°è¿œç¨‹æœåŠ¡å™¨çš„è‡ªåŠ¨åŒ–äº¤äº’ã€‚
 
 
-ÄãºÃ, ``fab``
+ä½ å¥½, ``fab``
 ===
 
-Ã»ÓÐ¡°³£¼ûÖ¸Òý¡±£¬ÕâÒ²Ðí²»»áÊÇÒ»¸öºÏÊÊµÄ½Ì³Ì::
+æ²¡æœ‰â€œå¸¸è§æŒ‡å¼•â€ï¼Œè¿™ä¹Ÿè®¸ä¸ä¼šæ˜¯ä¸€ä¸ªåˆé€‚çš„æ•™ç¨‹::
 
     def hello():
         print("Hello world!")
 
-·ÅÔÚÄãµ±Ç°¹¤×÷Ä¿Â¼ÏÂ½Ð×ö ``fabfile.py`` µÄPythonÄ£¿éÎÄ¼þÀï£¬
-``hello`` º¯Êý¿ÉÒÔÍ¨¹ý ``fab`` ¹¤¾ß(Fabric°²×°µÄÒ»²¿·Ö)Ö´ÐÐ£¬²¢ÇÒ·ûºÏÄãµÄÔ¤ÆÚ::
+æ”¾åœ¨ä½ å½“å‰å·¥ä½œç›®å½•ä¸‹å«åš ``fabfile.py`` çš„Pythonæ¨¡å—æ–‡ä»¶é‡Œï¼Œ
+``hello`` å‡½æ•°å¯ä»¥é€šè¿‡ ``fab`` å·¥å…·(Fabricå®‰è£…çš„ä¸€éƒ¨åˆ†)æ‰§è¡Œï¼Œå¹¶ä¸”ç¬¦åˆä½ çš„é¢„æœŸ::
 
     $ fab hello
     Hello world!
 
     Done.
 
-Õâ¾ÍÊÇËùÓÐµÄÖ´ÐÐ¡£º¯ÊýÐÔÊ¹µÃFabricÄÜ±»µ±×ö£¨·Ç³££©»ù±¾¹¹½¨¹¤¾ßÊ¹ÓÃ£¬ÉõÖÁÎÞÐëÒýÈëÈÎºÎAPI¡£
+è¿™å°±æ˜¯æ‰€æœ‰çš„æ‰§è¡Œã€‚å‡½æ•°æ€§ä½¿å¾—Fabricèƒ½è¢«å½“åšï¼ˆéžå¸¸ï¼‰åŸºæœ¬æž„å»ºå·¥å…·ä½¿ç”¨ï¼Œç”šè‡³æ— é¡»å¼•å…¥ä»»ä½•APIã€‚
 
-.. ×¢::
+.. æ³¨::
 
-      ``fab`` ¹¤¾ß¼òµ¥µØÒýÈëÁËÄãµÄfabfile²¢Ö´ÐÐ¹¦ÄÜ»òÕßÄãÖ¸Ê¾µÄº¯Êý¡£
-      ´Ë´¦Ã»ÓÐÈÎºÎÄ§ÐÔ·½·¨¡ª¡ª¡ª¡ªÄãÄÜÔÚÕý³£Python½Å±¾Àï×öµÄ¶¼ÄÜÔÚfabfileÀïÊµÏÖ!
+      ``fab`` å·¥å…·ç®€å•åœ°å¼•å…¥äº†ä½ çš„fabfileå¹¶æ‰§è¡ŒåŠŸèƒ½æˆ–è€…ä½ æŒ‡ç¤ºçš„å‡½æ•°ã€‚
+      æ­¤å¤„æ²¡æœ‰ä»»ä½•é­”æ€§æ–¹æ³•â€”â€”â€”â€”ä½ èƒ½åœ¨æ­£å¸¸Pythonè„šæœ¬é‡Œåšçš„éƒ½èƒ½åœ¨fabfileé‡Œå®žçŽ°!
 
 .. seealso:: :ref:`execution-strategy`, :doc:`/usage/tasks`, :doc:`/usage/fab`
 
 
-ÈÎÎñ²ÎÊý
+ä»»åŠ¡å‚æ•°
 ====
 
-ÔËÐÐÊ±½«²ÎÊý´«µÝµ½ÈÎÎñÀïÍ¨³£»áÓÐÓÃ£¬ÕýÈçÄãÔÚ³£¹æµÄPython±à³ÌÖÐËù×ö¡£
-FabricÍ¨¹ýshell-compatible·ûºÅÀ´´ïµ½»ù±¾µÄÖ§³Ö£º ``<task name>:<arg>,<kwarg>=<value>,...``.
-ÕâÊÇ²»×ÔÈ»µÄ£¬ÏÂÃæÈÃÎÒÃÇÀ©Õ¹ÒÔÉÏµÄÊµÀýÀ´Ç××ÔÏòÄãÎÊºò¡°hello¡±::
+è¿è¡Œæ—¶å°†å‚æ•°ä¼ é€’åˆ°ä»»åŠ¡é‡Œé€šå¸¸ä¼šæœ‰ç”¨ï¼Œæ­£å¦‚ä½ åœ¨å¸¸è§„çš„Pythonç¼–ç¨‹ä¸­æ‰€åšã€‚
+Fabricé€šè¿‡shell-compatibleç¬¦å·æ¥è¾¾åˆ°åŸºæœ¬çš„æ”¯æŒï¼š ``<task name>:<arg>,<kwarg>=<value>,...``.
+è¿™æ˜¯ä¸è‡ªç„¶çš„ï¼Œä¸‹é¢è®©æˆ‘ä»¬æ‰©å±•ä»¥ä¸Šçš„å®žä¾‹æ¥äº²è‡ªå‘ä½ é—®å€™â€œhelloâ€::
 
     def hello(name="world"):
         print("Hello %s!" % name)
 
-Ä¬ÈÏÇé¿öÏÂ£¬µ÷ÓÃ ``fab hello`` ÈÔÈ»ÄÜÏñÖ®Ç°ÄÇÑùÔË×÷£»µ«ÊÇÏÖÔÚÎÒÃÇ¿ÉÒÔ½«ËüÊµÀý»¯::
+é»˜è®¤æƒ…å†µä¸‹ï¼Œè°ƒç”¨ ``fab hello`` ä»ç„¶èƒ½åƒä¹‹å‰é‚£æ ·è¿ä½œï¼›ä½†æ˜¯çŽ°åœ¨æˆ‘ä»¬å¯ä»¥å°†å®ƒå®žä¾‹åŒ–::
 
     $ fab hello:name=Jeff
     Hello Jeff!
 
     Done.
 
-ÄÇÐ©Ï°¹ßÓÚPython±à³ÌµÄÈË¿ÉÄÜÒÑ¾­²Âµ½£¬ÕâÑùµÄµ÷ÓÃÔËÐÐÍêÈ«Ò»ÖÂ::
+é‚£äº›ä¹ æƒ¯äºŽPythonç¼–ç¨‹çš„äººå¯èƒ½å·²ç»çŒœåˆ°ï¼Œè¿™æ ·çš„è°ƒç”¨è¿è¡Œå®Œå…¨ä¸€è‡´::
 
     $ fab hello:Jeff
     Hello Jeff!
 
     Done.
 
-Ä¿Ç°£¬ÄãµÄ²ÎÊýÖµ×ÜÊÇ×÷Îª×Ö·û´®³öÏÖÔÚPythonÀï£¬¿ÉÄÜÐèÒª×Ö·û´®²Ù×÷µÈ¸´ÔÓÀàÐÍ£¬±ÈÈçÁÐ±í¡£
-Î´À´µÄ°æ±¾Àï¿ÉÄÜ»áÌí¼ÓÇ¿ÖÆÀàÐÍ×ª»»ÏµÍ³ÒÔÊ¹µÃÕâÑù¸üÈÝÒ×¡£
+ç›®å‰ï¼Œä½ çš„å‚æ•°å€¼æ€»æ˜¯ä½œä¸ºå­—ç¬¦ä¸²å‡ºçŽ°åœ¨Pythoné‡Œï¼Œå¯èƒ½éœ€è¦å­—ç¬¦ä¸²æ“ä½œç­‰å¤æ‚ç±»åž‹ï¼Œæ¯”å¦‚åˆ—è¡¨ã€‚
+æœªæ¥çš„ç‰ˆæœ¬é‡Œå¯èƒ½ä¼šæ·»åŠ å¼ºåˆ¶ç±»åž‹è½¬æ¢ç³»ç»Ÿä»¥ä½¿å¾—è¿™æ ·æ›´å®¹æ˜“ã€‚
 
 .. seealso:: :ref:`task-arguments`
 
-±¾µØÃüÁî
+æœ¬åœ°å‘½ä»¤
 ====
 
-ÕýÈçÉÏÃæËùÓÃ£¬ ``fab``          ¡£
-Ö÷ÒªÊÇÎªFabricµÄAPIÊ¹ÓÃ¶øÉè¼Æ£¬ÆäÖÐ°üÀ¨º¯Êý£¨»ò **²Ù×÷**£©£¬
-ÒÔ±ãÓÚÖ´ÐÐshellÃüÁî»òÎÄ¼þ´«Êä£¬µÈµÈ¡£
+æ­£å¦‚ä¸Šé¢æ‰€ç”¨ï¼Œ ``fab``          ã€‚
+ä¸»è¦æ˜¯ä¸ºFabricçš„APIä½¿ç”¨è€Œè®¾è®¡ï¼Œå…¶ä¸­åŒ…æ‹¬å‡½æ•°ï¼ˆæˆ– **æ“ä½œ**ï¼‰ï¼Œ
+ä»¥ä¾¿äºŽæ‰§è¡Œshellå‘½ä»¤æˆ–æ–‡ä»¶ä¼ è¾“ï¼Œç­‰ç­‰ã€‚
 As used above, ``fab`` only really saves a couple lines of
 ``if __name__ == "__main__"`` boilerplate.
 
-ÈÃÎÒÃÇ½¨Á¢Ò»¸ö¼ÙÏëµÄWebÓ¦ÓÃfabfile.Õâ¸öÊ¾Àý³¡¾°ÈçÏÂ£º
- Õâ¸öWebÓ¦ÓÃÍ¨¹ýGitÔÚÔ¶³ÌÖ÷»ú``vcshost£¬``ÉÏ±»¹ÜÀí¡£
- ÔÚ ``localhost`` ÉÏ, ÎÒÃÇÓÐËùÖ¸WebÓ¦ÓÃµÄ¸´ÖÆ°æ±¾¡£
- µ±ÎÒÃÇ½«¸Ä¶¯¸üÐÂµ½ ``vcshost`` Ê±£¬ÎÒÃÇÏëÒªÄÜ¹»Á¢¼´½«ÕâÐ©¸Ä¶¯×Ô¶¯µØÏÂÔØµ½Ô¶³ÌÖ÷»ú ``my_server`` ¡£
- ÎÒÃÇ½«Í¨¹ý×Ô¶¯²Ù×÷±¾»úºÍÔ¶³ÌÖ÷»úµÄGitÃüÁîÀ´ÊµÏÖ¡£
+è®©æˆ‘ä»¬å»ºç«‹ä¸€ä¸ªå‡æƒ³çš„Webåº”ç”¨fabfile.è¿™ä¸ªç¤ºä¾‹åœºæ™¯å¦‚ä¸‹ï¼š
+ è¿™ä¸ªWebåº”ç”¨é€šè¿‡Gitåœ¨è¿œç¨‹ä¸»æœº``vcshostï¼Œ``ä¸Šè¢«ç®¡ç†ã€‚
+ åœ¨ ``localhost`` ä¸Š, æˆ‘ä»¬æœ‰æ‰€æŒ‡Webåº”ç”¨çš„å¤åˆ¶ç‰ˆæœ¬ã€‚
+ å½“æˆ‘ä»¬å°†æ”¹åŠ¨æ›´æ–°åˆ° ``vcshost`` æ—¶ï¼Œæˆ‘ä»¬æƒ³è¦èƒ½å¤Ÿç«‹å³å°†è¿™äº›æ”¹åŠ¨è‡ªåŠ¨åœ°ä¸‹è½½åˆ°è¿œç¨‹ä¸»æœº ``my_server`` ã€‚
+ æˆ‘ä»¬å°†é€šè¿‡è‡ªåŠ¨æ“ä½œæœ¬æœºå’Œè¿œç¨‹ä¸»æœºçš„Gitå‘½ä»¤æ¥å®žçŽ°ã€‚
 
-FabfilesÍ¨³£ÔÚÏîÄ¿µÄrootÉÏ¹¤×÷¡£ usually work best at the root of a project::
+Fabfilesé€šå¸¸åœ¨é¡¹ç›®çš„rootä¸Šå·¥ä½œã€‚ usually work best at the root of a project::
 
     .
     |-- __init__.py
@@ -112,9 +112,9 @@ FabfilesÍ¨³£ÔÚÏîÄ¿µÄrootÉÏ¹¤×÷¡£ usually work best at the root of a project::
 
 .. note::
 
-    ÎÒÃÇÔÚÕâÀïÊ¹ÓÃDjango¿ò¼Ü£¬µ«Ö»×÷ÎªÒ»¸öÀý×Ó¡ª¡ª¡ª¡ªFabric²»°ó¶¨ÓÚÈÎºÎÍâ²¿´úÂë¿â£¬³ýÁËSSH¿âÒÔÍâ¡£
+    æˆ‘ä»¬åœ¨è¿™é‡Œä½¿ç”¨Djangoæ¡†æž¶ï¼Œä½†åªä½œä¸ºä¸€ä¸ªä¾‹å­â€”â€”â€”â€”Fabricä¸ç»‘å®šäºŽä»»ä½•å¤–éƒ¨ä»£ç åº“ï¼Œé™¤äº†SSHåº“ä»¥å¤–ã€‚
 
-¶ÔÓÚ³õÑ§Õß£¬Ò²ÐíÎÒÃÇÏëÒªÔÚ²¿ÊðÖ®Ç°½øÐÐ²âÊÔ²¢Ìá½»µ½VCS::
+å¯¹äºŽåˆå­¦è€…ï¼Œä¹Ÿè®¸æˆ‘ä»¬æƒ³è¦åœ¨éƒ¨ç½²ä¹‹å‰è¿›è¡Œæµ‹è¯•å¹¶æäº¤åˆ°VCS::
 
     from fabric.api import local
 
