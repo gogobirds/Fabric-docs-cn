@@ -273,7 +273,7 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 我们已经一起研究了设定主机列表的方法，然而，为了更清晰，快速回顾一下:
 
-* 单任务，通过命令行(``fab mytask:host=host1``)，可覆盖其他所有方法
+* 单任务，通过命令行(``fab mytask:host=host1``)，可覆盖其他所有方法.
 * 单任务，通过装饰特定主机列表(``@hosts('host1')``)，可覆盖``env`` 变量.
 * 在fabfile中全局指定主机列表(``env.hosts = ['host1']``)*可以* 覆盖通过命令行指定的列表
   但只会在你无意中（或希望）的情况下.
@@ -284,13 +284,14 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 .. _combining-host-lists:
 
-Combining host lists
---------------------
+结合主机列表
+------
 
 There is no "unionizing" of hosts between the various sources mentioned in
-:ref:`host-lists`. If ``env.hosts`` is set to ``['host1', 'host2', 'host3']``,
-and a per-function (e.g.  via `~fabric.decorators.hosts`) host list is set to
-just ``['host2', 'host3']``, that function will **not** execute on ``host1``,
+:ref:`host-lists`.
+如果``env.hosts``设置为``['host1', 'host2', 'host3']``, 单个函数(例如. 通过 `~fabric.decorators.hosts`)
+把主机列表设置为``['host2', 'host3']``
+just , that function will **not** execute on ``host1``,
 because the per-task decorator host list takes precedence.
 
 However, for each given source, if both roles **and** hosts are specified, they
