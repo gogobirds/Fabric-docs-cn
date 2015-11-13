@@ -219,8 +219,7 @@ Fabric会操作检查已经执行的程序的返回值, 并且会在退出不明
 (或 **environment variable**[环境变量], 通常缩写为**env var**)能让你将中断操作转换为警告,
  允许存在随机应变的故障处理.
 
-Let's flip this setting on for our ``test`` function, and then inspect the
-result of the `~fabric.operations.local` call ourselves::
+为了 ``test`` ，让我们继续看一下环境变量,之后自己动手检查一下 `~fabric.operations.local` 的结果::
 
     from __future__ import with_statement
     from fabric.api import local, settings, abort
@@ -234,30 +233,28 @@ result of the `~fabric.operations.local` call ourselves::
 
     [...]
 
-In adding this new feature we've introduced a number of new things:
+为了介绍这个新特性，我们已经介绍了一些新的东西:
 
-* The ``__future__`` import required to use ``with:`` in Python 2.5;
-* Fabric's `contrib.console <fabric.contrib.console>` submodule, containing the
-  `~fabric.contrib.console.confirm` function, used for simple yes/no prompts;
-* The `~fabric.context_managers.settings` context manager, used to apply
-  settings to a specific block of code;
-* Command-running operations like `~fabric.operations.local` can return objects
-  containing info about their result (such as ``.failed``, or
-  ``.return_code``);
-* And the `~fabric.utils.abort` function, used to manually abort execution.
+* 在Python 2.5里, ``__future__`` 的引入要求使用 ``with:`` ;
+* Fabric的 `contrib.console <fabric.contrib.console>` 子模块,包含了
+ `~fabric.contrib.console.confirm` 函数,用于简单的 yes/no 提示;
+*  `~fabric.context_managers.settings` 上下文管理器,用于提供一块指定代码的环境设置;
+* 比如 `~fabric.operations.local` 这种执行命令的操作可以返回包含结果(比如 ``.failed``,或
+  ``.return_code``)信息的对象
+;
+* 还有 `~fabric.utils.abort` 函数,用于手动中断执行操作.
 
-However, despite the additional complexity, it's still pretty easy to follow,
-and is now much more flexible.
+然而,尽管增添了复杂度,它仍然很容易被理解,
+目前也变得更加灵活.
 
 .. seealso:: :doc:`api/core/context_managers`, :ref:`env-vars`
 
 
-Making connections
-==================
+建立连接
+====
 
-Let's start wrapping up our fabfile by putting in the keystone: a ``deploy``
-task that is destined to run on one or more remote server(s), and ensures the
-code is up to date::
+让我们通过by putting in the keystone开始封装fabfile : 一个 ``deploy``
+任务的目的是运行在一个或多个远程服务器上,并且确保代码是最新的::
 
     def deploy():
         code_dir = '/srv/django/myproject'
@@ -265,23 +262,21 @@ code is up to date::
             run("git pull")
             run("touch app.wsgi")
 
-Here again, we introduce a handful of new concepts:
+在这里,我们又引入了一些新的概念:
 
-* Fabric is just Python -- so we can make liberal use of regular Python code
-  constructs such as variables and string interpolation;
-* `~fabric.context_managers.cd`, an easy way of prefixing commands with a ``cd
-  /to/some/directory`` call. This is similar to  `~fabric.context_managers.lcd`
-  which does the same locally.
-* `~fabric.operations.run`, which is similar to `~fabric.operations.local` but
-  runs **remotely** instead of locally.
+* Fabric就是Python -- 所以我们可以自由使用常用的Python代码设计,比如便令和字符串插入;
+* `~fabric.context_managers.cd`,通过 ``cd
+  /to/some/directory`` 调用的前缀命令的简单方式.这个和  `~fabric.context_managers.lcd`
+  相似,在本地也做了同样的事.
+* `~fabric.operations.run` 和 `~fabric.operations.local` 相似，但是**远程**运行而不是在本地.
 
-We also need to make sure we import the new functions at the top of our file::
+我们同样需要确认新函数是在文件顶部引入的::
 
     from __future__ import with_statement
     from fabric.api import local, settings, abort, run, cd
     from fabric.contrib.console import confirm
 
-With these changes in place, let's deploy::
+有了这些变动,我们开始部署::
 
     $ fab deploy
     No hosts found. Please specify (single) host string for connection: my_server
@@ -292,8 +287,8 @@ With these changes in place, let's deploy::
 
     Done.
 
-We never specified any connection info in our fabfile, so Fabric doesn't know
-on which host(s) the remote command should be executed. When this happens,
+我们从未在fabfile上指定任何连接信息,所以Fabric不知道应该在哪台主机执行远程命令.
+When this happens,
 Fabric prompts us at runtime. Connection definitions use SSH-like "host
 strings" (e.g. ``user@host:port``) and will use your local username as a
 default -- so in this example, we just had to specify the hostname,
