@@ -216,7 +216,8 @@ Fabric会操作检查已经执行的程序的返回值, 并且会在退出不明
 ----------------
 
 但是如果我们想更灵活性地给用户一个选择呢?  :ref:`warn_only` 称为的环境设置
-(或 **environment variable**[环境变量], 通常缩写为**env var**)能让你将中断操作转换为警告, 允许存在随机应变的故障处理.
+(或 **environment variable**[环境变量], 通常缩写为**env var**)能让你将中断操作转换为警告,
+ 允许存在随机应变的故障处理.
 
 Let's flip this setting on for our ``test`` function, and then inspect the
 result of the `~fabric.operations.local` call ourselves::
