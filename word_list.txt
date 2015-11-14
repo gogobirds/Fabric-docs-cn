@@ -15,3 +15,4 @@ straightforward 简单
 abort 使中止，中断
 complexity 复杂性
 concepts 概念
+iterates over 遍历
