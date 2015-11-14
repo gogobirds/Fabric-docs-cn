@@ -11,3 +11,7 @@ deployment 调度，
 personalize 使个性化
 pointing out 指出
 somehow 在某种程度
+straightforward 简单
+abort 使中止，中断
+complexity 复杂性
+concepts 概念
