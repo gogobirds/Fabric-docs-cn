@@ -288,19 +288,16 @@ Fabric会操作检查已经执行的程序的返回值, 并且会在退出不明
     Done.
 
 我们从未在fabfile上指定任何连接信息,所以Fabric不知道应该在哪台主机执行远程命令.
-When this happens,
-Fabric prompts us at runtime. Connection definitions use SSH-like "host
-strings" (e.g. ``user@host:port``) and will use your local username as a
-default -- so in this example, we just had to specify the hostname,
-``my_server``.
+当出现这种情况时,
+Fabric会在运行时提示我们.连接定义使用了类似SSH的"主机字符串" (e.g. ``user@host:port``)
+并且将使用你本地的用户名作为默认值 -- 所以在这个例子里,我们仅仅需要制定主机名, ``my_server``.
 
 
-Remote interactivity
---------------------
+远程交互
+----
 
-``git pull`` works fine if you've already got a checkout of your source code --
-but what if this is the first deploy? It'd be nice to handle that case too and
-do the initial ``git clone``::
+如果你已经检查过源代码,``git pull`` 将运作良好 --
+但如果是第一次部署又会怎样呢? 处理这种情况和做初始化 ``git clone``也同样令人乐意::
 
     def deploy():
         code_dir = '/srv/django/myproject'
@@ -311,12 +308,10 @@ do the initial ``git clone``::
             run("git pull")
             run("touch app.wsgi")
 
-As with our calls to `~fabric.operations.local` above, `~fabric.operations.run`
-also lets us construct clean Python-level logic based on executed shell
-commands. However, the interesting part here is the ``git clone`` call: since
-we're using Git's SSH method of accessing the repository on our Git server,
-this means our remote `~fabric.operations.run` call will need to authenticate
-itself.
+正如之前对 `~fabric.operations.local` 的调用, `~fabric.operations.run`
+同样让我们建立了基于可执行的shell命令的明确的Python-level逻辑. 然而,这有趣的部分就是 ``git clone`` 调用:
+既然我们使用了Git的SSH访问服务器上存储库的方法,这就意味着我们的远程 `~fabric.operations.run` 调用
+将需要验证自己本身.
 
 Older versions of Fabric (and similar high level SSH libraries) run remote
 programs in limbo, unable to be touched from the local end. This is
