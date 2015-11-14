@@ -372,18 +372,16 @@ Fabric 1.0 和之后的版本都打破了这个限制并且确保你可以一直
 保存了我们的设置改动. 最终的结果如上: ``deploy``
 任务将针对 ``my_server`` 服务器运行.
 
-This is also how you can tell Fabric to run on multiple remote systems at once:
-because ``env.hosts`` is a list, ``fab`` iterates over it, calling the given
-task once for each connection.
+这也是如何告诉Fabric在多个远程系统上运行的办法:
+因为 ``env.hosts`` 是一个列表, ``fab`` 会遍历这个列表,为每个连接调用一次给定的任务.
 
 .. seealso:: :doc:`usage/env`, :ref:`host-lists`
 
 
-Conclusion
-==========
+总结
+==
 
-Our completed fabfile is still pretty short, as such things go. Here it is in
-its entirety::
+我们已完成的fabfile仍然相当简短, 就像这样.这里就是它的完整代码::
 
     from __future__ import with_statement
     from fabric.api import *
@@ -417,16 +415,15 @@ its entirety::
             run("git pull")
             run("touch app.wsgi")
 
-This fabfile makes use of a large portion of Fabric's feature set:
+这个fabfile充分李永乐Fabric的大部分特性:
 
-* defining fabfile tasks and running them with :doc:`fab <usage/fab>`;
-* calling local shell commands with `~fabric.operations.local`;
-* modifying env vars with `~fabric.context_managers.settings`;
-* handling command failures, prompting the user, and manually aborting;
-* and defining host lists and `~fabric.operations.run`-ning remote commands.
+* 定义fabfile任务并且用:doc:`fab <usage/fab>`运行它们;
+* 使用`~fabric.operations.local`调用本地shell命令;
+* 使用`~fabric.context_managers.settings`改变环境变量;
+* 处理命令的失败,提示用户,并且手动中断;
+* 定义主机列表和 `~fabric.operations.run`的远程命令.
 
-However, there's still a lot more we haven't covered here! Please make sure you
-follow the various "see also" links, and check out the documentation table of
-contents on :doc:`the main index page <index>`.
+然而,仍然有很多我们没有介绍的东西!请确保你已经参见了各种"see also"链接,
+并且查看了:doc:`the main index page <index>`的文档内容.
 
-Thanks for reading!
+感谢您的阅读!
