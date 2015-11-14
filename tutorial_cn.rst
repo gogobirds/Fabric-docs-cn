@@ -313,14 +313,11 @@ Fabric会在运行时提示我们.连接定义使用了类似SSH的"主机字符
 既然我们使用了Git的SSH访问服务器上存储库的方法,这就意味着我们的远程 `~fabric.operations.run` 调用
 将需要验证自己本身.
 
-Older versions of Fabric (and similar high level SSH libraries) run remote
-programs in limbo, unable to be touched from the local end. This is
-problematic when you have a serious need to enter passwords or otherwise
-interact with the remote program.
+以前的Fabric版本里(和类似的高级别SSH库)在limbo里运行远程程序, 不能在本地终端运行.
+当你非常需要输入密码或者和其他远程程序的交互时,这就是问题所在.
 
-Fabric 1.0 and later breaks down this wall and ensures you can always talk to
-the other side. Let's see what happens when we run our updated ``deploy`` task
-on a new server with no Git checkout::
+Fabric 1.0 和之后的版本都打破了这个限制并且确保你可以一直和另一端交流.
+我们来看看，运行更新之后在新服务器上不经Git检查的 ``deploy`` 任务时会发生什么::
 
     $ fab deploy
     No hosts found. Please specify (single) host string for connection: my_server
@@ -344,25 +341,23 @@ on a new server with no Git checkout::
 
     Done.
 
-Notice the ``Password:`` prompt -- that was our remote ``git`` call on our Web server, asking for the password to the Git server. We were able to type it in and the clone continued normally.
+注意 ``Password:`` 提示 -- 这是在我们的Web服务器上的远程 ``git`` 调用,要求Git服务器的密码.
+我们可以输入并且复制也一样能正常继续.
 
 .. seealso:: :doc:`/usage/interactivity`
 
 
 .. _defining-connections:
 
-Defining connections beforehand
--------------------------------
+预先定义的连接
+-------
 
-Specifying connection info at runtime gets old real fast, so Fabric provides a
-handful of ways to do it in your fabfile or on the command line. We won't cover
-all of them here, but we will show you the most common one: setting the global
-host list, :ref:`env.hosts <hosts>`.
+在运行时指定连接信息真的会跑得很快,所以Fabric提供了在fabfile或者命令行里解决的一些办法.
+我们不会在这里提到全部的方法,但是我们将会展示给你最常用的一种: 设置全局主机列表, :ref:`env.hosts <hosts>`.
 
-:doc:`env <usage/env>` is a global dictionary-like object driving many of
-Fabric's settings, and can be written to with attributes as well (in fact,
-`~fabric.context_managers.settings`, seen above, is simply a wrapper for this.)
-Thus, we can modify it at module level near the top of our fabfile like so::
+:doc:`env <usage/env>` 是一个全局的字典型的对象,控制Fabric的很多设置,
+并且也可以写入属性(实际上,`~fabric.context_managers.settings`,如上所见,只是一个封装器.)
+从而我们可以在fabfile的模块级别的顶部上修改，比如这样::
 
     from __future__ import with_statement
     from fabric.api import *
@@ -373,9 +368,9 @@ Thus, we can modify it at module level near the top of our fabfile like so::
     def test():
         do_test_stuff()
 
-When ``fab`` loads up our fabfile, our modification of ``env`` will execute,
-storing our settings change. The end result is exactly as above: our ``deploy``
-task will run against the ``my_server`` server.
+当 ``fab`` 加载我们的fabfile时,我们对 ``env`` 的修改将会执行,
+保存了我们的设置改动. 最终的结果如上: ``deploy``
+任务将针对 ``my_server`` 服务器运行.
 
 This is also how you can tell Fabric to run on multiple remote systems at once:
 because ``env.hosts`` is a list, ``fab`` iterates over it, calling the given
