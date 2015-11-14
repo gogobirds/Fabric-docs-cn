@@ -7,7 +7,7 @@ correspond 对应
 in addition to 此外
 specify 指定
 nondestructively 无损
-deployment 调度，
+deployment 调度
 personalize 使个性化
 pointing out 指出
 somehow 在某种程度
@@ -15,3 +15,9 @@ straightforward 简单
 abort 使中止，中断
 complexity 复杂性
 concepts 概念
+duplication 重复的，复制
+deduplication 去掉重复，去重
+explicit/intentional 明确的/故意的
+accomplished 完成
+implement 实施，执行
+abovementioned 上述
