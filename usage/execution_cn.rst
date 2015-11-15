@@ -345,52 +345,42 @@ Fabric 默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 注意主机列表由逗号分割，就像在 ``hosts`` 中所说的那样.
 
-Combining exclusions
-~~~~~~~~~~~~~~~~~~~~
+结合去除
+~~~
 
-Host exclusion lists, like host lists themselves, are not merged together
-across the different "levels" they can be declared in. For example, a global
-``-x`` option will not affect a per-task host list set with a decorator or
-keyword argument, nor will per-task ``exclude_hosts`` keyword arguments affect
-a global ``-H`` list.
+排除的主机列表Host exclusion lists, like host lists themselves, are not merged together
+across the different "levels" they can be declared in. 例如，一个全局选项
+``-x`` 将不会影响一个通过装饰器或命令参数设定的任务主机列表，``exclude_hosts``参数
+也不会影响全局 ``-H`` 列表
 
-There is one minor exception to this rule, namely that CLI-level keyword
-arguments (``mytask:exclude_hosts=x,y``) **will** be taken into account when
-examining host lists set via ``@hosts`` or ``@roles``. Thus a task function
-decorated with ``@hosts('host1', 'host2')`` executed as ``fab
-taskname:exclude_hosts=host2`` will only run on ``host1``.
+这个规则有一个小的例外，即CLI级别关键字参数 (``mytask:exclude_hosts=x,y``)
+通过设置 ``@hosts`` 或 ``@roles`` **将**不会被顾及.
+因此一个被 ``@hosts('host1', 'host2')`` 装饰的任务函数以命令 ``fab taskname:exclude_hosts=host2``
+执行时仅仅运行在 ``host1``.
 
-As with the host list merging, this functionality is currently limited (partly
-to keep the implementation simple) and may be expanded in future releases.
+由于主机列表合并，这个功能在当前版本被合并 (保持执行的简单) 并可能在将来的版本进行扩展.
 
 
 .. _execute:
 
-Intelligently executing tasks with ``execute``
-==============================================
+使用 ``execute`` 智能执行任务
+===
 
 .. versionadded:: 1.3
 
-Most of the information here involves "top level" tasks executed via :doc:`fab
-<fab>`, such as the first example where we called ``fab taskA taskB``.
-However, it's often convenient to wrap up multi-task invocations like this into
-their own, "meta" tasks.
+涉及 "top level" 任务的执行查看 :doc:`fab <fab>` 的详细信息，就像第一个例子中我们调用
+``fab taskA taskB``. 当然，很容易的包装成多任务调用，"元"任务。
 
-Prior to Fabric 1.3, this had to be done by hand, as outlined in
-:doc:`/usage/library`. Fabric's design eschews magical behavior, so simply
-*calling* a task function does **not** take into account decorators such as
-`~fabric.decorators.roles`.
+在Fabric 1.3之前, 这是很难完成的, 在概述 :doc:`/usage/library`中. Fabric的设计避开了神奇的行为
+所有简单 **调用** 一个任务函数 **不会** 理会装饰器就像 `~fabric.decorators.roles` 中介绍.
 
-New in Fabric 1.3 is the `~fabric.tasks.execute` helper function, which takes a
-task object or name as its first argument. Using it is effectively the same as
-calling the given task from the command line: all the rules given above in
-:ref:`host-lists` apply. (The ``hosts`` and ``roles`` keyword arguments to
-`~fabric.tasks.execute` are analogous to :ref:`CLI per-task arguments
+在Fabric 1.3增加的是 `~fabric.tasks.execute` 辅助函数, 需要一个任务对象或任务名称作为第一个参数.
+和从命令行调用给定的任务的等效的: 所有给出的规则在 :ref:`host-lists`适用.
+(The ``hosts`` and ``roles`` keyword arguments to   `~fabric.tasks.execute` are analogous to :ref:`CLI per-task arguments
 <hosts-per-task-cli>`, including how they override all other host/role-setting
 methods.)
 
-As an example, here's a fabfile defining two stand-alone tasks for deploying a
-Web application::
+作为一个例子，这个fabfile定义了两个部署Web应用的独立的任务::
 
     from fabric.api import run, roles
 
@@ -409,24 +399,22 @@ Web application::
         # Code updates here.
         pass
 
-In Fabric <=1.2, the only way to ensure that ``migrate`` runs on the DB servers
-and that ``update`` runs on the Web servers (short of manual
-``env.host_string`` manipulation) was to call both as top level tasks::
+在Fabric <=1.2 时, 确保 ``migrate`` 运行在DB服务器和 ``update`` 运行在Web服务器 (短手册 ``env.host_string``)
+的唯一方法是同时调用两个顶级任务::
 
     $ fab migrate update
 
-Fabric >=1.3 can use `~fabric.tasks.execute` to set up a meta-task. Update the
-``import`` line like so::
+在Fabric >=1.3 可以使用 `~fabric.tasks.execute` 设置一个元任务. 更新 ``import`` 行如下::
 
     from fabric.api import run, roles, execute
 
-and append this to the bottom of the file::
+然后在文件底部增加下面的语句::
 
     def deploy():
         execute(migrate)
         execute(update)
 
-That's all there is to it; the `~fabric.decorators.roles` decorators will be honored as expected, resulting in the following execution sequence:
+事情都搞定了， `~fabric.decorators.roles` 装饰器将被如期执行, 执行顺序如下面的结果:
 
 * `migrate` on `db1`
 * `migrate` on `db2`
@@ -435,14 +423,11 @@ That's all there is to it; the `~fabric.decorators.roles` decorators will be hon
 * `update` on `web3`
 
 .. warning::
-    This technique works because tasks that themselves have no host list (this
-    includes the global host list settings) only run one time. If used inside a
-    "regular" task that is going to run on multiple hosts, calls to
-    `~fabric.tasks.execute` will also run multiple times, resulting in
-    multiplicative numbers of subtask calls -- be careful!
+    这种技术的工作原理是因为任务本身没有主机列表 (这包括全局主机列表的设定) 只运行一次.
+    如果使用"定时"任务将会运行在多个主机，调用 `~fabric.tasks.execute` 将会运行多次，
+    导致多个子任务的以倍数级的次数调用 -- 需要小心!
 
-    If you would like your `execute` calls to only be called once, you
-    may use the `~fabric.decorators.runs_once` decorator.
+    如果你想要 `execute` 仅仅执行一次, 可以使用 `~fabric.decorators.runs_once` 装饰器.
 
 .. seealso:: `~fabric.tasks.execute`, `~fabric.decorators.runs_once`
 

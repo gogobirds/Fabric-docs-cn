@@ -22,3 +22,7 @@ explicit/intentional 明确的/故意的
 accomplished 完成
 implement 实施，执行
 abovementioned 上述
+minor 次要
+take into account 顾及
+analogous 类似
+bottom 底部
