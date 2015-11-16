@@ -434,10 +434,10 @@ methods.)
 
 .. _leveraging-execute-return-value:
 
-Leveraging ``execute`` to access multi-host results
----------------------------------------------------
+利用 ``execute`` 访问多主机结果
+---
 
-In nontrivial Fabric runs, especially parallel ones, you may want to gather up
+当Fabric 正常运行especially parallel ones, you may want to gather up
 a bunch of per-host result values at the end - e.g. to present a summary table,
 perform calculations, etc.
 
