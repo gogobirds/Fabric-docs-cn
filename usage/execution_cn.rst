@@ -437,14 +437,12 @@ methods.)
 利用 ``execute`` 访问多主机结果
 ---
 
-当Fabric 正常运行especially parallel ones, you may want to gather up
-a bunch of per-host result values at the end - e.g. to present a summary table,
-perform calculations, etc.
+当Fabric 正常运行，特别是并发，你可能需要得到每个主机的最后的结果值 - 比如一个汇总表，
+执行计算等。
 
-It's not possible to do this in Fabric's default "naive" mode (one where you
-rely on Fabric looping over host lists on your behalf), but with `.execute`
-it's pretty easy. Simply switch from calling the actual work-bearing task, to
-calling a "meta" task which takes control of execution with `.execute`::
+在Fabric中的默认模式（即通过Fabric循环遍历你的主机列表）是不可以做到的，但是使用
+`.execute` 是容易的。只需要从实际调用的任务中切换到一个"元"任务，然后用 `.execute`
+执行::
 
     from fabric.api import task, execute, run, runs_once
 
@@ -458,23 +456,20 @@ calling a "meta" task which takes control of execution with `.execute`::
         results = execute(workhorse)
         print results
 
-In the above, ``workhorse`` can do any Fabric stuff at all -- it's literally
-your old "naive" task -- except that it needs to return something useful.
+在上述的 ``workhorse`` 可以做Fabirc的所有事 -- 它和"原生"任务表面上是一样的
+-- 除了它需要返回一些东西.
 
-``go`` is your new entry point (to be invoked as ``fab go``, or whatnot) and
-its job is to take the ``results`` dictionary from the `.execute` call and do
-whatever you need with it. Check the API docs for details on the structure of
-that return value.
-
+``go`` 是一个新的入口点 (通过 ``fab go`` 来调用，或者诸如此类的东西) 通过 `.execute`
+调用并且通过 ``results`` 字典来接受返回值无论你是否需要. 查阅 API 文档查看关于返回值结构
+的更多细节.
 
 .. _dynamic-hosts:
 
-Using ``execute`` with dynamically-set host lists
--------------------------------------------------
+使用 ``execute`` 动态设定主机列表
+---
 
-A common intermediate-to-advanced use case for Fabric is to parameterize lookup
-of one's target host list at runtime (when use of :ref:`execution-roles` does not
-suffice). ``execute`` can make this extremely simple, like so::
+Fabirc一个常见的从中级到高级的用法是在运行时使用参数查询目标主机列表
+(使用 :ref:`execution-roles` 不足以完成). ``execute`` 能够非常简单的做到，如下::
 
     from fabric.api import run, execute, task
 
@@ -497,28 +492,23 @@ suffice). ``execute`` can make this extremely simple, like so::
         # done.
         execute(do_work, hosts=host_list)
 
-For example, if ``external_datastore`` was a simplistic "look up hosts by tag
-in a database" service, and you wanted to run a task on all hosts tagged as
-being related to your application stack, you might call the above like this::
+如例子, 如果 ``external_datastore`` 是一个简单的 "通过标签从数据库查询主机" 的功能.
+你想要运行一个任务在所有的主机被应用堆栈联系起来，你可以这样调用它::
 
     $ fab deploy:app
 
-But wait! A data migration has gone awry on the DB servers. Let's fix up our
-migration code in our source repo, and deploy just the DB boxes again::
+等一等! 一旦数据库服务器的数据发生迁移，可以通过源来修复我们的迁移代码，然后仅仅再次通过db部署::
 
     $ fab deploy:db
 
-This use case looks similar to Fabric's roles, but has much more potential, and
-is by no means limited to a single argument. Define the task however you wish,
-query your external data store in whatever way you need -- it's just Python.
+这种使用方法看起来类似于Fabric的roles，但是有更多可挖掘的，不意味这限制了单个参数.
+无论你希望如何定义任务，查询你的外部数据通过你想要的办法 -- 它就是Python.
 
-The alternate approach
-~~~~~~~~~~~~~~~~~~~~~~
+另一种办法
+~~~
 
-Similar to the above, but using ``fab``'s ability to call multiple tasks in
-succession instead of an explicit ``execute`` call, is to mutate
-:ref:`env.hosts <hosts>` in a host-list lookup task and then call ``do_work``
-in the same session::
+类似上述，但是使用 ``fab`` 能够调用多个任务而不是明确的 ``execute`` 调用，
+:ref:`env.hosts <hosts>` 在主机列表查找任务然后调用 ``do_work`` 在同一个会话中::
 
     from fabric.api import run, task
 
@@ -535,12 +525,11 @@ in the same session::
         # Update env.hosts instead of calling execute()
         env.hosts = external_datastore.query(lookup_param)
 
-Then invoke like so::
+接着如下调用::
 
     $ fab set_hosts:app do_work
 
-One benefit of this approach over the previous one is that you can replace
-``do_work`` with any other "workhorse" task::
+比起前一种的方法的好处是你可以用 ``do_work`` 来代替任何一个 "workhorse" 任务::
 
     $ fab set_hosts:db snapshot
     $ fab set_hosts:cassandra,cluster2 repair_ring
