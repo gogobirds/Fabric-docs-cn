@@ -1,6 +1,6 @@
-================
+=============
 环境字典, ``env``
-================
+=============
 Fabric一个简单却又完整的概念被认为是“环境” :
     一个python的字典子类,被用作是组合设置注册表和内部任务的共享数据空间.
 
@@ -8,7 +8,7 @@ Fabric一个简单却又完整的概念被认为是“环境” :
 ``env``关键字有时也被称为"env variables".
 
 环境配置
-=======
+====
 Fabric的大部分操作都是通过修改``env``变量来控制, 比如``env.hosts``(参见 :ref:`the tutorial <defining-connections>`).
 其他常进行修改的变量如下：
 
@@ -20,7 +20,7 @@ Fabric的大部分操作都是通过修改``env``变量来控制, 比如``env.ho
 更多其他环境变量的完整列表,参见本文档末尾.
 
 `~fabric.context_managers.settings` 上下文管理器
----------------------------------------------
+---
 
 很多时候,为便于给定的设置变动只针对一个代码块,暂时修改``env``变得很有用.
 Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意多个"键/值"对,
@@ -39,7 +39,7 @@ Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意�
 关于上下文管理器和其他类似的工具,请参见 :doc:`../api/core/context_managers` API文档.
 
 环境共享状态
-===========
+======
 
 已经提到过,``env`` 对象纯粹是个字典子类,所以你自己的fabfile代码也可以存储信息.
 有时在多个任务间保持状态但只运行一个操作,这就变得很有用了.
@@ -53,7 +53,7 @@ Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意�
     对于这一点, ``env``可能会成为保持全局状态的唯一简便、安全途径.
 
 其他考虑
-=======
+====
 
 在继承``dict``时,Fabric的 ``env`` 也已作修改,以便于它的值可以通过属性访问来读写,正如上文所属.
 换句话说,``env.host_string``和``env['host_string']``的作用相同.
@@ -72,7 +72,7 @@ Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意�
 .. _env-vars:
 
 环境变量的完整列表
-================
+=========
 
 以下是所有预定义（或者Fabric运行时自定义）的环境变量.
 它们中大多数被直接操作时,一般最好使用 ~fabric.context_managers`,
@@ -88,31 +88,27 @@ Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意�
 ``abort_exception``
 -------------------
 
-**Default:** ``None``
+**默认值:** ``None``
 
-Fabric normally handles aborting by printing an error message to stderr and
-calling ``sys.exit(1)``. This setting allows you to override that behavior
-(which is what happens when ``env.abort_exception`` is ``None``.)
+Fabric 处理中断时，通常将错误信息反馈给标准错误输出,并且调用 ``sys.exit(1)``.
+此设置允许对操作进行覆写(当 ``env.abort_exception`` 为 ``None``时).
 
-Give it a callable which takes a string (the error message that would have been
-printed) and returns an exception instance.  That exception object is then
-raised instead of ``SystemExit`` (which is what ``sys.exit`` does.)
+赋给一个可调用的对象,它可以接受一个字符串(反馈的错误信息)并返回一个异常实例.
+实例对象会被抛出,而不是通过( ``sys.exit`` 执行的) ``SystemExit`` .
 
-Much of the time you'll want to simply set this to an exception class, as those
-fit the above description perfectly (callable, take a string, return an
-exception instance.) E.g. ``env.abort_exception = MyExceptionClass``.
+很多时候你会想要简单地设置一个异常类, 它完美地符合以上描述 (可调用,接受字符串,返回异常实例).
+例如： ``env.abort_exception = MyExceptionClass``.
 
 .. _abort-on-prompts:
 
 ``abort_on_prompts``
 --------------------
 
-**Default:** ``False``
+**默认值:** ``False``
 
-When ``True``, Fabric will run in a non-interactive mode, calling
-`~fabric.utils.abort` anytime it would normally prompt the user for input (such
-as password prompts, "What host to connect to?" prompts, fabfile invocation of
-`~fabric.operations.prompt`, and so forth.) This allows users to ensure a Fabric
+当值为 ``True``, Fabric会以无交互模式运行,任何时候调用
+`~fabric.utils.abort` ,它都会提示用户进行输入 (比如:提示输入密码,询问连接到哪台主机, fabfile触发
+`~fabric.operations.prompt`, 诸如此类.) This allows users to ensure a Fabric
 session will always terminate cleanly instead of blocking on user input forever
 when unforeseen circumstances arise.
 
