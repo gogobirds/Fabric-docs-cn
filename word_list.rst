@@ -31,3 +31,8 @@ take into account 顾及
 analogous 类似
 bottom 底部
 interactive 无交互
+terminate 终止
+merge 合并
+explicitly 明确地
+serially 连续地
+typically 代表性地/典型地
