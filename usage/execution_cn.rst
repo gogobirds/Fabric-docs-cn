@@ -538,48 +538,36 @@ Fabirc一个常见的从中级到高级的用法是在运行时使用参数查�
 
 .. _failures:
 
-Failure handling
-================
+故障处理
+====
 
-Once the task list has been constructed, Fabric will start executing them as
-outlined in :ref:`execution-strategy`, until all tasks have been run on the
-entirety of their host lists. However, Fabric defaults to a "fail-fast"
-behavior pattern: if anything goes wrong, such as a remote program returning a
-nonzero return value or your fabfile's Python code encountering an exception,
-execution will halt immediately.
+一旦任务列表构建完成，Fabirc像概述 :ref:`execution-strategy` 中那样开始执行
+直到所有任务在全部的主机列表上运行完成. 然而，Fabirc默认使用一种 "快速失败" 的匹配行为
+一旦发生任何错误，比如一个远程程序返回一个非零的返回值或者fabfile的Python代码发生了一个异常，
+执行将会立即停止.
 
-This is typically the desired behavior, but there are many exceptions to the
-rule, so Fabric provides ``env.warn_only``, a Boolean setting. It defaults to
-``False``, meaning an error condition will result in the program aborting
-immediately. However, if ``env.warn_only`` is set to ``True`` at the time of
-failure -- with, say, the `~fabric.context_managers.settings` context
-manager -- Fabric will emit a warning message but continue executing.
-
+这通常是期望的行为，但也有很多的例外，所以Fabric提供 ``env.warn_only``，一个布尔值设定.
+默认为 ``False``，意味这一个错误条件的发生将导致程序立刻终止执行。但是，如果 ``env.warn_only``
+被设置为 ``True`` 也就是说在 `~fabric.context_managers.settings` 上下文管理器为 ``True``
+Fabirc 在失败时会发出警告信息但继续执行.
 
 .. _connections:
 
-Connections
-===========
+连接
+==
 
-``fab`` itself doesn't actually make any connections to remote hosts. Instead,
-it simply ensures that for each distinct run of a task on one of its hosts, the
-env var ``env.host_string`` is set to the right value. Users wanting to
-leverage Fabric as a library may do so manually to achieve similar effects
-(though as of Fabric 1.3, using `~fabric.tasks.execute` is preferred and more
-powerful.)
+``fab`` 命令自身并不能连接到远程主机，它只是确保每个任务在它的主机列表上执行，环境变量
+``env.host_string`` 设置为正确值. 如果用户想要利用Fabric作为一个库可手动操作来实现相同
+的效果 (即使在Fabirc 1.3以后，使用`~fabric.tasks.execute` 是更强大的选择.)
 
-``env.host_string`` is (as the name implies) the "current" host string, and is
-what Fabric uses to determine what connections to make (or re-use) when
-network-aware functions are run. Operations like `~fabric.operations.run` or
-`~fabric.operations.put` use ``env.host_string`` as a lookup key in a shared
-dictionary which maps host strings to SSH connection objects.
+``env.host_string`` 是 (顾名思义) 一个当前的主机，当网络相关函数运行时Fabric用来确定使用什么样去连接.
+像操作  `~fabric.operations.run` 或 `~fabric.operations.put` 使用 ``env.host_string`` 在一个
+映射主机到SSH连接对象的共享的字典中作为查找关键字.
 
 .. note::
 
-    The connections dictionary (currently located at
-    ``fabric.state.connections``) acts as a cache, opting to return previously
-    created connections if possible in order to save some overhead, and
-    creating new ones otherwise.
+    该连接字典(位于 ``fabric.state.connections``) 作为缓存，如果可能的话选择加入先前创建的连接以节省开销，
+    否则才创建新的连接.
 
 Lazy connections
 ----------------
