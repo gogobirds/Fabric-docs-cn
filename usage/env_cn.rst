@@ -405,8 +405,7 @@ n就像在 :ref:`env.host_string <host_string>`中使用的一样.
 **默认值:** ``False``
 以行为单位进行缓冲,而不是字符/字节,通常在并行模式下运行时.
 可以通过 :option:`--linewise`设置.该操作隐含于 :ref:`env.parallel <env-parallel>`
- -- 即使 ``linewise``设置为False,
-若 ``parallel``为True,linewise行为仍会存在.
+ -- 即使 ``linewise``设置为False,若 ``parallel``为True,linewise行为仍会存在.
 
 .. seealso:: :ref:`linewise-output`
 
@@ -418,10 +417,9 @@ n就像在 :ref:`env.host_string <host_string>`中使用的一样.
 ``local_user``
 --------------
 
-A read-only value containing the local system username. This is the same value
-as :ref:`user`'s initial value, but whereas :ref:`user` may be altered by CLI
-arguments, Python code or specific host strings, :ref:`local-user` will always
-contain the same value.
+一个包含本地系统用户名的只读值.与:ref:`user`的初始值为相同值,
+但是 :ref:`user`可以被CLI参数值、Python代码或指定主机串改动,
+:ref:`local-user`总是包含相同值.
 
 .. _no_agent:
 
@@ -430,8 +428,7 @@ contain the same value.
 
 **默认值:** ``False``
 
-If ``True``, will tell the SSH layer not to seek out running SSH agents when
-using key-based authentication.
+值为 ``True``, 则SSH层在使用基于秘钥的验证时,不会查找运行SSH代理.
 
 .. versionadded:: 0.9.1
 .. seealso:: :option:`--no_agent <-a>`
@@ -443,9 +440,8 @@ using key-based authentication.
 
 **默认值:** ``False``
 
-If ``True``, will tell the SSH layer not to load any private key files from
-one's ``$HOME/.ssh/`` folder. (Key files explicitly loaded via ``fab -i`` will
-still be used, of course.)
+值为``True``,SSH层不会从个人的 ``$HOME/.ssh/``文件加载任何私钥文件.
+ (当然,通过 ``fab -i``显示加载的秘钥文件仍能使用.)
 
 .. versionadded:: 0.9.1
 .. seealso:: :option:`-k`
@@ -457,7 +453,7 @@ still be used, of course.)
 
 **默认值:** ``False``
 
-When ``True``, forces all tasks to run in parallel. Implies :ref:`env.linewise
+值为``True``,会使所有任务以并行模式运行. 参见 :ref:`env.linewise
 <env-linewise>`.
 
 .. versionadded:: 1.3
@@ -470,8 +466,7 @@ When ``True``, forces all tasks to run in parallel. Implies :ref:`env.linewise
 
 **默认值:** ``None``
 
-The 默认值 password used by the SSH layer when connecting to remote hosts,
-**and/or** when answering `~fabric.operations.sudo` prompts.
+连接远程主机时,并/或回应 `~fabric.operations.sudo`提示时,SSH层使用的默认密码.
 
 .. seealso:: :option:`--initial-password-prompt <-I>`, :ref:`env.passwords <passwords>`, :ref:`password-management`
 
@@ -482,14 +477,13 @@ The 默认值 password used by the SSH layer when connecting to remote hosts,
 
 **默认值:** ``{}``
 
-This dictionary is largely for internal use, and is filled automatically as a
-per-host-string password cache. Keys are full :ref:`host strings
-<host-strings>` and values are passwords (strings).
+这个字典主要供内部使用,被自动填充每个主机串的密码缓存.
+键是完整的 :ref:`host strings
+<host-strings>` ,值为密码(字符串).
 
 .. warning::
-    If you modify or generate this dict manually, **you must use fully
-    qualified host strings** with user and port values. See the link above for
-    details on the host string API.
+    如果你修改或手动生成这个字典,**你必须使用完整合格的主机串**以及用户和端口值.
+    关于主机串API的更多信息,参见以下链接.
 
 .. seealso:: :ref:`password-management`
 
@@ -503,10 +497,9 @@ per-host-string password cache. Keys are full :ref:`host strings
 
 **默认值:** ``''``
 
-Used to set the ``$PATH`` shell environment variable when executing commands in
-`~fabric.operations.run`/`~fabric.operations.sudo`/`~fabric.operations.local`.
-It is recommended to use the `~fabric.context_managers.path` context manager
-for managing this value instead of setting it directly.
+在`~fabric.operations.run`/`~fabric.operations.sudo`/`~fabric.operations.local`执行命令时,
+用于设置 ``$PATH`` shell环境变量.
+管理此变量值需要用 `~fabric.context_managers.path`上下文管理器,而不是直接设置.
 
 .. versionadded:: 1.0
 
@@ -518,7 +511,7 @@ for managing this value instead of setting it directly.
 
 **默认值:** ``0``
 
-Sets the number of concurrent processes to use when executing tasks in parallel.
+并发模式下执行任务时,设置并发进程的使用序号.
 
 .. versionadded:: 1.3
 .. seealso:: :option:`--pool-size <-z>`, :doc:`parallel`
@@ -530,9 +523,8 @@ Sets the number of concurrent processes to use when executing tasks in parallel.
 
 **默认值:** ``{}``
 
-The ``prompts`` dictionary allows users to control interactive prompts. If a
-key in the dictionary is found in a command's standard output stream, Fabric
-will automatically answer with the corresponding dictionary value.
+ ``prompts``字典允许用户控制交互式提示.如果在一个命令的标准输出流中找到字典里的某个值,
+ Fabric会自动回复相应的字典值.
 
 .. versionadded:: 1.9
 
