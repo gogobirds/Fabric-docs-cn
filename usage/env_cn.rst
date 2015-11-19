@@ -376,11 +376,10 @@ n就像在 :ref:`env.host_string <host_string>`中使用的一样.
 
 **默认值:** ``None``
 
-A string, or file-like object, containing an SSH key; used during connection
-authentication.
+一个字符串或文件类对象,包括了SSH秘钥;连接验证时使用.
 
 .. note::
-    The most common method for using SSH keys is to set :ref:`key-filename`.
+    使用SSH秘钥最常用的方式即为设置变量 :ref:`key-filename`.
 
 .. versionadded:: 1.7
 
@@ -392,11 +391,11 @@ authentication.
 
 **默认值:** ``None``
 
-May be a string or list of strings, referencing file paths to SSH key files to
-try when connecting. Passed through directly to the SSH layer. May be
-set/appended to with :option:`-i`.
+字符串或字符串列表, 连接时,SSH秘钥文件尝试的引入文件路径. 直接通过SSH层.
+可以通过 :option:`-i`设置/添加.
 
-.. seealso:: `Paramiko's documentation for SSHClient.connect() <http://docs.paramiko.org/en/latest/api/client.html#paramiko.client.SSHClient.connect>`_
+.. seealso:: `Paramiko关于SSHClient.connect()的文档
+<http://docs.paramiko.org/en/latest/api/client.html#paramiko.client.SSHClient.connect>`_
 
 .. _env-linewise:
 
@@ -404,11 +403,10 @@ set/appended to with :option:`-i`.
 ------------
 
 **默认值:** ``False``
-
-Forces buffering by line instead of by character/byte, typically when running
-in parallel mode. May be activated via :option:`--linewise`. This option is
-implied by :ref:`env.parallel <env-parallel>` -- even if ``linewise`` is False,
-if ``parallel`` is True then linewise behavior will occur.
+以行为单位进行缓冲,而不是字符/字节,通常在并行模式下运行时.
+可以通过 :option:`--linewise`设置.该操作隐含于 :ref:`env.parallel <env-parallel>`
+ -- 即使 ``linewise``设置为False,
+若 ``parallel``为True,linewise行为仍会存在.
 
 .. seealso:: :ref:`linewise-output`
 

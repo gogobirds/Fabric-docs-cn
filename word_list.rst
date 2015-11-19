@@ -37,3 +37,4 @@ explicitly 明确地
 serially 连续地
 typically 代表性地/典型地
 pattern 样品/模式
+authentication 验证
