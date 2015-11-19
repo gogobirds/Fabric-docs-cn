@@ -286,10 +286,9 @@ host key is actually valid (e.g. cloud servers such as EC2.)
 
 **默认值:** ``fabfile.py``
 
-Filename pattern which ``fab`` searches for when loading fabfiles.
-To indicate a specific file, use the full path to the file. Obviously, it
-doesn't make sense to set this in a fabfile, but it may be specified in a
-``.fabricrc`` file or on the command line.
+加载fabfiles时, ``fab``查找的文件名0.
+为了指定一个特定的文件名,使用此文件的完整路径.显然, 在fabfile里这样设置并无意义,
+但是它可以在 ``.fabricrc``文件和命令行里进行设置.
 
 .. seealso:: :option:`--fabfile <-f>`, :doc:`fab`
 
@@ -301,10 +300,9 @@ doesn't make sense to set this in a fabfile, but it may be specified in a
 
 **默认值:** ``None``
 
-Enables SSH-driven gatewaying through the indicated host. The value should be a
-normal Fabric host string as used in e.g. :ref:`env.host_string <host_string>`.
-When this is set, newly created connections will be set to route their SSH
-traffic through the remote SSH daemon to the final destination.
+可以通过指定主机创建SSH驱动的网关.它的值应该是普通的Fabric主机串,
+n就像在 :ref:`env.host_string <host_string>`中使用的一样.
+设置时,新建的连接将通过远程SSH的守护进程连接到目的终点.
 
 .. versionadded:: 1.5
 
@@ -318,10 +316,8 @@ traffic through the remote SSH daemon to the final destination.
 
 **默认值:** ``None``
 
-Defines the current user/host/port which Fabric will connect to when executing
-`~fabric.operations.run`, `~fabric.operations.put` and so forth. This is set by
-``fab`` when iterating over a previously set host list, and may also be
-manually set when using Fabric as a library.
+定义执行 `~fabric.operations.run`/ `~fabric.operations.put` 等命令时,Fabric将要连接到的用户/主机/端口.
+由 ``fab``与以前设置的主机列表交互时设置,将Fabric当作库使用时也可能进行手动设置.
 
 .. seealso:: :doc:`execution`
 
@@ -329,11 +325,11 @@ manually set when using Fabric as a library.
 .. _forward-agent:
 
 ``forward_agent``
---------------------
+-----------------
 
 **默认值:** ``False``
 
-If ``True``, enables forwarding of your local SSH agent to the remote end.
+为 ``True``,则能使本地的SSH代理转发给远程终端.
 
 .. versionadded:: 1.4
 
@@ -346,8 +342,7 @@ If ``True``, enables forwarding of your local SSH agent to the remote end.
 
 **默认值:** ``None``
 
-Set to the hostname part of ``env.host_string`` by ``fab``. For informational
-purposes only.
+由``fab``为 ``env.host_string``的主机名块设置.仅供信息显示.
 
 .. _hosts:
 
@@ -356,7 +351,7 @@ purposes only.
 
 **默认值:** ``[]``
 
-The global host list used when composing per-task host lists.
+创建每个任务的主机列表时的全局主机列表.
 
 .. seealso:: :option:`--hosts <-H>`, :doc:`execution`
 
@@ -367,9 +362,8 @@ The global host list used when composing per-task host lists.
 
 **默认值:** ``0`` (i.e. no keepalive)
 
-An integer specifying an SSH keepalive interval to use; basically maps to the
-SSH config option ``ServerAliveInterval``. Useful if you find connections are
-timing out due to meddlesome network hardware or what have you.
+一个用于指定SSH维持时间的整数; 主要映射到SSH配置选项的 ``ServerAliveInterval``.
+当碍事的网络硬件或其他原因造成连接超时时,该变量将派上用场.
 
 .. seealso:: :option:`--keepalive`
 .. versionadded:: 1.1
