@@ -569,13 +569,11 @@ Fabirc 在失败时会发出警告信息但继续执行.
     该连接字典(位于 ``fabric.state.connections``) 作为缓存，如果可能的话选择加入先前创建的连接以节省开销，
     否则才创建新的连接.
 
-Lazy connections
-----------------
+慢连接
+---
 
-Because connections are driven by the individual operations, Fabric will not
-actually make connections until they're necessary. Take for example this task
-which does some local housekeeping prior to interacting with the remote
-server::
+因为连接是被各个业务所驱动的，Farbic也不会使用连接除非需要。一个例子，这个任务
+在与远程服务器交互之前进行了本地操作::
 
     from fabric.api import *
 
@@ -587,55 +585,41 @@ server::
         with cd('/var/www/myapp/'):
             run('tar xzf /tmp/assets.tgz')
 
-What happens, connection-wise, is as follows:
+发生了什么, 从连接的的角度看如下:
 
-#. The two `~fabric.operations.local` calls will run without making any network
-   connections whatsoever;
-#. `~fabric.operations.put` asks the connection cache for a connection to
-   ``host1``;
-#. The connection cache fails to find an existing connection for that host
-   string, and so creates a new SSH connection, returning it to
-   `~fabric.operations.put`;
-#. `~fabric.operations.put` uploads the file through that connection;
-#. Finally, the `~fabric.operations.run` call asks the cache for a connection
-   to that same host string, and is given the existing, cached connection for
-   its own use.
+#. 两个 `~fabric.operations.local` 调用运行不会做任何关于网络连接的事;
+#. `~fabric.operations.put` 从连接缓存请求一个连接到 ``host1``;
+#. 不能找到已存在的连接从主机，所以会创建一个新的SSH连接，返回给 `~fabric.operations.put`;
+#. `~fabric.operations.put` 通过这个连接上传文件;
+#. 最后, `~fabric.operations.run` 从连接缓存请求相同的主机，因为已经存在，直接使用缓存.
 
-Extrapolating from this, you can also see that tasks which don't use any
-network-borne operations will never actually initiate any connections (though
-they will still be run once for each host in their host list, if any.)
+从此可看出，你任何不使用网络连接的操作将不会真正启动连接(虽然他们会在主机列表上的
+每个主机运行一次, 如果有的话)
 
-Closing connections
--------------------
+关闭连接
+----
 
-Fabric's connection cache never closes connections itself -- it leaves this up
-to whatever is using it. The :doc:`fab <fab>` tool does this bookkeeping for
-you: it iterates over all open connections and closes them just before it exits
-(regardless of whether the tasks failed or not.)
+Fabric不会自己关闭连接缓存 -- 它将一直存在无论是否使用.
+:doc:`fab <fab>` 工具为你做了记录: 它遍历所有打开的连接在退出之前关闭
+(不管任务是否执行成功.)
 
-Library users will need to ensure they explicitly close all open connections
-before their program exits. This can be accomplished by calling
-`~fabric.network.disconnect_all` at the end of your script.
+库的使用者需要确保他们所有打开的连接明确关闭在程序退出之前. 可以通过在脚本最后调用
+`~fabric.network.disconnect_all` 来完成.
 
 .. note::
-    `~fabric.network.disconnect_all` may be moved to a more public location in
-    the future; we're still working on making the library aspects of Fabric
-    more solidified and organized.
+    `~fabric.network.disconnect_all` 在未来版本可能被移动到更公开的定位;我们仍然在
+    努力使Fabirc的库更加固定和有组织.d.
 
-Multiple connection attempts and skipping bad hosts
----------------------------------------------------
+多次连接重试和跳过失败主机
+-------------
 
-As of Fabric 1.4, multiple attempts may be made to connect to remote servers
-before aborting with an error: Fabric will try connecting
-:ref:`env.connection_attempts <connection-attempts>` times before giving up,
-with a timeout of :ref:`env.timeout <timeout>` seconds each time. (These
-currently default to 1 try and 10 seconds, to match previous behavior, but they
-may be safely changed to whatever you need.)
+在Fabric 1.4，多次尝试连接可能在错误终止前连接到远程服务器: Fabric尝试连接
+:ref:`env.connection_attempts <connection-attempts>` 次才会放弃,
+每次会等待超时时间 :ref:`env.timeout <timeout>` 秒. (默认从1到10秒以配合以前的行为，
+但是他们可以安全的转换为你需要的状态.)
 
-Furthermore, even total failure to connect to a server is no longer an absolute
-hard stop: set :ref:`env.skip_bad_hosts <skip-bad-hosts>` to ``True`` and in
-most situations (typically initial connections) Fabric will simply warn and
-continue, instead of aborting.
+此外, 即使永远不能连接到服务器也不会被强制终止: 设置 :ref:`env.skip_bad_hosts <skip-bad-hosts>`
+为 ``True`` Fabric使大多数情况 (通常为初识连接) 只会警告并继续，而不是终止.
 
 .. versionadded:: 1.4
 
