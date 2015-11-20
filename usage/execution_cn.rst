@@ -625,8 +625,8 @@ Fabric不会自己关闭连接缓存 -- 它将一直存在无论是否使用.
 
 .. _password-management:
 
-Password management
-===================
+密码管理
+=====
 
 Fabric maintains an in-memory, two-tier password cache to help remember your
 login and sudo passwords in certain situations; this helps avoid tedious
