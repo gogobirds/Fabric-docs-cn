@@ -535,8 +535,8 @@ n就像在 :ref:`env.host_string <host_string>`中使用的一样.
 
 **默认值:** ``None``
 
-Set to the port part of ``env.host_string`` by ``fab`` when iterating over a
-host list. May also be used to specify a 默认值 port.
+遍历主机列表时,由 ``fab`` 设置的 ``env.host_string``端口部分.
+可以用来指定一个默认端口.
 
 .. _real-fabfile:
 
@@ -545,8 +545,8 @@ host list. May also be used to specify a 默认值 port.
 
 **默认值:** ``None``
 
-Set by ``fab`` with the path to the fabfile it has loaded up, if it got that
-far. For informational purposes only.
+ ``fab``设置的带有已加载fabfile的路径,前提是它已获得该路径.
+仅供显示信息.
 
 .. seealso:: :doc:`fab`
 
@@ -558,15 +558,12 @@ far. For informational purposes only.
 
 **默认值:** ``None``
 
-Controls whether Ctrl-C triggers an interrupt remotely or is captured locally,
-as follows:
+控制Ctrl-C是触发远程中断还是本地捕获,如下:
 
-* ``None`` (the 默认值): only `~fabric.operations.open_shell` will exhibit
-  remote interrupt behavior, and
-  `~fabric.operations.run`/`~fabric.operations.sudo` will capture interrupts
-  locally.
-* ``False``: even `~fabric.operations.open_shell` captures locally.
-* ``True``: all functions will send the interrupt to the remote end.
+* ``None`` (默认值): 只有 `~fabric.operations.open_shell`会表现出远程中断行为,
+ `~fabric.operations.run`/`~fabric.operations.sudo`则会在本地捕获中断.
+* ``False``: `~fabric.operations.open_shell`本地捕获.
+* ``True``: 所有函数都将中断行为发送至远程终端.
 
 .. versionadded:: 1.6
 
@@ -578,7 +575,7 @@ as follows:
 
 **默认值:** ``$HOME/.fabricrc``
 
-Path used when loading Fabric's local settings file.
+加载Fabric本地设置文件的路径.
 
 .. seealso:: :option:`--config <-c>`, :doc:`fab`
 
@@ -589,10 +586,9 @@ Path used when loading Fabric's local settings file.
 
 **默认值:** ``False``
 
-If ``True``, the SSH layer will raise an exception when connecting to hosts not
-listed in the user's known-hosts file.
+值为 ``True``,那么连接到未列在用户已知主机文件中的主机时，SSH层将抛出异常.
 
-.. seealso:: :option:`--reject-unknown-hosts <-r>`, :doc:`ssh`
+.. seealso:: :操作:`--reject-unknown-hosts <-r>`, :文档:`ssh`
 
 .. _system-known-hosts:
 
@@ -601,8 +597,7 @@ listed in the user's known-hosts file.
 
 **默认值:** ``None``
 
-If set, should be the path to a :file:`known_hosts` file.  The SSH layer will
-read this file before reading the user's known-hosts file.
+如果已设置, 应该为 :file:`known_hosts` 文件的路径.读取用户的已知主机文件前,SSH层会先读取此文件.
 
 .. seealso:: :doc:`ssh`
 

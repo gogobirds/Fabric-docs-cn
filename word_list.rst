@@ -39,3 +39,4 @@ typically 代表性地/典型地
 pattern 样品/模式
 authentication 验证
 concurrent 并发的/同时
+trigger 引起/触发
