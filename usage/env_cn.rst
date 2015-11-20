@@ -608,7 +608,7 @@ n就像在 :ref:`env.host_string <host_string>`中使用的一样.
 
 **默认值:** ``{}``
 
-Dictionary defining role name to host list mappings.
+为主机列表映射定义的字典对象名.
 
 .. seealso:: :doc:`execution`
 
@@ -619,7 +619,7 @@ Dictionary defining role name to host list mappings.
 
 **默认值:** ``[]``
 
-The global role list used when composing per-task host lists.
+构建每个任务的主机列表时,使用的全局对象列表.
 
 .. seealso:: :option:`--roles <-R>`, :doc:`execution`
 
@@ -630,13 +630,11 @@ The global role list used when composing per-task host lists.
 
 **默认值:** ``/bin/bash -l -c``
 
-Value used as shell wrapper when executing commands with e.g.
-`~fabric.operations.run`. Must be able to exist in the form ``<env.shell>
-"<command goes here>"`` -- e.g. the 默认值 uses Bash's ``-c`` option which
-takes a command string as its value.
+Shell封装器在执行命令(例如: `~fabric.operations.run`)时使用的值.
+必须存在于表格 ``<env.shell>"<command goes here>"``中-- 例如: 默认值使用Bash的 ``-c``操作,必须使用命令串作为值.
 
 .. seealso:: :option:`--shell <-s>`,
-             :ref:`FAQ on bash as 默认值 shell <faq-bash>`, :doc:`execution`
+             :ref:`FAQ on bash as default shell <faq-bash>`, :doc:`execution`
 
 .. _skip-bad-hosts:
 

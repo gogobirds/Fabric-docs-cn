@@ -691,7 +691,7 @@ The global role list used when composing per-task host lists.
 
 Value used as shell wrapper when executing commands with e.g.
 `~fabric.operations.run`. Must be able to exist in the form ``<env.shell>
-"<command goes here>"`` -- e.g. the default uses Bash's ``-c`` option which
+"<command goes here>"`` -- e.g. the default uses Bash's  option which
 takes a command string as its value.
 
 .. seealso:: :option:`--shell <-s>`,
