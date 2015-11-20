@@ -626,99 +626,71 @@ Fabric不会自己关闭连接缓存 -- 它将一直存在无论是否使用.
 .. _password-management:
 
 密码管理
-=====
+====
 
-Fabric maintains an in-memory, two-tier password cache to help remember your
-login and sudo passwords in certain situations; this helps avoid tedious
-re-entry when multiple systems share the same password [#]_, or if a remote
-system's ``sudo`` configuration doesn't do its own caching.
+Fabric保持在内存中，两层密码能够帮助你记住登陆和sudo密码在某些情况下; 这有助于避免
+多次尝试当多个系统使用同一个密码 [#]_, 如果一个远程系统 ``sudo`` 配置不执行自己的缓存.
 
-The first layer is a simple default or fallback password cache,
-:ref:`env.password <password>` (which may also be set at the command line via
-:option:`--password <-p>` or :option:`--initial-password-prompt <-I>`). This
-env var stores a single password which (if non-empty) will be tried in the
-event that the host-specific cache (see below) has no entry for the current
-:ref:`host string <host_string>`.
+第一层是简单的默认或者回调密码缓存 :ref:`env.password <password>` (可通过命令行
+:option:`--password <-p>` or :option:`--initial-password-prompt <-I>` 设定).
+该环境变量储存一个简单的密码 (如果不为空) 将会尝试使用主机专用缓存 (即将说明) 在没有入口时.
 
-:ref:`env.passwords <passwords>` (plural!) serves as a per-user/per-host cache,
-storing the most recently entered password for every unique user/host/port
-combination (**note** that you must include **all three values** if modifying
-the structure by hand - see the above link for details). Due to this cache,
-connections to multiple different users and/or hosts in the same session will
-only require a single password entry for each. (Previous versions of Fabric
-used only the single, default password cache and thus required password
-re-entry every time the previously entered password became invalid.)
+:ref:`env.passwords <passwords>` (复数!) 提供一个用户/主机对的缓存
+储存最近输入的密码为每个不相同的用户/主机/端口组合 (**注意** 你必须包括 **三个值**
+如果手动修改结构 - 详情请参见上面的链接). 由于这个缓存, 连接到不同的用户和(或)主机用相同的
+会话将仅仅需要一个密码为每一个项. (先前版本的Fabirc只使用单一的，默认的密码缓存，因此
+先前的密码变为无效需要重新输入密码.)
 
-Depending on your configuration and the number of hosts your session will
-connect to, you may find setting either or both of these env vars to be useful.
-However, Fabric will automatically fill them in as necessary without any
-additional configuration.
+依赖与你的配置和你的会话需要连接的一些主机，你可能发现设定一些环境变量是有用的.
+然而，Fabric会在必要时自动填充他们在不需要任何配置.
 
-Specifically, each time a password prompt is presented to the user, the value
-entered is used to update both the single default password cache, and the cache
-value for the current value of ``env.host_string``.
+特别的，每次密码验证被提示给用户，输入的值用于更新单一默认的密码缓存和 ``env.host_string``
+当前值的缓存.
 
-.. [#] We highly recommend the use of SSH `key-based access
-    <http://en.wikipedia.org/wiki/Public_key>`_ instead of relying on
-    homogeneous password setups, as it's significantly more secure.
+.. [#] 我们多次提醒使用SSH密钥 `key-based access
+    <http://en.wikipedia.org/wiki/Public_key>`_ 而不是依赖同质密码设置，因为那样更安全.
 
 
 .. _ssh-config:
 
-Leveraging native SSH config files
-==================================
+利用原生 SSH 配置文件
+=============
 
-Command-line SSH clients (such as the one provided by `OpenSSH
-<http://openssh.org>`_) make use of a specific configuration format typically
-known as ``ssh_config``, and will read from a file in the platform-specific
-location ``$HOME/.ssh/config`` (or an arbitrary path given to
-:option:`--ssh-config-path`/:ref:`env.ssh_config_path <ssh-config-path>`.) This
-file allows specification of various SSH options such as default or per-host
-usernames, hostname aliases, and toggling other settings (such as whether to
-use :ref:`agent forwarding <forward-agent>`.)
+命令行SSH客户端 (如由 `OpenSSH <http://openssh.org>`_ 提供的) 使用一个特定的配置格式
+如典型的 ``ssh_config``, 根据平台特定的路径 ``$HOME/.ssh/config`` 下的一个文件读取
+(或者一个任意的路径通过 :option:`--ssh-config-path`/:ref:`env.ssh_config_path <ssh-config-path>`.)
+文件允许制定各个SSH选项如默认的或者某个主机的 用户名，主机名别名以及切换等其他设置
+(如是否使用 :ref:`agent forwarding <forward-agent>`.)
 
-Fabric's SSH implementation allows loading a subset of these options from one's
-actual SSH config file, should it exist. This behavior is not enabled by
-default (in order to be backwards compatible) but may be turned on by setting
-:ref:`env.use_ssh_config <use-ssh-config>` to ``True`` at the top of your
-fabfile.
+Fabric的 SSH 实现允许从一个实际的SSH配置文件加载这些选项的子集，它们应该存在. 这个行为
+不是默认开启的(为了向后兼容) 但可以通过在fabfile顶部设置 :ref:`env.use_ssh_config <use-ssh-config>`
+为 ``True`` 开启.
 
-If enabled, the following SSH config directives will be loaded and honored by Fabric:
+一旦开启，下面的SSH配置指令将被Fabric加载和想回呗If enabled, the following SSH config directives will be loaded and honored by Fabric:
 
-* ``User`` and ``Port`` will be used to fill in the appropriate connection
-  parameters when not otherwise specified, in the following fashion:
+* ``User`` and ``Port`` 将被用于填写相应的连接参数在没有其他规定时，以下面的方式:
 
-  * Globally specified ``User``/``Port`` will be used in place of the current
-    defaults (local username and 22, respectively) if the appropriate env vars
-    are not set.
-  * However, if :ref:`env.user <user>`/:ref:`env.port <port>` *are* set, they
-    override global ``User``/``Port`` values.
-  * User/port values in the host string itself (e.g. ``hostname:222``) will
-    override everything, including any ``ssh_config`` values.
-* ``HostName`` can be used to replace the given hostname, just like with
-  regular ``ssh``. So a ``Host foo`` entry specifying ``HostName example.com``
-  will allow you to give Fabric the hostname ``'foo'`` and have that expanded
-  into ``'example.com'`` at connection time.
-* ``IdentityFile`` will extend (not replace) :ref:`env.key_filename
-  <key-filename>`.
-* ``ForwardAgent`` will augment :ref:`env.forward_agent <forward-agent>` in an
-  "OR" manner: if either is set to a positive value, agent forwarding will be
-  enabled.
-* ``ProxyCommand`` will trigger use of a proxy command for host connections,
-  just as with regular ``ssh``.
+  * 全局指定 ``User``/``Port`` 将被当前默认代替(分别是本地用户名和22端口)
+    如果适合的环境变量没有被设定.
+  * 然而, 如果 :ref:`env.user <user>`/:ref:`env.port <port>` *被* 设置, 他们将
+    覆盖全局的 ``User``/``Port`` 值.
+  * 在主机字符串里的用户/密码 (例如. ``hostname:222``) 将覆盖全部，包括任何
+    ``ssh_config`` 的值.
+* ``HostName`` 可以被给予的主机名所代替，仅需要像一般的``ssh``. 因此``Host foo`` 项指定为
+  ``HostName example.com`` 会允许你给予Fabric主机名 ``'foo'`` 并扩展为 ``'example.com'`` 在连接时.
+* ``IdentityFile`` 将扩展 (不是代替) :ref:`env.key_filename <key-filename>`.
+* ``ForwardAgent`` 将扩展 :ref:`env.forward_agent <forward-agent>` 用 "or" 的方式:
+  如果任意一个被设置为正值，将会开始代理转发.
+* ``ProxyCommand`` 会触发使用代理命令用于主机连接，正如常规的 ``ssh``.
 
   .. note::
-    If all you want to do is bounce SSH traffic off a gateway, you may find
-    :ref:`env.gateway <gateway>` to be a more efficient connection method
-    (which will also honor more Fabric-level settings) than the typical ``ssh
-    gatewayhost nc %h %p`` method of using ``ProxyCommand`` as a gateway.
+    如果你想要做的是反弹SSH作为网关，会发现 :ref:`env.gateway <gateway>` 比一般的
+    使用 ``ProxyCommand`` 作为网关``ssh gatewayhost nc %h %p`` 是一个更有效的
+    连接方法 (也会实现更多Fabric级别的设置)
 
   .. note::
-    If your SSH config file contains ``ProxyCommand`` directives *and* you have
-    set :ref:`env.gateway <gateway>` to a non-``None`` value, ``env.gateway``
-    will take precedence and the ``ProxyCommand`` will be ignored.
+    如果你的SSH配置文件包含 ``ProxyCommand`` 指令*并且* 设置了 :ref:`env.gateway <gateway>`
+    为一个 ``None`` 值, ``env.gateway`` 会被优先考虑，``ProxyCommand`` 将被忽略.
 
-    If one has a pre-created SSH config file, rationale states it will be
-    easier for you to modify ``env.gateway`` (e.g. via
-    `~fabric.context_managers.settings`) than to work around your conf file's
-    contents entirely.
+    如果一个人拥有预设的SSH配置文件，原理上能够方便的修改 ``env.gateway`` (如通过
+    `~fabric.context_managers.settings`) 而不是通过是配置文件相同.

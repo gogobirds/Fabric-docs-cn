@@ -42,3 +42,7 @@ concurrent 并发的/同时
 trigger 引起/触发
 actual 现行的/目前的/实际的
 fallback 撤退/后退/可依靠的东西
+maintains 保持/维护
+compatible 兼容
+respectively 分别/个别
+appropriate 适当的
