@@ -40,3 +40,5 @@ pattern 样品/模式
 authentication 验证
 concurrent 并发的/同时
 trigger 引起/触发
+actual 现行的/目前的/实际的
+fallback 撤退/后退/可依靠的东西

@@ -643,7 +643,7 @@ Shell封装器在执行命令(例如: `~fabric.operations.run`)时使用的值.
 
 **默认值:** ``False``
 
-If ``True``, causes ``fab`` (or non-``fab`` use of `~fabric.tasks.execute`) to skip over hosts it can't connect to.
+值为 ``True``时,触发 ``fab`` (或 `~fabric.tasks.execute`的 non-``fab``用法)以跳过无法连接的主机.
 
 .. versionadded:: 1.4
 .. seealso::
@@ -657,8 +657,7 @@ If ``True``, causes ``fab`` (or non-``fab`` use of `~fabric.tasks.execute`) to s
 
 **默认值:** ``False``
 
-If ``True``, causes ``fab`` (or non-``fab`` use of `~fabric.tasks.execute`)
-to skip over tasks not found, without aborting.
+值为 ``True``时, 触发 ``fab`` (或 `~fabric.tasks.execute`的 non-``fab``用法)无需中断就跳过找不到的主机.
 
 .. seealso::
     :option:`--skip-unknown-tasks`
@@ -671,7 +670,7 @@ to skip over tasks not found, without aborting.
 
 **默认值:** ``$HOME/.ssh/config``
 
-Allows specification of an alternate SSH configuration file path.
+允许指定另一个SSH配置文件路径.
 
 .. versionadded:: 1.4
 .. seealso:: :option:`--ssh-config-path`, :ref:`ssh-config`
@@ -681,9 +680,9 @@ Allows specification of an alternate SSH configuration file path.
 
 **默认值:** ``[0]``
 
-Return codes in this list are used to determine whether calls to
+返回这个列表中决定调用
 `~fabric.operations.run`/`~fabric.operations.sudo`/`~fabric.operations.sudo`
-are considered successful.
+是否为成功的代码.
 
 .. versionadded:: 1.6
 
@@ -694,14 +693,13 @@ are considered successful.
 
 **默认值:** ``"sudo -S -p '%(sudo_prompt)s' " % env``
 
-The actual ``sudo`` command prefixed onto `~fabric.operations.sudo` calls'
-command strings. Users who do not have ``sudo`` on their 默认值 remote
-``$PATH``, or who need to make other changes (such as removing the ``-p`` when
-passwordless sudo is in effect) may find changing this useful.
+实际的 ``sudo``命令前缀到 `~fabric.operations.sudo`调用的命令串.
+没有 ``sudo``权限的用户前缀到他们的默认远程 ``$PATH``,
+需要做改动(比如:无需密码的sudo生效时,不用参数 ``-p`` )的用户也许会发现这个变量的改动很有用.
 
 .. seealso::
 
-    The `~fabric.operations.sudo` operation; :ref:`env.sudo_prompt
+    `~fabric.operations.sudo`操作; :ref:`env.sudo_prompt
     <sudo_prompt>`
 
 .. _sudo_prompt:
@@ -711,12 +709,11 @@ passwordless sudo is in effect) may find changing this useful.
 
 **默认值:** ``"sudo password:"``
 
-Passed to the ``sudo`` program on remote systems so that Fabric may correctly
-identify its password prompt.
+传递给远程系统的 ``sudo``程序,以便于Fabric可以正确地定义密码提示.
 
 .. seealso::
 
-    The `~fabric.operations.sudo` operation; :ref:`env.sudo_prefix
+    `~fabric.operations.sudo`操作; :ref:`env.sudo_prefix
     <sudo_prefix>`
 
 .. _sudo_user:
@@ -726,8 +723,8 @@ identify its password prompt.
 
 **默认值:** ``None``
 
-Used as a fallback value for `~fabric.operations.sudo`'s ``user`` argument if
-none is given. Useful in combination with `~fabric.context_managers.settings`.
+没赋值时,作为 `~fabric.operations.sudo`的 ``user``参数备用值使用.
+和 `~fabric.context_managers.settings`结合使用很有用.
 
 .. seealso:: `~fabric.operations.sudo`
 
@@ -738,8 +735,7 @@ none is given. Useful in combination with `~fabric.context_managers.settings`.
 
 **默认值:** ``[]``
 
-Set by ``fab`` to the full tasks list to be executed for the currently
-executing command. For informational purposes only.
+由 ``fab``为当前执行命令的全部待执行任务列表设置.仅供信息显示.
 
 .. seealso:: :doc:`execution`
 
@@ -750,7 +746,7 @@ executing command. For informational purposes only.
 
 **默认值:** ``10``
 
-Network connection timeout, in seconds.
+网络连接超时时间,以秒为单位.
 
 .. versionadded:: 1.4
 .. seealso:: :option:`--timeout`, :ref:`connection-attempts`
@@ -760,9 +756,8 @@ Network connection timeout, in seconds.
 
 **默认值:** ``True``
 
-Global setting which acts like the ``shell`` argument to
-`~fabric.operations.run`/`~fabric.operations.sudo`: if it is set to ``False``,
-operations will not wrap executed commands in ``env.shell``.
+为`~fabric.operations.run`/`~fabric.operations.sudo`设置的类似于 ``shell``参数的全局变量:
+若设置为 ``False``,操作不会包装 ``env.shell``里的执行命令.
 
 
 .. _use-ssh-config:
@@ -772,7 +767,7 @@ operations will not wrap executed commands in ``env.shell``.
 
 **默认值:** ``False``
 
-Set to ``True`` to cause Fabric to load your local SSH config file.
+设置为 ``True``以触发Fabric加载本地的SSH配置文件.
 
 .. versionadded:: 1.4
 .. seealso:: :ref:`ssh-config`
@@ -783,15 +778,12 @@ Set to ``True`` to cause Fabric to load your local SSH config file.
 ``user``
 --------
 
-**默认值:** User's local username
+**默认值:** 用户的本地用户名
 
-The username used by the SSH layer when connecting to remote hosts. May be set
-globally, and will be used when not otherwise explicitly set in host strings.
-However, when explicitly given in such a manner, this variable will be
-temporarily overwritten with the current value -- i.e. it will always display
-the user currently being connected as.
+SSH层连接到远程主机时使用的用户名.可以设置为全局,不显示地设置在主机串里时将被使用.
+然而,以这样的方式显示给出时,该变量会暂时被当前值覆写 --即:它总是显示当前被连接的用户.
 
-To illustrate this, a fabfile::
+举例说明,一个fabfile::
 
     from fabric.api import env, run
 
@@ -802,7 +794,7 @@ To illustrate this, a fabfile::
         with hide('running'):
             run('echo "%(user)s"' % env)
 
-and its use::
+它的用法::
 
     $ fab print_user
 
@@ -815,26 +807,22 @@ and its use::
     Disconnecting from host2... done.
     Disconnecting from host3... done.
 
-As you can see, during execution on ``host2``, ``env.user`` was set to
-``"explicit_user"``, but was restored to its previous value
-(``"implicit_user"``) afterwards.
+正如所见, 在 ``host2``, ``env.user``上执行时,被设置为``"explicit_user"``,
+但之后又被还原到以前的值(``"implicit_user"``).
 
 .. note::
 
-    ``env.user`` is currently somewhat confusing (it's used for configuration
-    **and** informational purposes) so expect this to change in the future --
-    the informational aspect will likely be broken out into a separate env
-    variable.
+    ``env.user``目前有些混乱(用于配置**and**信息显示),希望在以后版本里能有改进 --
+    信息显示方面很有可能被分开为一个独立的环境变量.
 
 .. seealso:: :doc:`execution`, :option:`--user <-u>`
 
 ``version``
 -----------
 
-**默认值:** current Fabric version string
+**默认值:** 当前Fabric版本的字符串
 
-Mostly for informational purposes. Modification is not recommended, but
-probably won't break anything either.
+主要用于信息显示.不建议修改,但是应该不会有其他任何影响.
 
 .. seealso:: :option:`--version <-V>`
 
@@ -845,8 +833,7 @@ probably won't break anything either.
 
 **默认值:** ``False``
 
-Specifies whether or not to warn, instead of abort, when
-`~fabric.operations.run`/`~fabric.operations.sudo`/`~fabric.operations.local`
-encounter error conditions.
+当`~fabric.operations.run`/`~fabric.operations.sudo`/`~fabric.operations.local`
+遇到错误时,指定是否警告,而非中断.
 
-.. seealso:: :option:`--warn-only <-w>`, :doc:`execution`
+.. seealso:: :操作:`--warn-only <-w>`, :doc:`execution`
