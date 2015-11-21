@@ -46,3 +46,7 @@ maintains 保持/维护
 compatible 兼容
 respectively 分别/个别
 appropriate 适当的
+oriented 导向
+encapsulation 封装
+a couple of 几个
+in this case 在这种情况下
