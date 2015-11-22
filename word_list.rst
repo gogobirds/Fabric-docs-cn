@@ -51,3 +51,4 @@ encapsulation 封装
 a couple of 几个
 in this case 在这种情况下
 in a manner 方式
+be aware of 意识到

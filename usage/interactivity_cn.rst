@@ -4,47 +4,36 @@
 
 Fabric的主要操作, `~fabric.operations.run` 和 `~fabric.operations.sudo`,
 能够发送本地输入到远程，其方式几乎等同于 ``ssh`` 程序. 例如, 程序显示密码提示
-programs
-which display password prompts (e.g. a database dump utility, or changing a
-user's password) will behave just as if you were interacting with them
-directly.
+(如. 数据库被更替, 或者修改了用户密码) 的行为就想你直接与它们交互.
 
-However, as with ``ssh`` itself, Fabric's implementation of this feature is
-subject to a handful of limitations which are not always intuitive. This
-document discusses such issues in detail.
+然而, 与 ``ssh`` 对比, Fabric的实现功能是有一些局限而不总是直观的. 本文档将讨论这些细节.
 
 .. note::
-    Readers unfamiliar with the basics of Unix stdout and stderr pipes, and/or
-    terminal devices, may wish to visit the Wikipedia pages for `Unix pipelines
-    <http://en.wikipedia.org/wiki/Pipe_(Unix)>`_ and `Pseudo terminals
-    <http://en.wikipedia.org/wiki/Pseudo_terminal>`_ respectively.
+    不熟悉Unix标准输出, 错误输出管道和(或)终端设备的读者，可以分别访问维基页面`Unix pipelines
+    <http://en.wikipedia.org/wiki/Pipe_(Unix)>`_ 和 `Pseudo terminals
+    <http://en.wikipedia.org/wiki/Pseudo_terminal>`_ .
 
 
 .. _combine_streams:
 
-Combining stdout and stderr
-===========================
+结合stdout 和 stderr
+=============
 
-The first issue to be aware of is that of the stdout and stderr streams, and
-why they are separated or combined as needed.
+第一个要注意到的问题是为什么要区分 stdout 和 stderr 流, 或在需要是结合.
 
-Buffering
----------
+缓冲区
+---
 
-Fabric 0.9.x and earlier, and Python itself, buffer output on a line-by-line
-basis: text is not printed to the user until a newline character is found.
-This works fine in most situations but becomes problematic when one needs to
-deal with partial-line output such as prompts.
+在Fabric 0.9.x 之前, 和Python本身, 缓冲区在一行接一行的基础上输出:
+文本不会被打印给用户直到一个换行符被发现. 在大部分情况下工作得很好但是当人们需要
+处理多行输出如提示时会变成问题.
 
 .. note::
-    Line-buffered output can make programs appear to halt or freeze for no
-    reason, as prompts print out text without a newline, waiting for the user
-    to enter their input and press Return.
+    基于行缓冲的输出可以使程序出现暂停或无原因的暂停, 作为提示答应出来文本却不换行,
+    等待用户的输入并键入回车.
 
-Newer Fabric versions buffer both input and output on a character-by-character
-basis in order to make interaction with prompts possible. This has the
-convenient side effect of enabling interaction with complex programs utilizing
-the "curses" libraries or which otherwise redraw the screen (think ``top``).
+新版本的Fabric缓冲区的输入输出基于字符是为了使提示带有交互作用. 这样的交互作用的可以使
+复杂的程序能够更方便使用，利用 "curses" 库或以其他方式绘制屏幕 (考虑 ``top``).
 
 Crossing the streams
 --------------------
