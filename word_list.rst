@@ -52,3 +52,7 @@ a couple of 几个
 in this case 在这种情况下
 in a manner 方式
 be aware of 意识到
+simultaneously 同时地
+independently 独立地
+represented 代表/表示
+conversely 反过来
