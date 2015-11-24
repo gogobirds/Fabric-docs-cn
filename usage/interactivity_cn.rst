@@ -61,46 +61,34 @@ Fabric的主要操作, `~fabric.operations.run` 和 `~fabric.operations.sudo`,
 输出反馈
 ----
 
-典型的终端应用Typical terminal applications or bona fide text terminals (e.g. when using a
-Unix system without a running GUI) present programs with a terminal device
-called a tty or pty (for pseudo-terminal). These automatically echo all text
-typed into them back out to the user (via stdout), as interaction without
-seeing what you had just typed would be difficult. Terminal devices are also
-able to conditionally turn off echoing, allowing secure password prompts.
+典型的终端应用或者富文本终端 (例如使用没有运行GUI的Unix系统) 等储蓄与终端驱动叫做
+tty或pty (伪终端). 这些自动输出所有文本给用户 (通过stdout), 因为没有交互所以看到你
+刚刚的输入是困难的. 终端设别也可以有条件的的关闭响应，允许安全的密码提示.
 
-However, it's possible for programs to be run without a tty or pty present at
-all (consider cron jobs, for example) and in this situation, any stdin data
-being fed to the program won't be echoed. This is desirable for programs being
-run without any humans around, and it's also Fabric's old default mode of
-operation.
+然而，它可能是在没有一个tty或pty的下运行的程序(例如cron任务) 在这种情况下，任何stdin
+数据在输入后都不会被回显.这是在没有人的周围使所期望的的方案，这是Fabric旧版本默认的操作
+模式.
 
-Fabric's approach
------------------
+Fabric的方法
+---------
 
-Unfortunately, in the context of executing commands via Fabric, when no pty is
-present to echo a user's stdin, Fabric must echo it for them. This is
-sufficient for many applications, but it presents problems for password
-prompts, which become insecure.
+不幸的事在, 在通过Fabric执行命令的上下文中, 当没有pty的存在来呼应用户输入,
+Fabric必须的自己响应它们. 这足够应用于很多应用, 但是它对密码输入有反馈，变得不安全.
 
-In the interests of security and meeting the principle of least surprise
-(insofar as users are typically expecting things to behave as they would when
-run in a terminal emulator), Fabric 1.0 and greater force a pty by default.
-With a pty enabled, Fabric simply allows the remote end to handle echoing or
-hiding of stdin and does not echo anything itself.
+在满足安全利益的原则下 (因为它们运行在终端模拟器下，只要用户期望该行为发生), Fabric 1.0
+往后的版本默认在pty下运行. 随着pty的开启, Fabric 简单的允许远程处理输出和隐藏sdtin
+而不反馈任何东西.
 
 .. note::
-    In addition to allowing normal echo behavior, a pty also means programs
-    that behave differently when attached to a terminal device will then do so.
-    For example, programs that colorize output on terminals but not when run in
-    the background will print colored output. Be wary of this if you inspect
-    the return value of `~fabric.operations.run` or `~fabric.operations.sudo`!
+    除了允许正常的反馈行为，一个pty也意味着当程序连接到终端将会有不同的行为. 例如,
+    多颜色程序在终端输出但是运行在后态势不会打印有颜色的输出. 警惕这一点如果你期望
+    `~fabric.operations.run` 或者 `~fabric.operations.sudo` 的返回值.
 
-For situations requiring the pty behavior turned off, the :option:`--no-pty`
-command-line argument and :ref:`always-use-pty` env var may be used.
+对于需要将pty关闭的情况, 可以使用 :option:`--no-pty` 命令行选项和 :ref:`always-use-pty`
+环境变量.
 
-
-Combining the two
-=================
+结合两者
+====
 
 As a final note, keep in mind that use of pseudo-terminals effectively implies
 combining stdout and stderr -- in much the same way as the :ref:`combine_stderr
