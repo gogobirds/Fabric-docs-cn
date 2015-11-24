@@ -90,26 +90,19 @@ Fabric必须的自己响应它们. 这足够应用于很多应用, 但是它对�
 结合两者
 ====
 
-As a final note, keep in mind that use of pseudo-terminals effectively implies
-combining stdout and stderr -- in much the same way as the :ref:`combine_stderr
-<combine_streams>` setting does. This is because a terminal device naturally
-sends both stdout and stderr to the same place -- the user's display -- thus
-making it impossible to differentiate between them.
+最后一点，请记住使用伪终端可以有效地结合stdout和stderr -- 有一个大致相同的方法
+:ref:`combine_stderr <combine_streams>`. 这是因为终端设备能够自然地发送stdout和stderr
+到想同的地方 -- 用户的显示 -- 这样使得难以区分它们.
 
-However, at the Fabric level, the two groups of settings are distinct from one
-another and may be combined in various ways. The default is for both to be set
-to ``True``; the other combinations are as follows:
+然而, 在Fabric级别, 两组彼此不同的设置可以有多种方式组合. 默认值都设置为``True``;
+其他的组合如下:
 
-* ``run("cmd", pty=False, combine_stderr=True)``: will cause Fabric to echo all
-  stdin itself, including passwords, as well as potentially altering ``cmd``'s
-  behavior. Useful if ``cmd`` behaves undesirably when run under a pty and
-  you're not concerned about password prompts.
-* ``run("cmd", pty=False, combine_stderr=False)``: with both settings
-  ``False``, Fabric will echo stdin and won't issue a pty -- and this is highly
-  likely to result in undesired behavior for all but the simplest commands.
-  However, it is also the only way to access a distinct stderr stream, which is
-  occasionally useful.
-* ``run("cmd", pty=True, combine_stderr=False)``: valid, but won't really make
-  much of a difference, as ``pty=True`` will still result in merged streams.
-  May be useful for avoiding any edge case problems in ``combine_stderr`` (none
-  are presently known).
+* ``run("cmd", pty=False, combine_stderr=True)``: 将会使Fabric输出所有的stdin, 包括密码,
+  以及可能改变``cmd``的行为. 如果 ``cmd`` 的行为不希望在pty下运行时很有用，你不用担心密码提示.
+
+* ``run("cmd", pty=False, combine_stderr=False)``: 都设置为``False``, Fabric会输出
+  stdin但不会引发pty的问题 -- 这极有可能导致不期望的行为除了简单的命令.
+  然而, 这也是访问不同的stderr流的唯一途径，偶尔很有用.
+* ``run("cmd", pty=True, combine_stderr=False)``: 有效的，但是不会造成真正的区别,
+  如 ``pty=True`` 仍然会合并流.
+  可能在避免任何 ``combine_stderr`` 的问题是有用 (目前已知都没有).
