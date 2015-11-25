@@ -22,7 +22,7 @@ Fabric的大部分操作都是通过修改``env``变量来控制, 比如``env.ho
 `~fabric.context_managers.settings` 上下文管理器
 ---
 
-很多时候,为便于给定的设置变动只针对一个代码块,暂时修改``env``变得很有用.
+很多时候,为便于给定的设置, 变动只针对一个代码块, 暂时修改``env``变得很有用.
 Fabric提供`~fabric.context_managers.settings`上下文管理器,接受任意多个"键/值"对,
 并将其用于修改封装好的代码块中的``env``.
 
