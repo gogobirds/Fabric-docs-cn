@@ -1,27 +1,22 @@
 =============
 ``fab`` 选项和参数
 =============
-The most common method for utilizing Fabric is via its command-line tool,
-``fab``, which should have been placed on your shell's executable path when
-Fabric was installed. ``fab`` tries hard to be a good Unix citizen, using a
-standard style of command-line switches, help output, and so forth.
+
+通过命令行工具 ``fab`` 最通用的利用Fabfric的方式, 当Fabric安装后将会存在于你的
+shell执行环境. ``fab`` 尽量成为好的Unix citizen, 使用标准的命令行风格，帮助风格等等.
 
 
-Basic use
-=========
+基本使用
+====
 
-In its most simple form, ``fab`` may be called with no options at all, and
-with one or more arguments, which should be task names, e.g.::
+在最简单的形式, ``fab`` 可以没有任何选项, 跟上一个多个参数, 应该为任务名称, 例如::
 
     $ fab task1 task2
 
-As detailed in :doc:`../tutorial` and :doc:`execution`, this will run ``task1``
-followed by ``task2``, assuming that Fabric was able to find a fabfile nearby
-containing Python functions with those names.
+更多细节在 :doc:`../tutorial` 和 :doc:`execution`, 将会依次运行 ``task1``, ``task2``,
+假设Farbic能够在附近找到一个包括这些任务名称的Python函数的fabfile.
 
-However, it's possible to expand this simple usage into something more
-flexible, by using the provided options and/or passing arguments to individual
-tasks.
+然而, 扩展简单的使用到更灵活是可能的，通过使用提供的选项和(或)传递参数给个别任务.
 
 
 .. _arbitrary-commands:
