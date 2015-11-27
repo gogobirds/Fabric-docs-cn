@@ -21,59 +21,50 @@ shell执行环境. ``fab`` 尽量成为好的Unix citizen, 使用标准的命令
 
 .. _arbitrary-commands:
 
-Arbitrary remote shell commands
-===============================
+任意远程命令
+======
 
 .. versionadded:: 0.9.2
 
-Fabric leverages a lesser-known command line convention and may be called in
-the following manner::
+Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
     $ fab [options] -- [shell command]
 
-where everything after the ``--`` is turned into a temporary
-`~fabric.operations.run` call, and is not parsed for ``fab`` options. If you've
-defined a host list at the module level or on the command line, this usage will
-act like a one-line anonymous task.
+任何跟在 ``--`` 后面的都会变成 `~fabric.operations.run` 的临时调用, 不会解析为 ``fab``
+选项. 如果定义了一个主机列表在模块级别或者命令行, 这个用法相当于一个行内的匿名任务.
 
-For example, let's say you just wanted to get the kernel info for a bunch of
-systems; you could do this::
+例如, 假设想要知道一些系统的内核版本信息; 你只需要这样做::
 
     $ fab -H system1,system2,system3 -- uname -a
 
-which would be literally equivalent to the following fabfile::
+字面上相当于下面的fabfile::
 
     from fabric.api import run
 
     def anonymous():
         run("uname -a")
 
-as if it were executed thusly::
+由下面这样执行::
 
     $ fab -H system1,system2,system3 anonymous
 
-Most of the time you will want to just write out the task in your fabfile
-(anything you use once, you're likely to use again) but this feature provides a
-handy, fast way to quickly dash off an SSH-borne command while leveraging your
-fabfile's connection settings.
+大部分时间你想要在fabfile中写入任务 (任何使用过一次，可能会再次使用的)
+但是此功能提供了一个方便快捷的方式通过SSH快速传送命令同时充分利用fabfile的连接设置.
 
 
 .. _command-line-options:
 
-Command-line options
-====================
+命令行选项
+=====
 
-A quick overview of all possible command line options can be found via ``fab
---help``. If you're looking for details on a specific option, we go into detail
-below.
+通过  ``fab --help`` 可以快速浏览所有的命令行选项. 如果想找到特定选项的细节，我们
+进入细讲.
 
 .. note::
 
-    ``fab`` uses Python's `optparse`_ library, meaning that it honors typical
-    Linux or GNU style short and long options, as well as freely mixing options
-    and arguments. E.g. ``fab task1 -H hostname task2 -i path/to/keyfile`` is
-    just as valid as the more straightforward ``fab -H hostname -i
-    path/to/keyfile task1 task2``.
+    ``fab`` 使用Python的 `optparse`_ 库, 意味着它是典型的Linux或者GNU风格的长短选项,
+    也可以自由的混合选项和参数. 例如. ``fab task1 -H hostname task2 -i path/to/keyfile``
+    与 ``fab -H hostname -i path/to/keyfile task1 task2`` 等效但更直接.
 
 .. _optparse: http://docs.python.org/library/optparse.html
 
