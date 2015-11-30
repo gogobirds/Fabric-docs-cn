@@ -70,41 +70,36 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: -a, --no_agent
 
-    Sets :ref:`env.no_agent <no_agent>` to ``True``, forcing our SSH layer not
-    to talk to the SSH agent when trying to unlock private key files.
+    设置 :ref:`env.no_agent <no_agent>` 为 ``True``, 当尝试解开私钥文件时使我们的SSH
+    不要连接到SSH agetn.
 
     .. versionadded:: 0.9.1
 
 .. cmdoption:: -A, --forward-agent
 
-    Sets :ref:`env.forward_agent <forward-agent>` to ``True``, enabling agent
-    forwarding.
+    设置 :ref:`env.forward_agent <forward-agent>` 为 ``True``, 开启agent转发.
 
     .. versionadded:: 1.4
 
 .. cmdoption:: --abort-on-prompts
 
-    Sets :ref:`env.abort_on_prompts <abort-on-prompts>` to ``True``, forcing
-    Fabric to abort whenever it would prompt for input.
+    设置 :ref:`env.abort_on_prompts <abort-on-prompts>` 为 ``True``, 使Fabric在任何情况
+    下提示输入时停止.
 
     .. versionadded:: 1.1
 
 .. cmdoption:: -c RCFILE, --config=RCFILE
 
-    Sets :ref:`env.rcfile <rcfile>` to the given file path, which Fabric will
-    try to load on startup and use to update environment variables.
+    设置 :ref:`env.rcfile <rcfile>` 为文件路径, Fabric在启动是试着加载并使用它更新环境变量.
 
 .. cmdoption:: -d COMMAND, --display=COMMAND
 
-    Prints the entire docstring for the given task, if there is one. Does not
-    currently print out the task's function signature, so descriptive
-    docstrings are a good idea. (They're *always* a good idea, of course --
-    just moreso here.)
+    打印任务的入口文档，如果它存在. 目前不打印任务函数签名，所以描述文档是一个好办法.
+    (They're *always* a good idea, of course -- just moreso here.)
 
 .. cmdoption:: --connection-attempts=M, -n M
 
-    Set number of times to attempt connections. Sets
-    :ref:`env.connection_attempts <connection-attempts>`.
+    设置尝试连接的次数. :ref:`env.connection_attempts <connection-attempts>`.
 
     .. seealso::
         :ref:`env.connection_attempts <connection-attempts>`,
@@ -113,61 +108,55 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: -D, --disable-known-hosts
 
-    Sets :ref:`env.disable_known_hosts <disable-known-hosts>` to ``True``,
-    preventing Fabric from loading the user's SSH :file:`known_hosts` file.
+    设置 :ref:`env.disable_known_hosts <disable-known-hosts>` 为 ``True``,
+    阻止Fabric从用户的SSH :file:`known_hosts` 文件加载主机.
 
 .. cmdoption:: -f FABFILE, --fabfile=FABFILE
 
-    The fabfile name pattern to search for (defaults to ``fabfile.py``), or
-    alternately an explicit file path to load as the fabfile (e.g.
-    ``/path/to/my/fabfile.py``.)
+    查找的匹配的的fabfile名称 (默认为 ``fabfile.py``), 或者一个明确的文件路径来作为fabfile加载
+    (例如 ``/path/to/my/fabfile.py``.)
 
     .. seealso:: :doc:`fabfiles`
 
 .. cmdoption:: -F LIST_FORMAT, --list-format=LIST_FORMAT
 
-    Allows control over the output format of :option:`--list <-l>`. ``short`` is
-    equivalent to :option:`--shortlist`, ``normal`` is the same as simply
-    omitting this option entirely (i.e. the default), and ``nested`` prints out
-    a nested namespace tree.
+    可以控制输出格式 :option:`--list <-l>`. ``short`` 等同于 :option:`--shortlist`,
+    ``normal`` 也是一样的只是忽略了该选项 (默认), 而 ``nested`` 打印出一个嵌套的命名空间树.
 
     .. versionadded:: 1.1
     .. seealso:: :option:`--shortlist`, :option:`--list <-l>`
 
 .. cmdoption:: -g HOST, --gateway=HOST
 
-    Sets :ref:`env.gateway <gateway>` to ``HOST`` host string.
+    设置 :ref:`env.gateway <gateway>` 为 ``HOST`` 主机名.
 
     .. versionadded:: 1.5
 
 .. cmdoption:: -h, --help
 
-    Displays a standard help message, with all possible options and a brief
-    overview of what they do, then exits.
+    输出标准的帮助信息, 所有可能的选项和它们所做的简要概述, 然后退出.
 
 .. cmdoption:: --hide=LEVELS
 
-    A comma-separated list of :doc:`output levels <output_controls>` to hide by
+    一个逗号分隔的列表 :doc:`output levels <output_controls>` 来隐藏to hide by
     default.
 
 
 .. cmdoption:: -H HOSTS, --hosts=HOSTS
 
-    Sets :ref:`env.hosts <hosts>` to the given comma-delimited list of host
-    strings.
+    设置 :ref:`env.hosts <hosts>` 为一个逗号分隔的主机名列表.
 
 .. cmdoption:: -x HOSTS, --exclude-hosts=HOSTS
 
-    Sets :ref:`env.exclude_hosts <exclude-hosts>` to the given comma-delimited
-    list of host strings to then keep out of the final host list.
+    设置 :ref:`env.exclude_hosts <exclude-hosts>` 指定逗号分隔的主机名列表用来排除
+    主机.
 
     .. versionadded:: 1.1
 
 .. cmdoption:: -i KEY_FILENAME
 
-    When set to a file path, will load the given file as an SSH identity file
-    (usually a private key.) This option may be repeated multiple times. Sets
-    (or appends to) :ref:`env.key_filename <key-filename>`.
+    当设置为文件路径，将加载文件作为SSH验证文件 (通常是一个私钥.) 这个选项能多次重复. 设置
+    (或追加) :ref:`env.key_filename <key-filename>`.
 
 .. cmdoption:: -I, --initial-password-prompt
 

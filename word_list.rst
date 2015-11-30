@@ -57,3 +57,4 @@ independently 独立地
 represented 代表/表示
 conversely 反过来
 convention 惯例
+keep out 避开
