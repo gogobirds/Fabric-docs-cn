@@ -160,48 +160,42 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: -I, --initial-password-prompt
 
-    Forces a password prompt at the start of the session (after fabfile load
-    and option parsing, but before executing any tasks) in order to pre-fill
+    为了预先填写在会话开始前强制密码提示 (在fabfile加载喝选项解析之后，但是在执行任何任务前)
     :ref:`env.password <password>`.
 
-    This is useful for fire-and-forget runs (especially parallel sessions, in
-    which runtime input is not possible) when setting the password via
-    :option:`--password <-p>` or by setting :ref:`env.password <password>` in
-    your fabfile, is undesirable.
+    当通过 :option:`--password <-p>` 设置密码或在fabfile里设置 :ref:`env.password <password>`
+    时...是有用的 (特别是并行会话, 在运行时输入是不可能的).
 
-    .. note:: The value entered into this prompt will *overwrite* anything
-      supplied via :ref:`env.password <password>` at module level, or via
-      :option:`--password <-p>`.
+    .. note:: 通过在模块提供 :ref:`env.password <password>` 或 :option:`--password <-p>`提供的
+        值会覆盖任何东西.
 
     .. seealso:: :ref:`password-management`
 
 .. cmdoption:: -k
 
-    Sets :ref:`env.no_keys <no_keys>` to ``True``, forcing the SSH layer to not
-    look for SSH private key files in one's home directory.
+    设置 :ref:`env.no_keys <no_keys>` 为 ``True``, 强制SSH不在家目录寻找SSH私钥文件.
 
     .. versionadded:: 0.9.1
 
 .. cmdoption:: --keepalive=KEEPALIVE
 
-    Sets :ref:`env.keepalive <keepalive>` to the given (integer) value, specifying an SSH keepalive interval.
+    设置 :ref:`env.keepalive <keepalive>` 为某个整数值, 特别是SSH存活时间间隔.
 
     .. versionadded:: 1.1
 
 .. cmdoption:: --linewise
 
-    Forces output to be buffered line-by-line instead of byte-by-byte. Often useful or required for :ref:`parallel execution <linewise-output>`.
+    强制输出缓存为行而不是字节. 通常有用或需要 :ref:`parallel execution <linewise-output>`.
 
     .. versionadded:: 1.3
 
 .. cmdoption:: -l, --list
 
-    Imports a fabfile as normal, but then prints a list of all discovered tasks
-    and exits. Will also print the first line of each task's docstring, if it
-    has one, next to it (truncating if necessary.)
+    正常导入fabfile, 然后打印所有找到的任务并退出. 也会答应每个任务描述的第一行, 如果存在，则继续
+    (如果必要截断.)
 
     .. versionchanged:: 0.9.1
-        Added docstring to output.
+        增加文档字符串输出.
     .. seealso:: :option:`--shortlist`, :option:`--list-format <-F>`
 
 .. cmdoption:: -p PASSWORD, --password=PASSWORD
