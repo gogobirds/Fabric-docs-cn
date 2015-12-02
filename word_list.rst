@@ -58,3 +58,5 @@ represented 代表/表示
 conversely 反过来
 convention 惯例
 keep out 避开
+embellishment 点缀/修饰
+encounter 遭遇

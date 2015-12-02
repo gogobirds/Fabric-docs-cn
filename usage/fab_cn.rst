@@ -200,105 +200,94 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: -p PASSWORD, --password=PASSWORD
 
-    Sets :ref:`env.password <password>` to the given string; it will then be
-    used as the default password when making SSH connections or calling the
-    ``sudo`` program.
+    设置 :ref:`env.password <password>` 为一个字符串; 它将作为SSH连接或者调用
+    ``sudo`` 程序的默认密码.
 
     .. seealso:: :option:`--initial-password-prompt <-I>`
 
 .. cmdoption:: -P, --parallel
 
-    Sets :ref:`env.parallel <env-parallel>` to ``True``, causing
-    tasks to run in parallel.
+    设置 :ref:`env.parallel <env-parallel>` 为 ``True``, 将并行执行任务.
 
     .. versionadded:: 1.3
     .. seealso:: :doc:`/usage/parallel`
 
 .. cmdoption:: --no-pty
 
-    Sets :ref:`env.always_use_pty <always-use-pty>` to ``False``, causing all
-    `~fabric.operations.run`/`~fabric.operations.sudo` calls to behave as if
+    设置 :ref:`env.always_use_pty <always-use-pty>` 为 ``False``, 引起所有的
+    `~fabric.operations.run`/`~fabric.operations.sudo` 的调用行为作为
+    calls to behave as if
     one had specified ``pty=False``.
 
     .. versionadded:: 1.0
 
 .. cmdoption:: -r, --reject-unknown-hosts
 
-    Sets :ref:`env.reject_unknown_hosts <reject-unknown-hosts>` to ``True``,
-    causing Fabric to abort when connecting to hosts not found in the user's SSH
-    :file:`known_hosts` file.
+    设置 :ref:`env.reject_unknown_hosts <reject-unknown-hosts>` 为 ``True``,
+    使Fabric在用户连接到SSH :file:`known_hosts` 文件中没有的主机时终止.
 
 .. cmdoption:: -R ROLES, --roles=ROLES
 
-    Sets :ref:`env.roles <roles>` to the given comma-separated list of role
-    names.
+    设置 :ref:`env.roles <roles>` 为一个逗号分隔的角色名列表.
 
 .. cmdoption:: --set KEY=VALUE,...
 
-    Allows you to set default values for arbitrary Fabric env vars. Values set
-    this way have a low precedence -- they will not override more specific env
-    vars which are also specified on the command line. E.g.::
+    允许你设置默认的Fabric环境变量. 用这种方法设置的值有较低的优先级 -- 他们将不会覆盖
+    更多通过命令行指定的环境变量. 例如::
 
         fab --set password=foo --password=bar
 
-    will result in ``env.password = 'bar'``, not ``'foo'``
+    的结果是 ``env.password = 'bar'``, 而不是 ``'foo'``
 
-    Multiple ``KEY=VALUE`` pairs may be comma-separated, e.g. ``fab --set
-    var1=val1,var2=val2``.
+    多个 ``KEY=VALUE`` 通过逗号分隔, 例如. ``fab --set var1=val1,var2=val2``.
 
-    Other than basic string values, you may also set env vars to True by
-    omitting the ``=VALUE`` (e.g. ``fab --set KEY``), and you may set values to
-    the empty string (and thus a False-equivalent value) by keeping the equals
-    sign, but omitting ``VALUE`` (e.g. ``fab --set KEY=``.)
+    比起基本字符变量, 你也可以设置环境变量为True通过略去 ``=VALUE`` (例如. ``fab --set KEY``),
+    你也可以设置值为空字符串 (这样的到一个Faslse值) 通过保持等号，但略去 ``VALUE``
+    (例如. ``fab --set KEY=``.)
 
     .. versionadded:: 1.4
 
 .. cmdoption:: -s SHELL, --shell=SHELL
 
-    Sets :ref:`env.shell <shell>` to the given string, overriding the default
-    shell wrapper used to execute remote commands.
+    设置 :ref:`env.shell <shell>` 为一个字符串, 覆盖默认的shell去执行远程命令.
 
 .. cmdoption:: --shortlist
 
-    Similar to :option:`--list <-l>`, but without any embellishment, just task
-    names separated by newlines with no indentation or docstrings.
+    类似于 :option:`--list <-l>`, 但没有任何的修饰, 只是新行分隔的任务名而没有锁进
+    和文档字符.
 
     .. versionadded:: 0.9.2
     .. seealso:: :option:`--list <-l>`
 
 .. cmdoption:: --show=LEVELS
 
-    A comma-separated list of :doc:`output levels <output_controls>` to
-    be added to those that are shown by
-    default.
+    一个逗号分隔的列表 :doc:`output levels <output_controls>` 要添加的默认显示为.
 
     .. seealso:: `~fabric.operations.run`, `~fabric.operations.sudo`
 
 .. cmdoption:: --ssh-config-path
 
-    Sets :ref:`env.ssh_config_path <ssh-config-path>`.
+    设置 :ref:`env.ssh_config_path <ssh-config-path>`.
 
     .. versionadded:: 1.4
     .. seealso:: :ref:`ssh-config`
 
 .. cmdoption:: --skip-bad-hosts
 
-    Sets :ref:`env.skip_bad_hosts <skip-bad-hosts>`, causing Fabric to skip
-    unavailable hosts.
+    :ref:`env.skip_bad_hosts <skip-bad-hosts>`, 使Fabric跳过不可用的主机.
 
     .. versionadded:: 1.4
 
 .. cmdoption:: --skip-unknown-tasks
 
-    Sets :ref:`env.skip_unknown_tasks <skip-unknown-tasks>`, causing Fabric to skip
-    unknown tasks.
+    :ref:`env.skip_unknown_tasks <skip-unknown-tasks>`, 使Fabric跳过未知的任务.
 
     .. seealso::
         :ref:`env.skip_unknown_tasks <skip-unknown-tasks>`
 
 .. cmdoption:: --timeout=N, -t N
 
-    Set connection timeout in seconds. Sets :ref:`env.timeout <timeout>`.
+    设置连接超时秒数. Sets :ref:`env.timeout <timeout>`.
 
     .. seealso::
         :ref:`env.timeout <timeout>`,
@@ -307,8 +296,7 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: --command-timeout=N, -T N
 
-   Set remote command timeout in seconds. Sets
-   :ref:`env.command_timeout <command-timeout>`.
+   设置远程命令执行超时秒数. Sets :ref:`env.command_timeout <command-timeout>`.
 
    .. seealso::
 	:ref:`env.command_timeout <command-timeout>`,
@@ -317,22 +305,20 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. cmdoption:: -u USER, --user=USER
 
-    Sets :ref:`env.user <user>` to the given string; it will then be used as the
-    default username when making SSH connections.
+    设置 :ref:`env.user <user>` 为一个字符串; 他将使用其作为SSH连接的默认用户名.
 
 .. cmdoption:: -V, --version
 
-    Displays Fabric's version number, then exits.
+    显示Fabric的版本号, 然后退出.
 
 .. cmdoption:: -w, --warn-only
 
-    Sets :ref:`env.warn_only <warn_only>` to ``True``, causing Fabric to
-    continue execution even when commands encounter error conditions.
+    设置 :ref:`env.warn_only <warn_only>` 为 ``True``, 使Fabric在遭遇命令的错误时
+    继续执行.
 
 .. cmdoption:: -z, --pool-size
 
-    Sets :ref:`env.pool_size <pool-size>`, which specifies how many processes
-    to run concurrently during parallel execution.
+    :ref:`env.pool_size <pool-size>`, 指定并发执行时有多少个进程同时执行.
 
     .. versionadded:: 1.3
     .. seealso:: :doc:`/usage/parallel`
