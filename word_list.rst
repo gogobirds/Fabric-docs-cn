@@ -60,3 +60,4 @@ convention 惯例
 keep out 避开
 embellishment 点缀/修饰
 encounter 遭遇
+involves 涉及/牵扯/包括

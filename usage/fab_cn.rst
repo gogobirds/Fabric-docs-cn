@@ -326,67 +326,59 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 
 .. _task-arguments:
 
-Per-task arguments
-==================
+单任务参数
+=====
 
-The options given in :ref:`command-line-options` apply to the invocation of
-``fab`` as a whole; even if the order is mixed around, options still apply to
-all given tasks equally. Additionally, since tasks are just Python functions,
-it's often desirable to pass in arguments to them at runtime.
+在 :ref:`command-line-options` 中的选项适用于 ``fab`` 作为一个整体调用;
+即使顺序被打乱, 选项仍一样的给到所有任务. 此外, 由于任务都是Python函数,
+它们通常在运行时才传递参数.
 
-Answering both these needs is the concept of "per-task arguments", which is a
-special syntax you can tack onto the end of any task name:
+会带这些需要了解"单任务参数"的概念, 是一种特别的语法你可以附加任何到任务名的后面:
 
-* Use a colon (``:``) to separate the task name from its arguments;
-* Use commas (``,``) to separate arguments from one another (may be escaped
-  by using a backslash, i.e. ``\,``);
-* Use equals signs (``=``) for keyword arguments, or omit them for positional
-  arguments. May also be escaped with backslashes.
+* 使用一个冒号 (``:``) 来分隔参数中的任务名;
+* 使用逗号 (``,``) 来分隔另一个参数 (可以使用反斜线来转义, 例如. ``\,``);
+* 使用等号 (``=``) 获取关键字参数, 或者忽略位置参数. 同样使用反斜线转义.
 
-Additionally, since this process involves string parsing, all values will end
-up as Python strings, so plan accordingly. (We hope to improve upon this in
-future versions of Fabric, provided an intuitive syntax can be found.)
+此外, 由于这个过程涉及字符串解析, 所有的值都以Python字符串的结果为准,
+所以如此规划. (我们希望在未来版本的Fabric有所改进, 提供一个可以直观的
+语法可以被找到.)
 
-For example, a "create a new user" task might be defined like so (omitting most
-of the actual logic for brevity)::
+例如, 一个 "创建新用户" 的任务可以这样定义 (为了简便忽略了最实际的逻辑)::
 
     def new_user(username, admin='no', comment="No comment provided"):
         print("New User (%s): %s" % (username, comment))
         pass
 
-You can specify just the username::
+你可以这样指定username::
 
     $ fab new_user:myusername
 
-Or treat it as an explicit keyword argument::
+或者把它作为一个明确的关键字参数::
 
     $ fab new_user:username=myusername
 
-If both args are given, you can again give them as positional args::
+如果同时给了两个参数, 你可以作为位置参数再次给予::
 
     $ fab new_user:myusername,yes
 
-Or mix and match, just like in Python::
+或者混合匹配, 就像使用Python::
 
     $ fab new_user:myusername,admin=yes
 
-The ``print`` call above is useful for illustrating escaped commas, like
-so::
+``print`` 调用在说明转义逗号时很有用, 比如::
 
     $ fab new_user:myusername,admin=no,comment='Gary\, new developer (starts Monday)'
 
 .. note::
-    Quoting the backslash-escaped comma is required, as not doing so will cause
-    shell syntax errors. Quotes are also needed whenever an argument involves
-    other shell-related characters such as spaces.
+    给反斜线转义逗号加上引号是必需的, 因为不这样做会引起shell语法错误. 当一个参数
+    包括shell相关的字符入空格时也需要引号.
 
-All of the above are translated into the expected Python function calls. For
-example, the last call above would become::
+上面所有都可以翻译为预期的Python函数调用. 例如. 最后的调用可以变为::
 
     >>> new_user('myusername', admin='yes', comment='Gary, new developer (starts Monday)')
 
-Roles and hosts
----------------
+角色和主机
+-----
 
 As mentioned in :ref:`the section on task execution <hosts-per-task-cli>`,
 there are a handful of per-task keyword arguments (``host``, ``hosts``,
@@ -419,8 +411,8 @@ of ``['host1', 'host2']``.
 
 .. _fabricrc:
 
-Settings files
-==============
+配置文件
+====
 
 Fabric currently honors a simple user settings file, or ``fabricrc`` (think
 ``bashrc`` but for ``fab``) which should contain one or more key-value pairs,
