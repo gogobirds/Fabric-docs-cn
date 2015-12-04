@@ -380,57 +380,42 @@ Fabric利用鲜为人知的命令行惯例，可以用下列方式调用::
 角色和主机
 -----
 
-As mentioned in :ref:`the section on task execution <hosts-per-task-cli>`,
-there are a handful of per-task keyword arguments (``host``, ``hosts``,
-``role`` and ``roles``) which do not actually map to the task functions
-themselves, but are used for setting per-task host and/or role lists.
+正如在 :ref:`the section on task execution <hosts-per-task-cli>` 中提到的,
+有少数的单任务参数 (``host``, ``hosts``, ``role`` and ``roles``) 实际上不能映射到任务函数本身,
+但是可以用来设置每个任务的主机或角色列表.
 
-These special kwargs are **removed** from the args/kwargs sent to the task
-function itself; this is so that you don't run into TypeErrors if your task
-doesn't define the kwargs in question. (It also means that if you **do** define
-arguments with these names, you won't be able to specify them in this manner --
+可以发送到函数的参数中删除特定参数; 如此可以让你不运行出TypeError如果你的任务没有在问题中声明参数.
+(It also means that if you **do** define arguments with these names, you won't be able to specify them in this manner --
 a regrettable but necessary sacrifice.)
 
 .. note::
 
-    If both the plural and singular forms of these kwargs are given, the value
-    of the plural will win out and the singular will be discarded.
+    如果这些参数的单数和复数形式被同时给出, 该值的复数形式会胜出并且单数形式会被丢弃.
 
-When using the plural form of these arguments, one must use semicolons (``;``)
-since commas are already being used to separate arguments from one another.
-Furthermore, since your shell is likely to consider semicolons a special
-character, you'll want to quote the host list string to prevent shell
-interpretation, e.g.::
+当使用这些参数的复数形式, 必须使用分号 (``;``) 因为逗号已经被用来彼此分离.
+此外, 由于你的shell可能使用分号为一个特殊字符, 你可能需要引号将主机列表字符串引用以防止shell解释,
+例如::
 
     $ fab new_user:myusername,hosts="host1;host2"
 
-Again, since the ``hosts`` kwarg is removed from the argument list sent to the
-``new_user`` task function, the actual Python invocation would be
-``new_user('myusername')``, and the function would be executed on a host list
-of ``['host1', 'host2']``.
+这样, 只要``hosts`` 参数从参数列表中移除并发送给 ``new_user`` 任务函数, 实际的Python调用是这样的
+``new_user('myusername')``, 这个函数将会在主机列表 ``['host1', 'host2']`` 上执行.
 
 .. _fabricrc:
 
 配置文件
 ====
 
-Fabric currently honors a simple user settings file, or ``fabricrc`` (think
-``bashrc`` but for ``fab``) which should contain one or more key-value pairs,
-one per line. These lines will be subject to ``string.split('=')``, and thus
-can currently only be used to specify string settings. Any such key-value pairs
-will be used to update :doc:`env <env>` when ``fab`` runs, and is loaded prior
-to the loading of any fabfile.
+Fabric 目前有一个简单的用户设置文件,``fabricrc`` (类似 ``bashrc`` 但是为 ``fab`` 服务)
+能够每行包括一个或多个键值对. 行受限于 ``string.split('=')``, 因此目前只能用于指定字符串设置.
+任何这样的键值对将在 ``fab`` 更新 :doc:`env <env>`, 并在任何fabfile前加载.
 
-By default, Fabric looks for ``~/.fabricrc``, and this may be overridden by
-specifying the :option:`-c` flag to ``fab``.
+默认情况下, Fabric搜索 ``~/.fabricrc``, 可以通过选项 :option:`-c` 指定给 ``fab``.
 
-For example, if your typical SSH login username differs from your workstation
-username, and you don't want to modify ``env.user`` in a project's fabfile
-(possibly because you expect others to use it as well) you could write a
-``fabricrc`` file like so::
+例如, 如果你用SSH登录用户名与工作台用户名不同, 你也可能不想在以工程的fabfile里修改
+``env.user``, (或者因为你想使用其他更好的方式) 你可以像这样写入到 ``fabricrc`` 文件::
 
     user = ssh_user_name
 
-Then, when running ``fab``, your fabfile would load up with ``env.user`` set to
-``'ssh_user_name'``. Other users of that fabfile could do the same, allowing
-the fabfile itself to be cleanly agnostic regarding the default username.
+接着, 当运行 ``fab``, fabfile将加载 ``env.user`` 为 ``'ssh_user_name'``.
+其他用户使用fabfile也可以这样做, 让fabfile对于默认用户名是干净不可知的.
