@@ -17,29 +17,25 @@ Fabric的主要用法是通过fabfile和 :doc:`fab </usage/fab>` 工具, 在很�
 部分能够更快的阅读. (你真的应该给文档一个结尾，但不是绝对必要的.)
 
 作为这一部分的提醒, 关键点仅仅是 `~fabric.operations.run`, `~fabric.operations.sudo`
-其他的操作在and the other operations only look in one place when
-connecting: :ref:`env.host_string <host_string>`. 所有其他为了设定主机的机制
-All of the other mechanisms
-for setting hosts are interpreted by the ``fab`` tool when it runs, and don't
-matter when running as a library.
+其他的操作在连接 :ref:`env.host_string <host_string>` 时会被替代. 所有其他为了设定主机的机制
+都由 ``fab`` 工具来运行, 当作为一个库来运行也没有关系.
 
-That said, most use cases where you want to marry a given task ``X`` and a given list of hosts ``Y`` can, as of Fabric 1.3, be handled with the `~fabric.tasks.execute` function via ``execute(X, hosts=Y)``. Please see `~fabric.tasks.execute`'s documentation for details -- manual host string manipulation should be rarely necessary.
+也就是说, 最常见的用法是你想要给定一个 ``X`` 任务和一个 ``Y`` 主机列表, 在Fabric 1.3,
+可以通过 ``execute(X, hosts=Y)`` 执行 `~fabric.tasks.execute` 函数.
+请查看 `~fabric.tasks.execute` 相关文档的细节 -- 手动操作主机列表应该很少需要.
 
 关闭连接
 ====
 
-The other main thing that ``fab`` does for you is to disconnect from all hosts
-at the end of a session; otherwise, Python will sit around forever waiting for
-those network resources to be released.
+其他的关键部分,``fab`` 会在一个会话结束时为你断开所有主机的连接; 否则, Python会在那里
+永远等待这些网络资源被释放.
 
-Fabric 0.9.4 and newer have a function you can use to do this easily:
-`~fabric.network.disconnect_all`. Simply make sure your code calls this when it
-terminates (typically in the ``finally`` clause of an outer ``try: finally``
-statement -- lest errors in your code prevent disconnections from happening!)
-and things ought to work pretty well.
+Fabric 0.9.4 以及更新的版本你可以更容易的使用 `~fabric.network.disconnect_all`.
+仅需要确认你的代码在最后调用它们 (通常在 ``try: finally`` 语句中包括 ``finally``
+-- 以免你的代码的错误导致断线的发生!) 通常能够很好的工作.
 
-If you're on Fabric 0.9.3 or older, you can simply do this (``disconnect_all``
-just adds a bit of nice output to this logic)::
+如果你在Fabric 0.9.3或者更老的版本使用, 你可以简单的做到 (``disconnect_all`` 只是在这个逻辑
+中增加了一点有趣的输出)::
 
     from fabric.state import connections
 
@@ -51,8 +47,5 @@ just adds a bit of nice output to this logic)::
 最后的提醒
 =====
 
-本文档This document is an early draft, and may not cover absolutely every difference
-between ``fab`` use and library use. However, the above should highlight the
-largest stumbling blocks. When in doubt, note that in the Fabric source code,
-``fabric/main.py`` contains the bulk of the extra work done by ``fab``, and may
-serve as a useful reference.
+本文档只是一份初稿, 不能完全的覆盖 ``fab`` 和当作库使用方法的不同. 然而, 上面应该突出最大的不.
+如有疑问, 请查看Fabric的源代码, ``fabric/main.py`` 包含了大量 ``fab`` 所做的工作, 作为一个有用的参考.
