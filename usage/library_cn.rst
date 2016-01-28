@@ -30,7 +30,7 @@ Fabric的主要用法是通过fabfile和 :doc:`fab </usage/fab>` 工具, 在很�
 其他的关键部分,``fab`` 会在一个会话结束时为你断开所有主机的连接; 否则, Python会在那里
 永远等待这些网络资源被释放.
 
-Fabric 0.9.4 以及更新的版本你可以更容易的使用 `~fabric.network.disconnect_all`.
+Fabric 0.9.4 以及更新的版本你可以更容易的使用 `~fabr ic.network.disconnect_all`.
 仅需要确认你的代码在最后调用它们 (通常在 ``try: finally`` 语句中包括 ``finally``
 -- 以免你的代码的错误导致断线的发生!) 通常能够很好的工作.
 
