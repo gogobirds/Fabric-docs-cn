@@ -216,7 +216,7 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 .. _hosts-per-task-cli:
 
 单任务,通过命令行参数
-~~~
+~~~~~~~~~~~
 
 设置全局主机列表足以一直让所有任务跑在相同的主机上.但有时不需要这样,所以Fabric提供一些方法
 更精确、特例地指定单个任务的主机列表.第一个方法是指定任务参数.
@@ -244,7 +244,7 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 它将覆盖所有的主机列表并确保``mytask``只在这两个主机上执行.
 
 单任务, 通过装饰器
-~~~
+~~~~~~~~~~
 
 如果一个任务总是根据预定义的主机列表运行,你可能希望在fabfile中指定.
 可通过`~fabric.decorators.hosts` 或 `~fabric.decorators.roles`装饰任务函数.
@@ -269,8 +269,8 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 
 然而,装饰主机列表**不会**覆盖单个任务的命令行参数,前一节已解释过.
 
-优先级
-~~~
+优 先级
+~~~~
 
 我们已经一起研究了设定主机列表的方法,然而,为了更清晰,快速回顾一下:
 
@@ -313,7 +313,7 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 ------
 
 默认支持去重 :ref:`combining-host-lists`, Fabric对最终的主机列表去重保证主机只出现一次.
-然而,这是防止明确/故意地在同一个目标主机多次执行一个任务,有时候是有用的t
+无论如何,这将防止明确/故意地在同一个目标主机多次执行一个任务,有时候是有用的.
 
 关掉主机去重,可设置 :ref:`env.dedupe_hosts <dedupe_hosts>` 为 ``False``.
 
@@ -323,8 +323,8 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
 不包括特定主机
 -------
 
-有时候,不包括一个或多个特定主机是有用的,例如,从一个角色或一个自动生成的主机列表
-覆盖一些坏的或是其他不符合需要的主机.
+有时候,不包括一个或多个特定主机是有用的,例如,
+覆盖一些从角色或自动生成的主机列表中得来的无法正常工作或意料之外的主机.
 
 .. note::
     在Fabric 1.4, 可能希望使用 :ref:`skip-bad-hosts` 来自动跳过不可访问的主机.
@@ -334,54 +334,55 @@ Fabric默认采用串行执行单任务的方式, 虽然在Fabric 1.3中可以�
     $ fab -R myrole -x host2,host5 mytask
 
 如果 ``myrole`` 被定义为 ``['host1', 'host2', ..., 'host15']``,下面的调用将会运行
-在 ``['host1', 'host3','host4', 'host6', ..., 'host15']`` 这个有效的主机列表.
+在 ``['host1', 'host3','host4', 'host6', ..., 'host15']`` 中有效的主机列表上.
 
     .. note::
-        使用这个选项不会修改 ``env.hosts`` -- 仅仅会引起主执行循环去掉过请求的主机.
+        使用这个选项不会修改 ``env.hosts`` -- 仅仅会引起主执行循环去掉请求的主机.
 
-去掉特定的任务通过使用额外的``exclude_hosts``变量, 它的执行类似于上述 ``hosts`` 和 ``roles``
-那样从实际任务中剥离,这个例子和全局去除有相同的结果::
+通过使用额外的``exclude_hosts``变量从特定的单个任务中去除,
+它的执行类似于上述 ``hosts`` 和 ``roles``的单任务情况,也是从实际任务中剥离.这
+个例子和全局去除有相同的结果::
 
     $ fab mytask:roles=myrole,exclude_hosts="host2;host5"
 
-注意主机列表由逗号分割,就像在 ``hosts`` 中所说的那样.
+注意主机列表由逗号分割,如 ``hosts`` 中的单任务参数.
 
 结合去除
-~~~
+~~~~
 
-排除的主机列表Host exclusion lists, like host lists themselves, are not merged together
+主机去除列表类似于主机列表本身,不会通过可以进行声明的"层级"互相覆盖.
+Host exclusion lists, like host lists themselves, are not merged together
 across the different "levels" they can be declared in. 例如,一个全局选项
-``-x`` 将不会影响一个通过装饰器或命令参数设定的任务主机列表,``exclude_hosts``参数
-也不会影响全局 ``-H`` 列表
+``-x`` 将不会影响一个通过装饰器或命令参数设定的单任务主机列表,单任务的``exclude_hosts``参数
+也不会影响全局 ``-H`` 列表.
 
 这个规则有一个小的例外,即CLI级别关键字参数 (``mytask:exclude_hosts=x,y``)
-通过设置 ``@hosts`` 或 ``@roles`` **将**不会被顾及.
-因此一个被 ``@hosts('host1', 'host2')`` 装饰的任务函数以命令 ``fab taskname:exclude_hosts=host2``
-执行时仅仅运行在 ``host1``.
+通过 ``@hosts`` 或 ``@roles``检查主机列表设置时**将**会被考虑在内.
+因此被 ``@hosts('host1', 'host2')`` 装饰的任务函数以命令 ``fab taskname:exclude_hosts=host2``
+执行时只会在 ``host1``上运行.
 
-由于主机列表合并,这个功能在当前版本被合并 (保持执行的简单) 并可能在将来的版本进行扩展.
+由于主机列表合并,这个功能在当前版本被限制 (一定程度上保持了执行的简单) 并可能在将来的版本进行扩展.
 
 
 .. _execute:
 
 使用 ``execute`` 智能执行任务
-===
+=====================
 
 .. versionadded:: 1.3
 
-涉及 "top level" 任务的执行查看 :doc:`fab <fab>` 的详细信息,就像第一个例子中我们调用
+根据 :doc:`fab <fab>` 涉及 "top level" 任务的执行,就像第一个例子中我们调用
 ``fab taskA taskB``. 当然,很容易的包装成多任务调用,"元"任务.
 
-在Fabric 1.3之前, 这是很难完成的, 在概述 :doc:`/usage/library`中. Fabric的设计避开了神奇的行为
-所有简单 **调用** 一个任务函数 **不会** 理会装饰器就像 `~fabric.decorators.roles` 中介绍.
+在Fabric 1.3之前, 这是很难完成的, 在概述 :doc:`/usage/library`中. Fabric的设计避开了神奇的行为,
+所以正如 `~fabric.decorators.roles` 中所述, **调用** 一个任务函数 **不会** 理会装饰器.
 
 在Fabric 1.3增加的是 `~fabric.tasks.execute` 辅助函数, 需要一个任务对象或任务名称作为第一个参数.
-和从命令行调用给定的任务的等效的: 所有给出的规则在 :ref:`host-lists`适用.
-(The ``hosts`` and ``roles`` keyword arguments to   `~fabric.tasks.execute` are analogous to :ref:`CLI per-task arguments
-<hosts-per-task-cli>`, including how they override all other host/role-setting
-methods.)
+等效于从命令行调用给定的任务:所有给出的规则在 :ref:`host-lists`适用.
+( ``hosts`` 和 ``roles`` 对于 `~fabric.tasks.execute`的关键字参数与
+ :ref:`CLI per-task arguments<hosts-per-task-cli>`类似,包括他们如何与主机/角色设置的方法彼此覆盖)
 
-作为一个例子,这个fabfile定义了两个部署Web应用的独立的任务::
+举例说明,如下的fabfile定义了两个部署Web应用的独立的任务::
 
     from fabric.api import run, roles
 
@@ -400,12 +401,12 @@ methods.)
         # Code updates here.
         pass
 
-在Fabric <=1.2 时, 确保 ``migrate`` 运行在DB服务器和 ``update`` 运行在Web服务器 (短手册 ``env.host_string``)
+在1.2以下版本的Fabric中, 确保 ``migrate`` 运行在DB服务器和 ``update`` 运行在Web服务器 (短手册 ``env.host_string``)
 的唯一方法是同时调用两个顶级任务::
 
     $ fab migrate update
 
-在Fabric >=1.3 可以使用 `~fabric.tasks.execute` 设置一个元任务. 更新 ``import`` 行如下::
+在1.3及以上版本的Fabric中,可以使用 `~fabric.tasks.execute` 设置元任务. 更新 ``import`` 一行如下::
 
     from fabric.api import run, roles, execute
 
@@ -415,7 +416,7 @@ methods.)
         execute(migrate)
         execute(update)
 
-事情都搞定了, `~fabric.decorators.roles` 装饰器将被如期执行, 执行顺序如下面的结果:
+事情都搞定了, `~fabric.decorators.roles` 装饰器将被如期执行, 所得执行顺序如下:
 
 * `migrate` on `db1`
 * `migrate` on `db2`
@@ -424,9 +425,9 @@ methods.)
 * `update` on `web3`
 
 .. warning::
-    这种技术的工作原理是因为任务本身没有主机列表 (这包括全局主机列表的设定) 只运行一次.
-    如果使用"定时"任务将会运行在多个主机,调用 `~fabric.tasks.execute` 将会运行多次,
-    导致多个子任务的以倍数级的次数调用 -- 需要小心!
+    这种技术的工作原理是因为任务本身没有只运行一次主机列表 (包括全局主机列表的设定).
+    如果使用"定时"任务将会运行在多个主机,调用 `~fabric.tasks.execute` 也会运行多次,
+    导致多个子任务以倍数级的次数调用 -- 需要小心!
 
     如果你想要 `execute` 仅仅执行一次, 可以使用 `~fabric.decorators.runs_once` 装饰器.
 
@@ -438,11 +439,11 @@ methods.)
 利用 ``execute`` 访问多主机结果
 ---
 
-当Fabric 正常运行,特别是并发,你可能需要得到每个主机的最后的结果值 - 比如一个汇总表,
+当Fabric不一般运行,特别是并发执行时,你可能需要得到每个主机的最终结果值 - 比如形成汇总表,
 执行计算等.
 
-在Fabric中的默认模式（即通过Fabric循环遍历你的主机列表）是不可以做到的,但是使用
-`.execute` 是容易的.只需要从实际调用的任务中切换到一个"元"任务,然后用 `.execute`
+Fabric的默认模式（即通过Fabric循环遍历你的主机列表）不能做到,但是使用
+`.execute` 能轻松解决.只需要从实际调用的任务中切换到调用"元"任务,以控制 `.execute`
 执行::
 
     from fabric.api import task, execute, run, runs_once
@@ -457,17 +458,17 @@ methods.)
         results = execute(workhorse)
         print results
 
-在上述的 ``workhorse`` 可以做Fabirc的所有事 -- 它和"原生"任务表面上是一样的
--- 除了它需要返回一些东西.
+如上, ``workhorse`` 可以做Fabirc的所有事 -- 它和"原生"任务表面上是一样的
+-- 除了它会返回一些有用的东西.
 
 ``go`` 是一个新的入口点 (通过 ``fab go`` 来调用,或者诸如此类的东西) 通过 `.execute`
-调用并且通过 ``results`` 字典来接受返回值无论你是否需要. 查阅 API 文档查看关于返回值结构
+调用来接受返回值 ``results`` 字典,以便完成任何你所需要的. 查阅 API 文档查看关于返回值结构
 的更多细节.
 
 .. _dynamic-hosts:
 
 使用 ``execute`` 动态设定主机列表
----
+-----------------------
 
 Fabirc一个常见的从中级到高级的用法是在运行时使用参数查询目标主机列表
 (使用 :ref:`execution-roles` 不足以完成). ``execute`` 能够非常简单的做到,如下::
