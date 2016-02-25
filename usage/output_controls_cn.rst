@@ -19,7 +19,7 @@
 标准输出级别
 ------
 
-标准的atomic输出级别/组如下:
+标准的原子输出级别/组如下:
 
 * **status**: 状态信息, 如果用户使用键入中断,或者当服务器断开连接时, Fabric完成运行时记录, .
 这些信息几乎都是相关的, 但不详细.
@@ -50,29 +50,23 @@
 调试输出
 ----
 
-There are two more atomic output levels for use when troubleshooting:
-``debug``, which behaves slightly differently from the rest, and
-``exceptions``, whose behavior is included in ``debug`` but may be enabled
-separately.
+消除故障时有两个可供使用的原子输出级别:
+``debug``, 和剩下那个级别的行为稍有不同; ``exceptions``, 其行为包含于 ``debug`` 但是可能分别启用.
 
-* **debug**: Turn on debugging (which is off by default.) Currently, this is
-  largely used to view the "full" commands being run; take for example this
-  `~fabric.operations.run` call::
+* **debug**:``debug``, 打开调试 (默认关闭). 目前, 这被用于查看当前运行的"全部"命令; 例如下面这个
+  `~fabric.operations.run` 调用::
 
       run('ls "/home/username/Folder Name With Spaces/"')
 
-  Normally, the ``running`` line will show exactly what is passed into
-  `~fabric.operations.run`, like so::
+  通常, ``running`` 一行会显示传递给 `~fabric.operations.run`的到底是什么, 比如::
 
       [hostname] run: ls "/home/username/Folder Name With Spaces/"
 
-  With ``debug`` on, and assuming you've left :ref:`shell` set to ``True``, you
-  will see the literal, full string as passed to the remote server::
+  打开 ``debug``, 假设你忘了将 :ref:`shell` 设置为 ``True``, 你会看到传递给远程服务器的完整字符串::
 
       [hostname] run: /bin/bash -l -c "ls \"/home/username/Folder Name With Spaces\""
 
-  Enabling ``debug`` output will also display full Python tracebacks during
-  aborts (as if ``exceptions`` output was enabled).
+  启用 ``debug`` 输出将会显示中断时完整的Python信息回溯(如果启用了 ``exceptions`` 输出).
   
   .. note::
   
