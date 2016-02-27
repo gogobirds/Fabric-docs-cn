@@ -1,12 +1,10 @@
-Defining tasks
-==============
+====
+定义任务
+====
 
-As of Fabric 1.1, there are two distinct methods you may use in order to define
-which objects in your fabfile show up as tasks:
+自Fabric 1.1起, 可以使用两种截然不同的方法来定义你的fabfile中作为任务显示的对象:
 
-* The "new" method starting in 1.1 considers instances of `~fabric.tasks.Task`
-  or its subclasses, and also descends into imported modules to allow building
-  nested namespaces.
+* 从1.1起的"新"方法虑及了 `~fabric.tasks.Task`的实例或子类, 也使用了模块的引用以构造嵌套域名.
 * The "classic" method from 1.0 and earlier considers all public callable
   objects (functions, classes etc) and only considers the objects in the
   fabfile itself with no recursing into imported module.
