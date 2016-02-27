@@ -1,64 +1,40 @@
-============
-SSH behavior
-============
+=====
+SSH行为
+=====
 
-Fabric currently makes use of a pure-Python SSH re-implementation for managing
-connections, meaning that there are occasionally spots where it is limited by
-that library's capabilities. Below are areas of note where Fabric will exhibit
-behavior that isn't consistent with, or as flexible as, the behavior of the
-``ssh`` command-line program.
+Fabric目前使用纯Python的SSH重实现来管理连接, 这意味着偶尔会由于库的功能而受到限制.
+以下是值得注意的地方, Fabric会展现不符的行为, 或灵活如``ssh``命令行程序的行为.
 
 
-Unknown hosts
-=============
+未知主机
+====
 
-SSH's host key tracking mechanism keeps tabs on all the hosts you attempt to
-connect to, and maintains a ``~/.ssh/known_hosts`` file with mappings between
-identifiers (IP address, sometimes with a hostname as well) and SSH keys. (For
-details on how this works, please see the `OpenSSH documentation
+SSH主机秘钥的跟踪机制会密切关注所有你尝试连接到的主机, 并通过标识符之间的映射维护 ``~/.ssh/known_hosts`` 文件
+(IP地址, 有时也有主机名) 和SSH秘钥. (更多细节可参见 `OpenSSH documentation
 <http://openssh.org/manual.html>`_.)
 
-The ``paramiko`` library is capable of loading up your ``known_hosts`` file,
-and will then compare any host it connects to, with that mapping. Settings are
-available to determine what happens when an unknown host (a host whose username
-or IP is not found in ``known_hosts``) is seen:
+``paramiko`` 库能够加载你的 ``known_hosts`` 文件, 然后通过映射比较任何连接的主机.
+设置可用于确定当前的未知主机发生了什么 (在 ``known_hosts``中没有找到用户名和IP的主机):
 
-* **Reject**: the host key is rejected and the connection is not made. This
-  results in a Python exception, which will terminate your Fabric session with a
-  message that the host is unknown.
-* **Add**: the new host key is added to the in-memory list of known hosts, the
-  connection is made, and things continue normally. Note that this does **not**
-  modify your on-disk ``known_hosts`` file!
-* **Ask**: not yet implemented at the Fabric level, this is a ``paramiko``
-  library option which would result in the user being prompted about the
-  unknown key and whether to accept it.
+* **Reject**: 主机秘钥被拒绝且无法连接. 这导致一个Python异常, 这会附带着未知主机的消息终止你的Fabric会话.
+* **Add**: 新主机秘钥添加到内存中的已知主机列表, 连接正常, 一切继续. 注意这并**没有**修改磁盘上的``known_hosts`` 文件!
+* **Ask**: 没有在Fabric级别实现, 这是一个 ``paramiko`` 库选项, 这将导致用户被提示未知秘钥和是否接受.
 
-Whether to reject or add hosts, as above, is controlled in Fabric via the
-:ref:`env.reject_unknown_hosts <reject-unknown-hosts>` option, which is False
-by default for convenience's sake. We feel this is a valid tradeoff between
-convenience and security; anyone who feels otherwise can easily modify their
-fabfiles at module level to set ``env.reject_unknown_hosts = True``.
+如上, 是否拒绝或添加主机as above, 在Fabric里通过 :ref:`env.reject_unknown_hosts <reject-unknown-hosts>` 选项控制,
+为了方便默认为False. 这是便捷和安全之间的有效平衡; 所有感受到这种平衡的人都可以轻松地在模块级别
+设置``env.reject_unknown_hosts = True``以修改他们的fabfiles.
 
 
-Known hosts with changed keys
-=============================
+改变了密码的已知主机
+==========
 
-The point of SSH's key/fingerprint tracking is so that man-in-the-middle
-attacks can be detected: if an attacker redirects your SSH traffic to a
-computer under his control, and pretends to be your original destination
-server, the host keys will not match. Thus, the default behavior of SSH (and
-its Python implementation) is to immediately abort the connection when a host
-previously recorded in ``known_hosts`` suddenly starts sending us a different
-host key.
+SSH的键/指纹追踪可以检测到中间人攻击: 如果攻击者重定向你的SSH连接到他控制的电脑上, 并且伪装成你原来的目的服务器,
+不会匹配主机秘钥. 因此, 当 ``known_hosts`` 上以前记录的主机发送了一个不同的主机秘钥时,
+SSH (和它的Python实现)的默认行为是立即中断连接.
 
-In some edge cases such as some EC2 deployments, you may want to ignore this
-potential problem. Our SSH layer, at the time of writing, doesn't give us
-control over this exact behavior, but we can sidestep it by simply skipping the
-loading of ``known_hosts`` -- if the host list being compared to is empty, then
-there's no problem. Set :ref:`env.disable_known_hosts <disable-known-hosts>` to
-True when you want this behavior; it is False by default, in order to preserve
-default SSH behavior.
+在一些边缘情况如EC2部署中, 你可能会想要忽略这个潜在问题. 在写这篇文章的时候, 我们的SSH层不允许我们控制当前行为,
+但我们可以简单地通过 ``known_hosts`` 的加载来回避它 -- 如果比较的主机列表为空, 就没有问题.
+想要这样的时候就将 :ref:`env.disable_known_hosts <disable-known-hosts>` 设为True; 默认为False,以保持默认的SSH行为.
 
 .. warning::
-    Enabling :ref:`env.disable_known_hosts <disable-known-hosts>` will leave
-    you wide open to man-in-the-middle attacks! Please use with caution.
+    启用 :ref:`env.disable_known_hosts <disable-known-hosts>` 会让你敞陆于中间人攻击之下! 请小心使用.
