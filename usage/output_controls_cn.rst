@@ -70,75 +70,56 @@
   
   .. note::
   
-      Where modifying other pieces of output (such as in the above example
-      where it modifies the 'running' line to show the shell and any escape
-      characters), this setting takes precedence over the others; so if
-      ``running`` is False but ``debug`` is True, you will still be shown the
-      'running' line in its debugging form.
+      修改了其它的输出,(就像上例中,修改了'running'一行以显示shell和所有遗失的字符),
+      此设置会优先于其它的设置; 因此如果 ``running`` 为False但 ``debug`` 为True,
+      你仍然会看到处于调试模式的'running'行.
 
-* **exceptions**: Enables display of tracebacks when exceptions occur; intended
-  for use when ``debug`` is set to ``False`` but one is still interested in
-  detailed error info.
+* **exceptions**: 发生异常时会显示回溯信息; 即使 ``debug`` 设为 ``False``, 仍会有人为了使用而对详细的错误信息感兴趣.
 
 .. versionchanged:: 1.0
-    Debug output now includes full Python tracebacks during aborts.
+    目前调试输出包括了中断时的完整Python回溯信息.
 
 .. versionchanged:: 1.11
-    Added the ``exceptions`` output level.
+    添加了 ``exceptions`` 输出级别.
 
 .. _output-aliases:
 
-Output level aliases
---------------------
+输出级别别名
+------
 
-In addition to the atomic/standalone levels above, Fabric also provides a
-couple of convenience aliases which map to multiple other levels. These may be
-referenced anywhere the other levels are referenced, and will effectively
-toggle all of the levels they are mapped to.
+除了以上原子级/独立的级别, Fabric还提供了若干便捷的别名, 以映射到多个其他级别.
+这些可能在引用了其他级别的任何地方引用, 并且将会有效地在它们映射的级别中切换.
 
-* **output**: Maps to both ``stdout`` and ``stderr``. Useful for when you only
-  care to see the 'running' lines and your own print statements (and warnings).
+* **output**: 同时映射到 ``stdout`` 和 ``stderr``. 若你只想看'running'行和自己的语句输出(以及警告), 这将会很有用.
 
-* **everything**: Includes ``warnings``, ``running``, ``user`` and ``output``
-  (see above.) Thus, when turning off ``everything``, you will only see a bare
-  minimum of output (just ``status`` and ``debug`` if it's on), along with your
-  own print statements.
+* **everything**: 包括``warnings``, ``running``, ``user`` 和 ``output``
+  (参见上文.) 因此, 关闭 ``everything``, 你会看到几乎最少的输出(如果有也只会是 ``status`` 和 ``debug`` ),
+  连同你自己的语句输出.
 
-* **commands**: Includes ``stdout`` and ``running``. Good for hiding
-  non-erroring commands entirely, while still displaying any stderr output.
+* **commands**: 包括 ``stdout`` 和 ``running``. 不显示任何标准错误输出时, 有利于完全隐藏没有错误的命令.
 
 .. versionchanged:: 1.4
-    Added the ``commands`` output alias.
+    添加 ``commands`` 输出别名.
 
 
-Hiding and/or showing output levels
-===================================
+隐藏 和/或 显示输出级别
+=============
+你有很多种切换Fabric输出级别的方法; 为例, 请在每个重点处参见API文档:
 
-You may toggle any of Fabric's output levels in a number of ways; for examples,
-please see the API docs linked in each bullet point:
-
-* **Direct modification of fabric.state.output**: `fabric.state.output` is a
-  dictionary subclass (similar to :doc:`env <env>`) whose keys are the output
-  level names, and whose values are either True (show that particular type of
-  output) or False (hide it.)
+* **Direct modification of fabric.state.output**: `fabric.state.output` 是一个字典子类(和 :doc:`env <env>`相似),
+  其键为输出级别的名称, 值为True (以显示特定类型的输出)或False (不显示).
   
-  `fabric.state.output` is the lowest-level implementation of output levels and
-  is what Fabric's internals reference when deciding whether or not to print
-  their output.
+  `fabric.state.output` 是输出级别的最低级别体现, 也是决定输出与否时的Fabric的内部引用.
 
-* **Context managers**: `~fabric.context_managers.hide` and
-  `~fabric.context_managers.show` are twin context managers that take one or
-  more output level names as strings, and either hide or show them within the
-  wrapped block. As with Fabric's other context managers, the prior values are
-  restored when the block exits.
+* **Context managers**: `~fabric.context_managers.hide` 和`~fabric.context_managers.show`
+　是采取了一个或多个输出级别名作为字符串的一对孪生上下文管理器, 也通过封装块来显示或隐藏a.
+　和Fabric的其它上下文管理器一样, 块退出时之前的值会被还原.
 
   .. seealso::
 
-      `~fabric.context_managers.settings`, which can nest calls to
-      `~fabric.context_managers.hide` and/or `~fabric.context_managers.show`
-      inside itself.
+      `~fabric.context_managers.settings`, 可以嵌套调用
+      `~fabric.context_managers.hide` 和/或 自身内部的`~fabric.context_managers.show`.
 
-* **Command-line arguments**: You may use the :option:`--hide` and/or
-  :option:`--show` arguments to :doc:`fab`, which behave exactly like the
-  context managers of the same names (but are, naturally, globally applied) and
-  take comma-separated strings as input.
+* **Command-line arguments**: 你可能会使用 :doc:`fab`的 :option:`--hide` 和/或
+  :option:`--show` 参数, 这和上下文管理器的行为完全一致 －－ 一样的名字(但是当然在全局范围内应用)
+  并且同样以逗号分隔的字符串作为输入.
