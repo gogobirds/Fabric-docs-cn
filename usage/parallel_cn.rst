@@ -1,19 +1,17 @@
-==================
-Parallel execution
-==================
+====
+并发执行
+====
 
 .. _parallel-execution:
 
 .. versionadded:: 1.3
 
-By default, Fabric executes all specified tasks **serially** (see
-:ref:`execution-strategy` for details.) This document describes Fabric's
-options for running tasks on multiple hosts in **parallel**, via per-task
-decorators and/or global command-line switches.
+Fabric会默认**连续**执行所有的指定任务(更多细节参见 :ref:`execution-strategy`). 这篇文档描述了
+Fabric通过每个任务的修饰符 和/或 全局命令行开关, 在多个主机上**并发**执行任务的选项.
 
 
-What it does
-============
+它做什么
+====
 
 Because Fabric 1.x is not fully threadsafe (and because in general use, task
 functions do not typically interact with one another) this functionality is
